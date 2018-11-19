@@ -13,7 +13,10 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     
     var messageArray : [Message] = [Message]()
     var navTitle = ""
-  
+    var keyboardHeight : CGFloat?
+    var duration = 0.0
+    var tabBarSize : CGFloat = 0
+    
     override func viewDidLoad() {
         navigationItem.title = navTitle
         
@@ -24,6 +27,19 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         directChatTableView.register(UINib(nibName: "customChatCell", bundle: nil), forCellReuseIdentifier: "customChatCell")
         
         retreiveMessages()
+        
+        //Get Notification for Keyboard Size
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardwillHide), name: UIResponder.keyboardWillHideNotification , object: nil)
+        
+        configureTableView()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +50,8 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var directChatTableView: UITableView!
     @IBOutlet weak var chatView: UIView!
+    @IBOutlet weak var bottomviewHC: NSLayoutConstraint!
+    @IBOutlet weak var botomView: UIView!
     
     
     //Delegate Methods
@@ -48,6 +66,30 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         
         return cell
         
+    }
+    
+    //MARK Keyboard UI
+    //Change UI depending on keyboard size
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            keyboardHeight = keyboardRectangle.height
+        }
+        duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double)!
+        UIView.animate(withDuration: duration){
+            self.bottomviewHC.constant = self.keyboardHeight!
+            self.view.layoutIfNeeded()
+            print(self.keyboardHeight!)
+        }
+    }
+    
+    @objc func keyboardwillHide(_ notification: Notification){
+        UIView.animate(withDuration: duration){
+            self.bottomviewHC.constant = 0
+            //self.tabBarSize - self.botomView.frame.height
+            self.view.layoutIfNeeded()
+            print(self.keyboardHeight!)
+        }
     }
     
     

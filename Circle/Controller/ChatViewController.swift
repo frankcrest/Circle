@@ -11,6 +11,8 @@ import UIKit
 class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -18,5 +20,8 @@ class ChatViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    
+    
 
 }

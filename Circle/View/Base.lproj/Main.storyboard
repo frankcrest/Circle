@@ -792,6 +792,8 @@ Choose the amount of coins you want to reward people who answer your questions.<
                         <barButtonItem key="rightBarButtonItem" title="100" id="ujI-Ql-NtF"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="botomView" destination="siI-sL-tXH" id="c5f-RD-nUF"/>
+                        <outlet property="bottomviewHC" destination="V2I-S1-aul" id="wWa-g3-iLm"/>
                         <outlet property="chatView" destination="siI-sL-tXH" id="NVz-Cj-OII"/>
                         <outlet property="directChatTableView" destination="ijF-UY-KPZ" id="HVm-94-xyY"/>
                     </connections>

@@ -215,7 +215,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
        
         let destinationVC = segue.destination as! DirectChatViewController
         
-            if let indexPath = askDetailTableView.indexPathForSelectedRow{
+            if let _ = askDetailTableView.indexPathForSelectedRow{
             destinationVC.navTitle = username
     }
     
