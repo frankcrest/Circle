@@ -24,6 +24,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var distance : Double!
     var questionLocation : CLLocation? = nil
     var username = ""
+    var chatWithUid = ""
     
     @IBOutlet weak var askDetailTableView: UITableView!
     
@@ -66,6 +67,11 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             cell.questionTextLabel.text = selectedQuestion?.questionText
             cell.coinLabel.setTitle(selectedQuestion?.coinValue, for: .normal)
             cell.distanceLabel.text = "@" + (selectedQuestion?.city)!
+        
+            if let viewCount = selectedQuestion?.viewcount{
+            let viewCountString = String(viewCount)
+            cell.numOfViews.text = "\(viewCountString) views"
+        }
             
             
             return cell
@@ -86,7 +92,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             cell.numOfLikes.text = String(answerArray[indexPath.row - 1].peopleWhoLike.count) + " likes"
             cell.distanceLabel.text = String(format: "%.0f", distance.rounded(.up)) + " km"
             
-            if answerArray[indexPath.row - 1].checkby == Auth.auth().currentUser!.uid {
+            if answerArray[indexPath.row - 1].checkby == true{
                 cell.answerCheckMark.tintColor = hexStringToUIColor(hex: "#FF7878")
             } else {
                 cell.answerCheckMark.tintColor = UIColor.lightGray
@@ -107,6 +113,13 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     
+    //configure tableview
+    func configureTableView() {
+        askDetailTableView.tableFooterView = UIView()
+        askDetailTableView.rowHeight = UITableView.automaticDimension
+        askDetailTableView.estimatedRowHeight = 90.0
+        
+    }
     
     //Retreive Data from firebase
     
@@ -114,30 +127,34 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         let answerDB = Database.database().reference().child("Answers").child(uniqueID)
         answerDB.observe(.childAdded) { (snapshot) in
             
-            let snapshotValue = snapshot.value as! Dictionary<String, AnyObject>
-            let answer = Answer()
+            let snapshotValue = snapshot.value as? Dictionary<String,AnyObject>
             
-            let text = snapshotValue["AnswerText"]!
-            let sender = snapshotValue["Sender"]!
-            let like = snapshotValue["Likes"]!
-            let latitude = snapshotValue["Latitude"]!
-            let longitude = snapshotValue["Longitude"]!
-            if let peopleswholike = snapshotValue["peopleWhoLike"] as? [String : AnyObject] {
+            
+            let text = snapshotValue?["AnswerText"] as? String
+            let sender = snapshotValue?["Sender"] as? String
+            let like = snapshotValue?["Likes"] as? String
+            let latitude = snapshotValue?["Latitude"] as? String
+            let longitude = snapshotValue?["Longitude"] as? String
+            let chatWithUid = snapshotValue?["Uid"] as? String
+            
+            
+            let answer = Answer(sender: sender ?? "", answerText: text ?? "", likes: like ?? "", lat: latitude ?? "", lon: longitude ?? "", id: snapshot.key, chatWith: chatWithUid ?? "")
+            
+            if let peopleswholike = snapshotValue?["peopleWhoLike"] as? [String : AnyObject] {
                 for (_, person) in peopleswholike {
                     answer.peopleWhoLike.append(person as! String)
                 }
             }
-            if let checkby = snapshotValue["CheckedBy"] {
-                answer.checkby = checkby as! String
+            
+            if let checkby = snapshotValue?["CheckedBy"] as? String{
+                print("checkby is \(checkby)")
+                if checkby == Auth.auth().currentUser?.uid{
+                    answer.checkby = true
+                } else{
+                    answer.checkby = false
+                }
             }
-            
-            answer.id = snapshot.key
-            answer.answerText = text as! String
-            answer.sender = sender as! String
-            answer.likes = like as! String
-            answer.lat = latitude as! String
-            answer.lon = longitude as! String
-            
+
             self.answerArray.insert(answer, at: 0)
             
             self.configureTableView()
@@ -147,7 +164,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     //Get Distance
     func getDistance(latitude: Double, longitude: Double){
-       let questionLat = Double(selectedQuestion?.lat ?? "") ?? 0.0
+        let questionLat = Double(selectedQuestion?.lat ?? "") ?? 0.0
         let questionLon = Double(selectedQuestion?.lon ?? "") ?? 0.0
         let questionText = selectedQuestion?.questionText
         print(questionLat)
@@ -160,14 +177,6 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         let distanceInMeters = coordinate0.distance(from: coordinate1)
         let distanceInKm = distanceInMeters / 1000
         distance = distanceInKm.rounded(.up)
-    }
-    
-    //configure tableview
-    func configureTableView() {
-        askDetailTableView.tableFooterView = UIView()
-        askDetailTableView.rowHeight = UITableView.automaticDimension
-        askDetailTableView.estimatedRowHeight = 90.0
-        
     }
     
     //HEXCODE TO UICOLOR
@@ -192,7 +201,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             alpha: CGFloat(1.0)
         )
     }
-    
+
     //SEGUE
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -215,8 +224,9 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
        
         let destinationVC = segue.destination as! DirectChatViewController
         
-            if let _ = askDetailTableView.indexPathForSelectedRow{
+            if let indexPath = askDetailTableView.indexPathForSelectedRow{
             destinationVC.navTitle = username
+            destinationVC.chatWithUser = answerArray[indexPath.row - 1].chatWith
     }
     
 }
@@ -227,14 +237,14 @@ extension AskedDetailViewController : UpdateCheckedDelegate {
     func updateCheckedDelegate(index: Int, userID: String, isAdd: Bool) {
         if isAdd {
             for answer in answerArray {
-                answer.checkby.removeAll()
-                self.answerArray[index].checkby = userID
+                answer.checkby = false
+                self.answerArray[index].checkby = true
             }
         } else {
-            if self.answerArray[index].checkby == userID {
+            if self.answerArray[index].checkby == true {
                 for answer in answerArray{
-                    answer.checkby.removeAll()
-                    self.answerArray[index].checkby.removeAll()
+                    answer.checkby = false
+                    self.answerArray[index].checkby = false
                 }
         }
     }

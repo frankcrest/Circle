@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CbR-UJ-hRP">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CbR-UJ-hRP">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,14 +14,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4kl-te-p6n" userLabel="TopView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="487"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="632"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleImage" translatesAutoresizingMaskIntoConstraints="NO" id="DbV-99-BCI">
-                                        <rect key="frame" x="87.5" y="143.5" width="200" height="200"/>
+                                        <rect key="frame" x="87.666666666666686" y="216" width="200" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="HUK-m8-Zdc"/>
                                             <constraint firstAttribute="height" constant="200" id="vOc-cZ-MhE"/>
@@ -34,7 +34,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ops-Jc-MVO">
-                                <rect key="frame" x="0.0" y="487" width="375" height="90"/>
+                                <rect key="frame" x="0.0" y="632" width="375" height="90"/>
                                 <color key="backgroundColor" red="0.41960784313725491" green="0.41960784313725491" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="WG2-Wl-Cqe"/>
@@ -48,7 +48,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqy-6k-MpW">
-                                <rect key="frame" x="0.0" y="577" width="375" height="90"/>
+                                <rect key="frame" x="0.0" y="722" width="375" height="90"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.90588235294117647" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <state key="normal" title="SIGN UP">
@@ -86,11 +86,11 @@
             <objects>
                 <viewController id="GJa-u9-1tx" customClass="LoginViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3OX-eN-C1R">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uuj-KI-VNM" customClass="DesignerTextField" customModule="Circle" customModuleProvider="target">
-                                <rect key="frame" x="82" y="185" width="211" height="50"/>
+                                <rect key="frame" x="82" y="209" width="211" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -106,7 +106,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjo-Zp-e9L">
-                                <rect key="frame" x="82" y="240" width="211" height="30"/>
+                                <rect key="frame" x="82" y="264" width="211" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="fhT-sT-MwV"/>
                                 </constraints>
@@ -115,7 +115,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f2X-yL-FVh" customClass="DesignerTextField" customModule="Circle" customModuleProvider="target">
-                                <rect key="frame" x="82" y="275" width="211" height="50"/>
+                                <rect key="frame" x="82" y="299" width="211" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -131,7 +131,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dws-rf-fLC">
-                                <rect key="frame" x="122" y="350" width="130" height="50"/>
+                                <rect key="frame" x="122" y="374" width="130" height="50"/>
                                 <color key="backgroundColor" red="0.41960784309999999" green="0.41960784309999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="S7R-wy-U9w"/>
@@ -150,7 +150,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5q3-e0-Gt0">
-                                <rect key="frame" x="82" y="150" width="211" height="30"/>
+                                <rect key="frame" x="82" y="174" width="211" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="mYq-Jv-aic"/>
                                 </constraints>
@@ -194,11 +194,11 @@
             <objects>
                 <viewController id="abP-lC-Cs6" customClass="RegisterViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="loZ-4y-d8H">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Faw-Nb-T6p" customClass="DesignerTextField" customModule="Circle" customModuleProvider="target">
-                                <rect key="frame" x="82" y="185" width="211" height="50"/>
+                                <rect key="frame" x="82" y="209" width="211" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -214,7 +214,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMe-IU-fqu">
-                                <rect key="frame" x="82" y="150" width="211" height="30"/>
+                                <rect key="frame" x="82" y="174" width="211" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Uj3-Yh-cQu"/>
                                 </constraints>
@@ -223,7 +223,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set a password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LKO-ky-f3w">
-                                <rect key="frame" x="82" y="240" width="211" height="30"/>
+                                <rect key="frame" x="82" y="264" width="211" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="lBv-Na-Swc"/>
                                 </constraints>
@@ -232,7 +232,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xog-yz-dBM" customClass="DesignerTextField" customModule="Circle" customModuleProvider="target">
-                                <rect key="frame" x="82" y="275" width="211" height="50"/>
+                                <rect key="frame" x="82" y="299" width="211" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -248,7 +248,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAS-ov-ptd">
-                                <rect key="frame" x="122" y="350" width="130" height="50"/>
+                                <rect key="frame" x="122" y="374" width="130" height="50"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.90588235289999997" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="gjA-M1-AG9"/>
@@ -302,18 +302,18 @@
             <objects>
                 <viewController id="OJf-v1-WUX" customClass="AskedViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hcs-48-u0P">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aOn-f3-UN0">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="6QT-iW-Fi1">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6QT-iW-Fi1" id="g74-jt-nqy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -348,18 +348,18 @@
             <objects>
                 <viewController id="yPM-E7-VUu" customClass="AskedDetailViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fJJ-jd-fKn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sgz-T2-Hic">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="questionText" id="DKM-kj-HLg">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DKM-kj-HLg" id="0xv-iw-tWq">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -367,7 +367,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LH0-1E-LcB" id="6Lq-or-L86">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -398,11 +398,11 @@
             <objects>
                 <viewController id="db0-Jz-946" customClass="NewQuestionViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qfn-BG-VH0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uO1-hW-zQi" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="664"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -420,7 +420,7 @@ Choose the amount of coins you want to reward people who answer your questions.<
                                 </connections>
                             </textView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Ojw-Uz-tUz" customClass="DesignerSlider" customModule="Circle" customModuleProvider="target">
-                                <rect key="frame" x="14" y="607" width="347" height="31"/>
+                                <rect key="frame" x="14" y="752" width="347" height="31"/>
                                 <color key="tintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="i5y-Cb-bSs"/>
@@ -474,9 +474,21 @@ Choose the amount of coins you want to reward people who answer your questions.<
             <objects>
                 <viewController id="2M0-Cl-nwU" customClass="ChatViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nOb-Ev-6g6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZVz-WL-5hf">
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZVz-WL-5hf" firstAttribute="top" secondItem="vKy-A2-NPp" secondAttribute="top" id="13c-jj-Vpn"/>
+                            <constraint firstItem="ZVz-WL-5hf" firstAttribute="trailing" secondItem="vKy-A2-NPp" secondAttribute="trailing" id="KyQ-tz-oIO"/>
+                            <constraint firstItem="ZVz-WL-5hf" firstAttribute="leading" secondItem="vKy-A2-NPp" secondAttribute="leading" id="ZvR-Bi-FB5"/>
+                            <constraint firstItem="ZVz-WL-5hf" firstAttribute="bottom" secondItem="vKy-A2-NPp" secondAttribute="bottom" id="fct-Yd-P7r"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vKy-A2-NPp"/>
                     </view>
                     <navigationItem key="navigationItem" title="Messages" id="vJr-N7-7ja">
@@ -484,6 +496,9 @@ Choose the amount of coins you want to reward people who answer your questions.<
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="chatTableview" destination="ZVz-WL-5hf" id="8MV-Jg-SdK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zth-PX-xXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -494,29 +509,8 @@ Choose the amount of coins you want to reward people who answer your questions.<
             <objects>
                 <viewController id="3VM-sb-i4u" customClass="MeViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OaG-Rj-q7o">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VdN-tw-T4O">
-                                <rect key="frame" x="0.0" y="64" width="375" height="340"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </mapView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Azf-wI-5ls">
-                                <rect key="frame" x="0.0" y="404" width="375" height="214"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="BYB-s2-Yav">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BYB-s2-Yav" id="Pf9-z8-8Tx">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="eEj-vo-CIH"/>
                     </view>
@@ -541,12 +535,11 @@ Choose the amount of coins you want to reward people who answer your questions.<
             <objects>
                 <viewController id="urq-Gu-zKD" customClass="LogoutViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BxY-09-9o1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyh-C2-zqD">
-                                <rect key="frame" x="63" y="136" width="163" height="67"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyh-C2-zqD">
+                                <rect key="frame" x="156.66666666666666" y="391" width="62" height="30"/>
                                 <state key="normal" title="LOGOUT"/>
                                 <connections>
                                     <action selector="logoutButton:" destination="urq-Gu-zKD" eventType="touchUpInside" id="qBM-jY-oT2"/>
@@ -555,6 +548,10 @@ Choose the amount of coins you want to reward people who answer your questions.<
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="zyh-C2-zqD" firstAttribute="centerX" secondItem="BxY-09-9o1" secondAttribute="centerX" id="cS9-op-QLO"/>
+                            <constraint firstItem="zyh-C2-zqD" firstAttribute="centerY" secondItem="BxY-09-9o1" secondAttribute="centerY" id="yah-av-jyC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="sI1-WA-KaC"/>
                     </view>
                 </viewController>
@@ -567,18 +564,18 @@ Choose the amount of coins you want to reward people who answer your questions.<
             <objects>
                 <viewController id="T06-2N-5Xd" customClass="HomeViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cCY-8E-AHJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dN4-nV-eTA">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="ZLi-DC-20B">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZLi-DC-20B" id="Hdy-f4-dDn">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -595,11 +592,13 @@ Choose the amount of coins you want to reward people who answer your questions.<
                         <viewLayoutGuide key="safeArea" id="lv7-wN-D2M"/>
                     </view>
                     <navigationItem key="navigationItem" title="Questions" id="DfV-hC-2Da">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="cbH-Xa-F7Z"/>
                         <barButtonItem key="rightBarButtonItem" title="100" id="woy-is-PxM">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="locationLabel" destination="cbH-Xa-F7Z" id="VlQ-Dh-EaK"/>
                         <outlet property="questionTableView" destination="dN4-nV-eTA" id="gwY-mr-Tkh"/>
                         <segue destination="6vr-0W-FKF" kind="show" identifier="questionDetailSegue" id="4tU-5E-Ljf"/>
                     </connections>
@@ -611,20 +610,21 @@ Choose the amount of coins you want to reward people who answer your questions.<
         <!--Details-->
         <scene sceneID="InO-aM-l5J">
             <objects>
-                <viewController title="Details" id="6vr-0W-FKF" customClass="QuestionDetail" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Details" hidesBottomBarWhenPushed="YES" id="6vr-0W-FKF" customClass="QuestionDetail" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IaT-Z0-Uc4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Qy-lB-PTl">
-                                <rect key="frame" x="0.0" y="64" width="375" height="514"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="VBL-rI-YlE"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="questionText" id="Au5-O2-arq">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Au5-O2-arq" id="RoW-KR-js6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -632,20 +632,20 @@ Choose the amount of coins you want to reward people who answer your questions.<
                                         <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Hk-Ch-CsL" id="1we-HN-0wQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KFQ-Nq-HR4" userLabel="bottomView">
-                                <rect key="frame" x="0.0" y="578" width="375" height="59"/>
+                                <rect key="frame" x="0.0" y="729" width="375" height="49"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CFZ-jj-nnv">
-                                        <rect key="frame" x="299.5" y="9" width="65.5" height="40"/>
+                                        <rect key="frame" x="313" y="9" width="57" height="35"/>
                                         <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="OMy-yM-jGi"/>
+                                            <constraint firstAttribute="height" constant="35" id="OMy-yM-jGi"/>
                                             <constraint firstAttribute="width" secondItem="CFZ-jj-nnv" secondAttribute="height" multiplier="49:30" id="rXs-Xw-zlX"/>
                                         </constraints>
                                         <state key="normal" title="Submit">
@@ -655,17 +655,16 @@ Choose the amount of coins you want to reward people who answer your questions.<
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="submitButton:" destination="6vr-0W-FKF" eventType="touchUpInside" id="3nL-C6-p5K"/>
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qYn-a7-g3J" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                        <rect key="frame" x="10" y="0.0" width="279.5" height="59"/>
+                                        <rect key="frame" x="10" y="0.0" width="293" height="49"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="59" id="xqZ-fL-U0N"/>
-                                        </constraints>
+                                        <viewLayoutGuide key="safeArea" id="ABP-td-aOE"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <userDefinedRuntimeAttributes>
@@ -674,14 +673,16 @@ Choose the amount of coins you want to reward people who answer your questions.<
                                     </textView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="CFZ-jj-nnv" secondAttribute="trailing" constant="10" id="2GR-Aa-mD5"/>
+                                    <constraint firstAttribute="bottom" secondItem="CFZ-jj-nnv" secondAttribute="bottom" constant="5" id="7qz-91-h2b"/>
+                                    <constraint firstAttribute="height" constant="49" id="833-pq-if1"/>
                                     <constraint firstItem="qYn-a7-g3J" firstAttribute="top" secondItem="KFQ-Nq-HR4" secondAttribute="top" id="9C9-Ki-tas"/>
-                                    <constraint firstAttribute="bottom" secondItem="CFZ-jj-nnv" secondAttribute="bottom" constant="10" id="FXN-ZQ-BsX"/>
                                     <constraint firstItem="CFZ-jj-nnv" firstAttribute="leading" secondItem="qYn-a7-g3J" secondAttribute="trailing" constant="10" id="QPn-JK-mDO"/>
                                     <constraint firstAttribute="height" secondItem="qYn-a7-g3J" secondAttribute="height" id="WGm-mC-0w1"/>
+                                    <constraint firstAttribute="trailing" secondItem="CFZ-jj-nnv" secondAttribute="trailing" constant="5" id="XUa-BI-VZn"/>
                                     <constraint firstItem="qYn-a7-g3J" firstAttribute="leading" secondItem="KFQ-Nq-HR4" secondAttribute="leading" constant="10" id="XjN-dr-xNi"/>
                                     <constraint firstAttribute="bottom" secondItem="qYn-a7-g3J" secondAttribute="bottom" id="jCD-ZA-0Qj"/>
                                 </constraints>
+                                <viewLayoutGuide key="safeArea" id="vcX-ln-HfG"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="1"/>
@@ -701,90 +702,101 @@ Choose the amount of coins you want to reward people who answer your questions.<
                             <constraint firstItem="9Qy-lB-PTl" firstAttribute="top" secondItem="pSC-zC-p63" secondAttribute="top" id="VDN-jC-X8J"/>
                             <constraint firstItem="9Qy-lB-PTl" firstAttribute="leading" secondItem="pSC-zC-p63" secondAttribute="leading" id="bk3-QX-pMp"/>
                             <constraint firstItem="KFQ-Nq-HR4" firstAttribute="centerX" secondItem="IaT-Z0-Uc4" secondAttribute="centerX" id="mWd-g7-Fbu"/>
-                            <constraint firstAttribute="bottom" secondItem="KFQ-Nq-HR4" secondAttribute="bottom" constant="30" id="xl9-8Z-qfO"/>
+                            <constraint firstItem="pSC-zC-p63" firstAttribute="bottom" secondItem="KFQ-Nq-HR4" secondAttribute="bottom" id="xl9-8Z-qfO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pSC-zC-p63"/>
                     </view>
                     <navigationItem key="navigationItem" title="Answers" id="Dw5-kJ-dBM">
                         <barButtonItem key="rightBarButtonItem" title="100" id="Uvh-zR-96q"/>
                     </navigationItem>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="answerTableView" destination="9Qy-lB-PTl" id="7ra-RK-tTH"/>
                         <outlet property="botomView" destination="KFQ-Nq-HR4" id="95r-Ze-6vq"/>
                         <outlet property="heightConstraint" destination="xl9-8Z-qfO" id="SpB-Sk-HkY"/>
                         <outlet property="textField" destination="qYn-a7-g3J" id="QNi-dl-cWi"/>
-                        <outlet property="textFieldHC" destination="xqZ-fL-U0N" id="z81-Ua-2ud"/>
+                        <outlet property="userInputBottomViewHC" destination="833-pq-if1" id="BaS-Ko-hdg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgd-gF-Hjh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5501.6000000000004" y="-147.07646176911544"/>
+            <point key="canvasLocation" x="5501.6000000000004" y="-147.78325123152709"/>
         </scene>
         <!--Direct Chat View Controller-->
         <scene sceneID="Ycd-dJ-TCw">
             <objects>
                 <viewController id="ZSc-5n-etL" customClass="DirectChatViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H9B-2Y-dQm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ijF-UY-KPZ">
-                                <rect key="frame" x="0.0" y="64" width="375" height="513"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="634"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="tXp-pO-8HB">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tXp-pO-8HB" id="rSO-zA-fPi">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siI-sL-tXH" userLabel="bottomView">
-                                <rect key="frame" x="0.0" y="577" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="722" width="375" height="60"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xfe-cG-agz" userLabel="textfield">
-                                        <rect key="frame" x="15" y="10" width="280" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="lpY-M0-3gs"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lee-US-UuJ" userLabel="send">
                                         <rect key="frame" x="325" y="10" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="3EI-4C-6QP"/>
                                             <constraint firstAttribute="width" secondItem="lee-US-UuJ" secondAttribute="height" multiplier="1:1" id="AgH-5A-QS4"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Tr3-iW-ipl"/>
                                         </constraints>
                                         <state key="normal" image="send"/>
+                                        <connections>
+                                            <action selector="submit:" destination="ZSc-5n-etL" eventType="touchUpInside" id="hdU-fi-yeN"/>
+                                        </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ImF-HZ-hxM" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                                        <rect key="frame" x="10" y="0.0" width="305" height="60"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="lxo-vd-rqQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Enter a Message"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="lee-US-UuJ" firstAttribute="leading" secondItem="Xfe-cG-agz" secondAttribute="trailing" constant="30" id="1Xf-7t-zdP"/>
-                                    <constraint firstItem="lee-US-UuJ" firstAttribute="top" secondItem="siI-sL-tXH" secondAttribute="top" constant="10" id="8LH-qS-A4f"/>
+                                    <constraint firstItem="ImF-HZ-hxM" firstAttribute="leading" secondItem="siI-sL-tXH" secondAttribute="leading" constant="10" id="O88-5M-zhW"/>
                                     <constraint firstAttribute="trailing" secondItem="lee-US-UuJ" secondAttribute="trailing" constant="10" id="OEb-JB-yRe"/>
+                                    <constraint firstAttribute="bottom" secondItem="ImF-HZ-hxM" secondAttribute="bottom" id="OU3-SR-1BL"/>
+                                    <constraint firstItem="lee-US-UuJ" firstAttribute="leading" secondItem="ImF-HZ-hxM" secondAttribute="trailing" constant="10" id="Ol1-i2-fUa"/>
+                                    <constraint firstItem="ImF-HZ-hxM" firstAttribute="height" secondItem="siI-sL-tXH" secondAttribute="height" id="Oy2-eB-5Xb"/>
                                     <constraint firstAttribute="bottom" secondItem="lee-US-UuJ" secondAttribute="bottom" constant="10" id="X4H-7f-4Pp"/>
-                                    <constraint firstItem="Xfe-cG-agz" firstAttribute="leading" secondItem="siI-sL-tXH" secondAttribute="leading" constant="15" id="nJi-Fj-2lA"/>
-                                    <constraint firstItem="Xfe-cG-agz" firstAttribute="top" secondItem="siI-sL-tXH" secondAttribute="top" constant="10" id="tBe-f9-2ta"/>
-                                    <constraint firstAttribute="bottom" secondItem="Xfe-cG-agz" secondAttribute="bottom" constant="10" id="wh1-SI-oUC"/>
+                                    <constraint firstItem="ImF-HZ-hxM" firstAttribute="top" secondItem="siI-sL-tXH" secondAttribute="top" id="ric-L9-UPF"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="siI-sL-tXH" firstAttribute="leading" secondItem="QhD-UO-fhD" secondAttribute="leading" id="LS6-fE-VZM"/>
+                            <constraint firstItem="siI-sL-tXH" firstAttribute="leading" secondItem="H9B-2Y-dQm" secondAttribute="leading" id="LS6-fE-VZM"/>
                             <constraint firstItem="ijF-UY-KPZ" firstAttribute="top" secondItem="QhD-UO-fhD" secondAttribute="top" id="PQO-5A-qty"/>
                             <constraint firstAttribute="bottom" secondItem="siI-sL-tXH" secondAttribute="bottom" constant="30" id="V2I-S1-aul"/>
                             <constraint firstItem="ijF-UY-KPZ" firstAttribute="leading" secondItem="QhD-UO-fhD" secondAttribute="leading" id="hZ7-gN-gTk"/>
-                            <constraint firstItem="siI-sL-tXH" firstAttribute="trailing" secondItem="QhD-UO-fhD" secondAttribute="trailing" id="kOP-39-h5T"/>
+                            <constraint firstItem="siI-sL-tXH" firstAttribute="trailing" secondItem="H9B-2Y-dQm" secondAttribute="trailing" id="kOP-39-h5T"/>
                             <constraint firstItem="ijF-UY-KPZ" firstAttribute="trailing" secondItem="QhD-UO-fhD" secondAttribute="trailing" id="o2D-p7-bLu"/>
                             <constraint firstItem="siI-sL-tXH" firstAttribute="top" secondItem="ijF-UY-KPZ" secondAttribute="bottom" id="o7B-aq-WMw"/>
+                            <constraint firstItem="siI-sL-tXH" firstAttribute="centerX" secondItem="H9B-2Y-dQm" secondAttribute="centerX" id="xBy-2n-ggx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QhD-UO-fhD"/>
                     </view>
@@ -794,13 +806,14 @@ Choose the amount of coins you want to reward people who answer your questions.<
                     <connections>
                         <outlet property="botomView" destination="siI-sL-tXH" id="c5f-RD-nUF"/>
                         <outlet property="bottomviewHC" destination="V2I-S1-aul" id="wWa-g3-iLm"/>
-                        <outlet property="chatView" destination="siI-sL-tXH" id="NVz-Cj-OII"/>
                         <outlet property="directChatTableView" destination="ijF-UY-KPZ" id="HVm-94-xyY"/>
+                        <outlet property="textField" destination="ImF-HZ-hxM" id="iJI-Pm-rgY"/>
+                        <outlet property="textFieldHC" destination="lxo-vd-rqQ" id="5eM-8u-66I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHc-eS-d7a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6218" y="535"/>
+            <point key="canvasLocation" x="6216.8000000000002" y="534.78260869565224"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="eAE-5x-BpZ">
@@ -834,7 +847,7 @@ Choose the amount of coins you want to reward people who answer your questions.<
                 <navigationController storyboardIdentifier="LoginViewController" automaticallyAdjustsScrollViewInsets="NO" id="CbR-UJ-hRP" customClass="CustomNav" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="L2m-Cj-4R1">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -860,7 +873,7 @@ Choose the amount of coins you want to reward people who answer your questions.<
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0qs-ST-v3r">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -880,7 +893,7 @@ Choose the amount of coins you want to reward people who answer your questions.<
                     <tabBarItem key="tabBarItem" title="Me" image="user" selectedImage="user" id="UUa-bj-Otz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UAX-6m-rj8">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -901,7 +914,7 @@ Choose the amount of coins you want to reward people who answer your questions.<
                     <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="home" id="Hkg-mS-X0Q"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="R6X-bq-3QA">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -925,7 +938,7 @@ Choose the amount of coins you want to reward people who answer your questions.<
                     <tabBarItem key="tabBarItem" title="Asked" image="question-mark-button" selectedImage="question-mark-button" id="2Th-6G-XMW"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HxO-yp-XAP">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -949,7 +962,7 @@ Choose the amount of coins you want to reward people who answer your questions.<
                     <tabBarItem key="tabBarItem" title="New" image="add" selectedImage="add" id="4Ma-Gn-h0T"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="siP-AX-m8Q">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -975,6 +988,6 @@ Choose the amount of coins you want to reward people who answer your questions.<
         <image name="user" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vi5-x1-pCe"/>
+        <segue reference="e6c-7c-cKv"/>
     </inferredMetricsTieBreakers>
 </document>

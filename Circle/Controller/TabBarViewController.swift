@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
+
 
 class TabBarViewController: UITabBarController {
 
@@ -15,6 +17,5 @@ class TabBarViewController: UITabBarController {
 
         // Do any additional setup after loading the view.
     }
-    
-
 }
+    

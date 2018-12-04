@@ -7,11 +7,26 @@
 //
 
 class Question {
-    var sender = ""
-    var questionText = ""
-    var coinValue = ""
-    var lat = ""
-    var lon = ""
-    var city = ""
-    var id = ""
+    var sender : String
+    var questionText : String
+    var coinValue : String
+    var lat : String
+    var lon : String
+    var city : String
+    var id : String
+    var uid : String
+    var peopleWhoView : [String] = [String]()
+    var viewcount : String
+    
+    init(sender:String, questionText: String, coinValue:String, lat:String, lon:String, city:String, id: String, uid: String, viewcount:String){
+        self.sender = sender
+        self.questionText = questionText
+        self.coinValue = coinValue
+        self.lat = lat
+        self.lon = lon
+        self.city = city
+        self.id = id
+        self.uid = uid
+        self.viewcount = viewcount
+    }
 }

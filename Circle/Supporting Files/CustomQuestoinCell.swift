@@ -15,11 +15,14 @@ class CustomQuestoinCell: UITableViewCell {
     @IBOutlet weak var questionTextLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var coinLabel: UIButton!
+    @IBOutlet weak var numOfViews: UILabel!
+    
     @IBOutlet weak var separator: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .gray
+        coinLabel.isHidden = true
         // Initialization code
     }
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,8 +37,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bfd-Nk-1NU">
-                        <rect key="frame" x="65" y="10" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="65" y="14" width="33" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -72,7 +72,7 @@
                     <constraint firstItem="Bfd-Nk-1NU" firstAttribute="leading" secondItem="Cxh-1a-ROL" secondAttribute="trailing" constant="8" id="VOW-uR-Onp"/>
                     <constraint firstItem="deK-Hc-Kan" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="WZz-Vb-syB"/>
                     <constraint firstAttribute="bottom" secondItem="4T1-g7-cl1" secondAttribute="bottom" id="Ysw-CB-i1p"/>
-                    <constraint firstItem="Bfd-Nk-1NU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Z85-hf-DWE"/>
+                    <constraint firstItem="Bfd-Nk-1NU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="Z85-hf-DWE"/>
                     <constraint firstItem="Cxh-1a-ROL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ruf-Ut-84q"/>
                     <constraint firstItem="4T1-g7-cl1" firstAttribute="top" secondItem="deK-Hc-Kan" secondAttribute="bottom" constant="5" id="wgG-kB-ZP7"/>
                 </constraints>

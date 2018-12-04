@@ -51,6 +51,7 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.questionTextLabel.text = myQuestionArray[indexPath.row].questionText
         cell.coinLabel.setTitle(myQuestionArray[indexPath.row].coinValue, for: .normal)
         cell.distanceLabel.text = "@" + myQuestionArray[indexPath.row].city
+        cell.numOfViews.text = ("\(String(myQuestionArray[indexPath.row].viewcount)) views")
         return cell
     }
     
@@ -82,37 +83,33 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //Retreive Data from firebase
     func retreiveQuestions() {
-        let user = Auth.auth().currentUser
-        let questionDB = Database.database().reference().child("Users").child((user?.uid)!).child("myQuestion")
+        let myQuestionDB = Database.database().reference().child("Users")
+        let uid = Auth.auth().currentUser?.uid
         
-        questionDB.observe(.childAdded) { (snapshot) in
-            let snapshotValue = snapshot.value as! Dictionary<String, String>
-            
-            let text = snapshotValue["QuestionText"]!
-            let sender = snapshotValue["Sender"]!
-            let coin = snapshotValue["CoinValue"]!
-            let latitude = snapshotValue["Latitude"]!
-            let longitude = snapshotValue["Longitude"]!
-            let city = snapshotValue["City"]!
-            
-            let question = Question()
-            
-            question.id = snapshot.key
-            question.questionText = text
-            question.sender = sender
-            question.coinValue = coin
-            question.lat = latitude
-            question.lon = longitude
-            question.city = city
-            
-            self.myQuestionArray.insert(question, at: 0)
-            
-            self.configureTableView()
-            self.askedTableView.reloadData()
-            
+        myQuestionDB.child(uid!).child("myQuestion").observe(DataEventType.value) { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                self.myQuestionArray.removeAll()
+                
+                for question in snapshot.children.allObjects as! [DataSnapshot]{
+                    let questionObject = question.value as? [String:AnyObject]
+                    let text = questionObject?["QuestionText"]
+                    let sender = questionObject?["Sender"]
+                    let coin = questionObject?["CoinValue"]
+                    let latitude = questionObject?["Latitude"]
+                    let longitude = questionObject?["Longitude"]
+                    let city = questionObject?["City"]
+                    let uid = questionObject?["uid"]
+                    let viewCount = questionObject?["Viewcount"]
+                    let key = question.key
+                    
+                    let question = Question(sender: sender as! String, questionText: text as! String, coinValue: coin as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String)
+                    self.myQuestionArray.insert(question, at:0)
+                }
+                self.configureTableView()
+                self.askedTableView.reloadData()
+            }
         }
     }
-    
     
 
 

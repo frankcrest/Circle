@@ -7,12 +7,23 @@
 //
 
 class Answer {
-    var sender = ""
-    var answerText = ""
-    var likes = ""
-    var lat = ""
-    var lon = ""
-    var id = ""
+    var sender : String
+    var answerText : String
+    var likes : String
+    var lat : String
+    var lon : String
+    var id : String
     var peopleWhoLike : [String] = [String]()
-    var checkby = ""
+    var checkby : Bool = false
+    var chatWith : String
+    
+    init(sender:String, answerText: String, likes:String, lat:String, lon:String, id:String, chatWith:String){
+        self.sender = sender
+        self.answerText = answerText
+        self.likes = likes
+        self.lat = lat
+        self.lon = lon
+        self.id = id
+        self.chatWith = chatWith
+    }
 }

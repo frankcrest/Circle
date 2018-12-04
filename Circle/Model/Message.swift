@@ -7,7 +7,7 @@
 //
 
 class Message {
-    var sender = ""
+//    var sender = ""
     var message = ""
-    var senderid = ""
+//    var senderid = ""
 }

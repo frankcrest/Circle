@@ -14,14 +14,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var questionArray : [Question] = [Question]()
     var lastLocation: CLLocation? = nil
-    var distance : Double!
+    var distance : Double?
     var id = ""
-    var tabBarHeight : CGFloat = 0
+    var selectedIndexPath: IndexPath = IndexPath()
+
     
     @IBOutlet weak var questionTableView: UITableView!
+    @IBOutlet weak var locationLabel: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        getLocation()
+        retreiveQuestions()
         
         questionTableView.delegate = self
         questionTableView.dataSource = self
@@ -30,22 +35,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
        questionTableView.register(UINib(nibName: "QuestionCell", bundle: nil), forCellReuseIdentifier: "customQuestionCell")
         
         configureTableView()
-        retreiveQuestions()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getLocation()
         self.tabBarController?.tabBar.isHidden = false
-        tabBarHeight = ((tabBarController?.tabBar.frame.size.height)!)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
     }
     
+    
     func getDistance(latitude: Double, longitude: Double){
-        let coordinate0 = lastLocation
+        guard let coordinate0 = lastLocation else {return}
         let coordinate1 = CLLocation(latitude: latitude, longitude: longitude)
-        let distanceInMeters = coordinate0?.distance(from: coordinate1)
-        let distanceInKm = distanceInMeters! / 1000
-        distance = distanceInKm.rounded(.up)
+        let distanceInMeters = coordinate0.distance(from: coordinate1)
+        distance = distanceInMeters
     }
     
 
@@ -53,12 +57,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func getLocation () {
         lastLocation = CustomLocationManager.shared.locationManager.location
+        getCityName()
     }
     
     //MARK cellForRowAt
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "customQuestionCell", for: indexPath) as! CustomQuestoinCell
+        
         let questionLat = Double(questionArray[indexPath.row].lat)
         let questionLon = Double(questionArray[indexPath.row].lon)
         getDistance(latitude: questionLat!, longitude: questionLon!)
@@ -66,8 +73,32 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.usernameLabel.text = String(questionArray[indexPath.row].sender.dropLast(10))
         cell.questionTextLabel.text = questionArray[indexPath.row].questionText
         cell.coinLabel.setTitle(questionArray[indexPath.row].coinValue, for: .normal)
-        cell.distanceLabel.text = String(format: "%.0f", distance) + " km"
-
+        cell.numOfViews.text = ("\(String(questionArray[indexPath.row].viewcount)) views")
+        
+        if let distance = distance{
+        switch distance {
+        case 0.0...100.0 :
+        cell.distanceLabel.text = "100m"
+        case 101...200 :
+            cell.distanceLabel.text = "200m"
+        case 201...300 :
+            cell.distanceLabel.text = "300m"
+        case 301...400 :
+            cell.distanceLabel.text = "400m"
+        case 401...500 :
+            cell.distanceLabel.text = "500m"
+        case 501...600 :
+            cell.distanceLabel.text = "600m"
+        case 601...700 :
+            cell.distanceLabel.text = "700m"
+        case 701...800 :
+            cell.distanceLabel.text = "800m"
+        case 801...900 :
+            cell.distanceLabel.text = "900m"
+        default:
+        cell.distanceLabel.text = String(format: "%.0f", distance / 1000) + " km"
+        }
+        }
         return cell
         
     }
@@ -77,14 +108,38 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return questionArray.count
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentCell  = tableView.cellForRow(at: indexPath) as! CustomQuestoinCell
-        distance = Double(currentCell.distanceLabel.text!.dropLast(3))
+
         id = questionArray[indexPath.row].id
-        self.performSegue(withIdentifier: "questionDetailSegue", sender: self)
+        
+        updateViewCount(qid:self.id, question: self.questionArray[indexPath.row], userid: questionArray[indexPath.row].uid)
+        
+        performSegue(withIdentifier: "questionDetailSegue", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func updateViewCount(qid:String, question: Question, userid:String? = nil){
+        let questionDB = Database.database().reference().child("Questions").child(qid).child("Viewcount")
+        let myQuestionDB = Database.database().reference().child("Users").child(userid!).child("myQuestion").child(qid).child("Viewcount")
+        
+        questionDB.keepSynced(true)
+        questionDB.observeSingleEvent(of: .value) { (snapshot) in
+            
+            if let viewerValue = snapshot.value as? String{
+                var viewerIntValue = Int(viewerValue)
+                viewerIntValue! += 1
+                
+                questionDB.setValue(String(viewerIntValue!))
+                myQuestionDB.setValue(String(viewerIntValue!))
+                
+                question.viewcount = String(viewerIntValue!)
+                print(question.viewcount)
+            }
+            self.questionTableView.reloadData()
+    }
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -93,12 +148,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if let indexPath = questionTableView.indexPathForSelectedRow {
             destinationVC.selectedQuestion = questionArray[indexPath.row]
-            destinationVC.newDistance = distance
+            print("prepare\(questionArray[indexPath.row].viewcount)")
+            destinationVC.newDistance = distance ?? 0.0
             destinationVC.uniqueID = id
-            destinationVC.tabBarSize = tabBarHeight
         }
     }
-    
 
     func configureTableView() {
         questionTableView.tableFooterView = UIView()
@@ -106,42 +160,56 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         questionTableView.estimatedRowHeight = 90.0
     }
     
-    
     //MARK Retreive question method
     func retreiveQuestions() {
         let questionDB = Database.database().reference().child("Questions")
         let uid = Auth.auth().currentUser?.uid
         
-        questionDB.queryOrdered(byChild: uid!).queryEqual(toValue: nil).observe(.childAdded) { (snapshot) in
-            
-        let snapshotValue = snapshot.value as! Dictionary<String, String>
-            
-            let text = snapshotValue["QuestionText"]!
-            let sender = snapshotValue["Sender"]!
-            let coin = snapshotValue["CoinValue"]!
-            let latitude = snapshotValue["Latitude"]!
-            let longitude = snapshotValue["Longitude"]!
-            
-            
-            let question = Question()
-        
-            question.id = snapshot.key
-            question.questionText = text
-            question.sender = sender
-            question.coinValue = coin
-            question.lat = latitude
-            question.lon = longitude
-            
-            self.questionArray.insert(question, at: 0)
-            
-            self.configureTableView()
-            self.questionTableView.reloadData()
-            
-            
+        questionDB.queryOrdered(byChild: uid!).queryEqual(toValue: nil).observe(DataEventType.value) { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                self.questionArray.removeAll()
+                
+                for question in snapshot.children.allObjects as! [DataSnapshot]{
+                    let questionObject = question.value as? [String:AnyObject]
+                    let text = questionObject?["QuestionText"]
+                    let sender = questionObject?["Sender"]
+                    let coin = questionObject?["CoinValue"]
+                    let latitude = questionObject?["Latitude"]
+                    let longitude = questionObject?["Longitude"]
+                    let city = questionObject?["City"]
+                    let uid = questionObject?["uid"]
+                    let viewCount = questionObject?["Viewcount"]
+                    let key = question.key
+                    
+                    let question = Question(sender: sender as! String, questionText: text as! String, coinValue: coin as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String)
+                    self.questionArray.insert(question, at:0)
+                }
+                    self.configureTableView()
+                    self.questionTableView.reloadData()
+                }
+            }
         }
+    
+        
+    
+    
+    //Get City Name Method
+    func getCityName (){
+        let geoCoder = CLGeocoder()
+        guard let location = lastLocation else {return}
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            
+            // Complete address as PostalAddress
+            guard let cityName = placeMark.locality else {return}
+            self.locationLabel.title = "@\(cityName)"
+            
+            
+        })
     }
-
-
 }
 
 

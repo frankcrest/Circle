@@ -18,22 +18,22 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     var user = Auth.auth().currentUser
     var questionLocation: CLLocation? = nil
     var keyboardHeight : CGFloat?
+    var initialBottomViewHc : CGFloat?
+
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var userInputBottomViewHC: NSLayoutConstraint!
+    
     var duration = 0.0
     var newDistance = 0.0
-    var tabBarSize : CGFloat = 0
     var lastLocation: CLLocation? = nil
     @IBOutlet weak var botomView: UIView!
     var uniqueID = ""
-    
-  
+
     var selectedQuestion : Question? {
         didSet{
         }
     }
-    
-    
-    @IBOutlet weak var textFieldHC: NSLayoutConstraint!
+
     @IBOutlet weak var answerTableView: UITableView!
     @IBOutlet weak var textField: UITextView!
     
@@ -43,10 +43,9 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         getLocation()
         retreiveAnswers()
-     
         
-        print("unique ID is \(uniqueID)")
-        
+        initialBottomViewHc = userInputBottomViewHC.constant
+
         answerTableView.delegate = self
         answerTableView.dataSource = self
         textField.delegate = self
@@ -76,14 +75,13 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         resetTextview()
-        self.tabBarController?.tabBar.isHidden = true
-        self.heightConstraint.constant = self.tabBarSize - self.botomView.frame.height
     }
     
     func configureTableView() {
         answerTableView.tableFooterView = UIView()
         answerTableView.rowHeight = UITableView.automaticDimension
         answerTableView.estimatedRowHeight = 90.0
+        answerTableView.reloadData()    
         
     }
     
@@ -103,7 +101,11 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double)!
         UIView.animate(withDuration: duration){
+           if #available(iOS 11.0, *){
+            self.heightConstraint.constant = self.keyboardHeight! - self.view.safeAreaInsets.bottom
+           }else{
             self.heightConstraint.constant = self.keyboardHeight!
+            }
             self.view.layoutIfNeeded()
             print(self.keyboardHeight!)
         }
@@ -111,9 +113,9 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func keyboardwillHide(_ notification: Notification){
         UIView.animate(withDuration: duration){
-            self.heightConstraint.constant = self.tabBarSize - self.botomView.frame.height
+            self.heightConstraint.constant = 0
             self.view.layoutIfNeeded()
-            print(self.keyboardHeight!)
+            print(self.keyboardHeight ?? 0)
         }
     }
     
@@ -121,9 +123,14 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     public func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: textField.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
-        if estimatedSize.height > textFieldHC.constant {
-        textFieldHC.constant = estimatedSize.height
         print(estimatedSize.height)
+        if estimatedSize.height > userInputBottomViewHC.constant {
+        userInputBottomViewHC.constant = estimatedSize.height
+        print(estimatedSize.height)
+        } else if estimatedSize.height < userInputBottomViewHC.constant && estimatedSize.height > initialBottomViewHc! {
+            userInputBottomViewHC.constant = estimatedSize.height
+        } else if estimatedSize.height < userInputBottomViewHC.constant && estimatedSize.height < initialBottomViewHc! {
+            userInputBottomViewHC.constant = initialBottomViewHc!
         }
 
         if textView.text.last == "\n" { //Check if last char is newline
@@ -149,6 +156,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     //Tableviwe Delegate methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("there are\(answerArray.count) items")
         if answerArray.count == 0 {
             return 1}
         else {
@@ -157,7 +165,6 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.row == 0 {
     
         let cell = tableView.dequeueReusableCell(withIdentifier: "customQuestionCell", for: indexPath) as! CustomQuestoinCell
@@ -168,9 +175,31 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.usernameLabel.text = String((selectedQuestion?.sender.dropLast(10))!)
                 cell.questionTextLabel.text = selectedQuestion?.questionText
                 cell.coinLabel.setTitle(selectedQuestion?.coinValue, for: .normal)
-                cell.distanceLabel.text = String(format: "%.0f", newDistance) + " km"
+            switch newDistance {
+            case 0.0...100.0 :
+                cell.distanceLabel.text = "100m"
+            case 101...200 :
+                cell.distanceLabel.text = "200m"
+            case 201...300 :
+                cell.distanceLabel.text = "300m"
+            case 301...400 :
+                cell.distanceLabel.text = "400m"
+            case 401...500 :
+                cell.distanceLabel.text = "500m"
+            case 501...600 :
+                cell.distanceLabel.text = "600m"
+            case 601...700 :
+                cell.distanceLabel.text = "700m"
+            case 701...800 :
+                cell.distanceLabel.text = "800m"
+            case 801...900 :
+                cell.distanceLabel.text = "900m"
+            default:
+                cell.distanceLabel.text = String(format: "%.0f", newDistance / 1000) + " km"
+            }
+            let viewcountInt = Int((selectedQuestion?.viewcount)!)! + 1
+            cell.numOfViews.text = String(viewcountInt) + " views"
                 print(newDistance)
-        
                 
                 return cell
             }
@@ -231,9 +260,9 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         textField.endEditing(true)
         textField.text = ""
-        textFieldHC.constant = CGFloat(59)
+        
+        userInputBottomViewHC.constant = initialBottomViewHc!
 
-        self.heightConstraint.constant = self.tabBarSize - self.botomView.frame.height
         self.view.layoutIfNeeded()
         self.tabBarController?.tabBar.isHidden = true
     }
@@ -241,35 +270,39 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK Retreive Answers method
     func retreiveAnswers() {
         let answerDB = Database.database().reference().child("Answers").child(uniqueID)
-            answerDB.observe(.childAdded) { (snapshot) in
-            
-            let snapshotValue = snapshot.value as! Dictionary<String, AnyObject>
-            let answer = Answer()
-            
-            let text = snapshotValue["AnswerText"]!
-            let sender = snapshotValue["Sender"]!
-            let like = snapshotValue["Likes"]!
-            let latitude = snapshotValue["Latitude"]!
-            let longitude = snapshotValue["Longitude"]!
-            if let peopleswholike = snapshotValue["peopleWhoLike"] as? [String : AnyObject] {
-                for (_, person) in peopleswholike {
-                    answer.peopleWhoLike.append(person as! String)
+        
+        answerDB.observe(DataEventType.value) { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                self.answerArray.removeAll()
+                
+                for answer in snapshot.children.allObjects as! [DataSnapshot]{
+                    let answerObject = answer.value as? [String:AnyObject]
+                    let text = answerObject?["AnswerText"]
+                    let sender = answerObject?["Sender"]
+                    let like = answerObject?["Likes"]
+                    let latitude = answerObject?["Latitude"]
+                    let longitude = answerObject?["Longitude"]
+                    let uid = answerObject?["Uid"]
+                    let key = answer.key
+                    
+                    let answer = Answer(sender: sender as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String)
+                    
+                    if let peopleswholike = answerObject?["peopleWhoLike"] as? [String : AnyObject] {
+                        for (_, person) in peopleswholike{
+                            answer.peopleWhoLike.append(person as! String)
+                        }
+                    }
+                    
+                     self.answerArray.insert(answer, at:0)
+                   
                 }
+                self.configureTableView()
+                self.answerTableView.reloadData()
             }
-            
-            answer.id = snapshot.key
-            answer.answerText = text as! String
-            answer.sender = sender as! String
-            answer.likes = like as! String
-            answer.lat = latitude as! String
-            answer.lon = longitude as! String
-            
-            self.answerArray.insert(answer, at: 0)
-            
-            self.configureTableView()
-            self.answerTableView.reloadData()
         }
     }
+
+
  
  
     
@@ -284,7 +317,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         let long = String(lastLocation!.coordinate.longitude)
         let uid = user?.uid
         
-        let answerDictionary = ["Sender": Auth.auth().currentUser?.email!, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid ]
+            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid]
     
             answerDB.setValue(answerDictionary){
             (error,reference) in

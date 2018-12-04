@@ -137,10 +137,9 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     }
     
     @objc func keyboardwillHide(_ notification: Notification){
-        UIView.animate(withDuration: duration!){
+        UIView.animate(withDuration: duration ?? 0.5){
             self.heightConstraint.constant = 30
             self.view.layoutIfNeeded()
-            print(self.keyboardHeight!)
         }
     }
     
@@ -171,7 +170,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         let lat = String(lastLocation!.coordinate.latitude)
         let long = String(lastLocation!.coordinate.longitude)
         let uid = user?.uid
-            let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "QuestionText": questionText.text!, "CoinValue": String(coinUsed), "Latitude": lat, "Longitude" : long, "City": cityName, uid : "true" ]
+        let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "QuestionText": questionText.text!, "CoinValue": String(coinUsed), "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "1"]
         
         questionsDB.setValue(questionDictionary){
             (error, reference) in
