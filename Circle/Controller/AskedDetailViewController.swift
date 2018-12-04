@@ -65,7 +65,6 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             cell.separator.addBorder(side: .bottom, thickness: 2, color: hexStringToUIColor(hex: "#FF7E79"))
             cell.usernameLabel.text = String((selectedQuestion?.sender.dropLast(10))!)
             cell.questionTextLabel.text = selectedQuestion?.questionText
-            cell.coinLabel.setTitle(selectedQuestion?.coinValue, for: .normal)
             cell.distanceLabel.text = "@" + (selectedQuestion?.city)!
         
             if let viewCount = selectedQuestion?.viewcount{

@@ -14,14 +14,11 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     
     var keyboardHeight : CGFloat?
     var duration: Double?
-    var coinUsed = 10
     var user = Auth.auth().currentUser
     var lastLocation: CLLocation? = nil
     var cityName = ""
     
     @IBOutlet weak var questionText: UITextView!
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-    
     //MARK ViewDidLoad
     //Set Delegate and Initial Placeholder Text
     
@@ -57,6 +54,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     override func viewWillAppear(_ animated: Bool) {
       
         self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationItem.title = "New"
         
         getCityName()
         
@@ -85,7 +83,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
         
-        return changedText.count <= 140
+        return changedText.count <= 280
 
         }
     
@@ -130,7 +128,6 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         }
         duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
         UIView.animate(withDuration: duration!){
-            self.heightConstraint.constant = self.keyboardHeight! + 10
             self.view.layoutIfNeeded()
             print(self.keyboardHeight!)
         }
@@ -138,7 +135,6 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     
     @objc func keyboardwillHide(_ notification: Notification){
         UIView.animate(withDuration: duration ?? 0.5){
-            self.heightConstraint.constant = 30
             self.view.layoutIfNeeded()
         }
     }
@@ -153,15 +149,6 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     }
     
     
-    @IBAction func coinSlider(_ sender: UISlider) {
-        
-        coinUsed = Int(sender.value)
-        self.navigationItem.title = String(coinUsed)
-        
-    }
-    
-    
-    
     //Mark submitButton
     @IBAction func submitQuestion(_ sender: UIBarButtonItem) {
         if !questionText.text.trimmingCharacters(in: .whitespaces).isEmpty{
@@ -170,7 +157,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         let lat = String(lastLocation!.coordinate.latitude)
         let long = String(lastLocation!.coordinate.longitude)
         let uid = user?.uid
-        let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "QuestionText": questionText.text!, "CoinValue": String(coinUsed), "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "1"]
+        let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "QuestionText": questionText.text!, "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "1"]
         
         questionsDB.setValue(questionDictionary){
             (error, reference) in
@@ -206,7 +193,6 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         
         questionText.endEditing(true)
         questionText.text = ""
-        self.heightConstraint.constant = 30
         self.view.layoutIfNeeded()
         
         self.tabBarController?.tabBar.isHidden = false

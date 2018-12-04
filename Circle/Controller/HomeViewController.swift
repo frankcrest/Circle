@@ -72,7 +72,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.usernameLabel.text = String(questionArray[indexPath.row].sender.dropLast(10))
         cell.questionTextLabel.text = questionArray[indexPath.row].questionText
-        cell.coinLabel.setTitle(questionArray[indexPath.row].coinValue, for: .normal)
         cell.numOfViews.text = ("\(String(questionArray[indexPath.row].viewcount)) views")
         
         if let distance = distance{
@@ -173,7 +172,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let questionObject = question.value as? [String:AnyObject]
                     let text = questionObject?["QuestionText"]
                     let sender = questionObject?["Sender"]
-                    let coin = questionObject?["CoinValue"]
                     let latitude = questionObject?["Latitude"]
                     let longitude = questionObject?["Longitude"]
                     let city = questionObject?["City"]
@@ -181,7 +179,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let viewCount = questionObject?["Viewcount"]
                     let key = question.key
                     
-                    let question = Question(sender: sender as! String, questionText: text as! String, coinValue: coin as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String)
+                    let question = Question(sender: sender as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String)
                     self.questionArray.insert(question, at:0)
                 }
                     self.configureTableView()

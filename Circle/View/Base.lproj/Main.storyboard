@@ -402,47 +402,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uO1-hW-zQi" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                <rect key="frame" x="0.0" y="88" width="375" height="664"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="b8L-h8-Uqc"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder">
-                                        <string key="value">Have a question for people close by? 
+                                        <string key="value">Want to find out something from people around you?
 
 Type it now to get an answer.  
 
-Choose the amount of coins you want to reward people who answer your questions.</string>
+Anyone within your proximate radius can see your question and respond!</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="db0-Jz-946" id="UnP-MN-C8m"/>
                                 </connections>
                             </textView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Ojw-Uz-tUz" customClass="DesignerSlider" customModule="Circle" customModuleProvider="target">
-                                <rect key="frame" x="14" y="752" width="347" height="31"/>
-                                <color key="tintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="i5y-Cb-bSs"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="thumbImage" value="coin"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="coinSlider:" destination="db0-Jz-946" eventType="valueChanged" id="Hox-q6-bxQ"/>
-                                </connections>
-                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hXq-YH-cS9" firstAttribute="trailing" secondItem="Ojw-Uz-tUz" secondAttribute="trailing" constant="16" id="8O5-9B-cFN"/>
                             <constraint firstItem="uO1-hW-zQi" firstAttribute="top" secondItem="hXq-YH-cS9" secondAttribute="top" id="9AC-mC-mTv"/>
+                            <constraint firstItem="hXq-YH-cS9" firstAttribute="bottom" secondItem="uO1-hW-zQi" secondAttribute="bottom" id="SQh-rR-x5m"/>
                             <constraint firstItem="uO1-hW-zQi" firstAttribute="trailing" secondItem="hXq-YH-cS9" secondAttribute="trailing" id="owH-mi-wje"/>
-                            <constraint firstItem="Ojw-Uz-tUz" firstAttribute="top" secondItem="uO1-hW-zQi" secondAttribute="bottom" id="tVa-8R-gCG"/>
-                            <constraint firstAttribute="bottom" secondItem="Ojw-Uz-tUz" secondAttribute="bottom" constant="30" id="ur7-sP-LCR"/>
                             <constraint firstItem="uO1-hW-zQi" firstAttribute="leading" secondItem="hXq-YH-cS9" secondAttribute="leading" id="wy5-Mh-SpK"/>
-                            <constraint firstItem="Ojw-Uz-tUz" firstAttribute="top" secondItem="uO1-hW-zQi" secondAttribute="bottom" id="ygr-uU-9g2"/>
-                            <constraint firstItem="Ojw-Uz-tUz" firstAttribute="leading" secondItem="hXq-YH-cS9" secondAttribute="leading" constant="16" id="zBJ-IS-30t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hXq-YH-cS9"/>
                     </view>
@@ -461,7 +445,6 @@ Choose the amount of coins you want to reward people who answer your questions.<
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="heightConstraint" destination="ur7-sP-LCR" id="mtj-Ep-Xok"/>
                         <outlet property="questionText" destination="uO1-hW-zQi" id="UFl-ty-JU4"/>
                     </connections>
                 </viewController>
@@ -980,7 +963,6 @@ Choose the amount of coins you want to reward people who answer your questions.<
         <image name="add" width="25" height="25"/>
         <image name="chat" width="25" height="25"/>
         <image name="circleImage" width="170" height="170"/>
-        <image name="coin" width="25" height="25"/>
         <image name="home" width="25" height="25"/>
         <image name="question-mark-button" width="25" height="25"/>
         <image name="send" width="25" height="25"/>

@@ -49,7 +49,6 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "customQuestionCell", for: indexPath) as! CustomQuestoinCell
         cell.usernameLabel.text = String(myQuestionArray[indexPath.row].sender.dropLast(10))
         cell.questionTextLabel.text = myQuestionArray[indexPath.row].questionText
-        cell.coinLabel.setTitle(myQuestionArray[indexPath.row].coinValue, for: .normal)
         cell.distanceLabel.text = "@" + myQuestionArray[indexPath.row].city
         cell.numOfViews.text = ("\(String(myQuestionArray[indexPath.row].viewcount)) views")
         return cell
@@ -94,7 +93,6 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     let questionObject = question.value as? [String:AnyObject]
                     let text = questionObject?["QuestionText"]
                     let sender = questionObject?["Sender"]
-                    let coin = questionObject?["CoinValue"]
                     let latitude = questionObject?["Latitude"]
                     let longitude = questionObject?["Longitude"]
                     let city = questionObject?["City"]
@@ -102,7 +100,7 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     let viewCount = questionObject?["Viewcount"]
                     let key = question.key
                     
-                    let question = Question(sender: sender as! String, questionText: text as! String, coinValue: coin as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String)
+                    let question = Question(sender: sender as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String)
                     self.myQuestionArray.insert(question, at:0)
                 }
                 self.configureTableView()
