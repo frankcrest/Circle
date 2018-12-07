@@ -17,18 +17,20 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     var user = Auth.auth().currentUser
     var lastLocation: CLLocation? = nil
     var cityName = ""
+    var userObject: User?
     
     @IBOutlet weak var questionText: UITextView!
     //MARK ViewDidLoad
     //Set Delegate and Initial Placeholder Text
     
     override func viewDidLoad() {
-        questionText.returnKeyType = UIReturnKeyType.done
         
         super.viewDidLoad()
+        fetchUser()
         
         questionText.delegate = self
         
+        questionText.returnKeyType = UIReturnKeyType.done
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
             //Get Notification for Keyboard Size
@@ -157,7 +159,8 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         let lat = String(lastLocation!.coordinate.latitude)
         let long = String(lastLocation!.coordinate.longitude)
         let uid = user?.uid
-        let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "QuestionText": questionText.text!, "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "1"]
+        let userColor = userObject?.Color
+            let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "Color" : userColor, "QuestionText": questionText.text!, "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "1", "AnswerCount" : "0"]
         
         questionsDB.setValue(questionDictionary){
             (error, reference) in
@@ -198,5 +201,21 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         self.tabBarController?.tabBar.isHidden = false
         
     }
+    
+    //fetchUser
+    func fetchUser(){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let ref = Database.database().reference().child("Users").child(uid)
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
+            self.userObject = User(dictionary: dictionary)
+        })
+        {(err) in
+            print("Failed to fetch user::", err)
+        }
+    }
+    
     
 }

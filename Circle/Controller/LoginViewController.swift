@@ -35,6 +35,7 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: username, password: passwordTextfield.text!) { (user, error) in
             if error != nil {
                 print(error!)
+                SVProgressHUD.dismiss()
             }
             else {
                 self.usernameTextfield.text = ""

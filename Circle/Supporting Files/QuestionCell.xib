@@ -78,6 +78,15 @@
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPJ-du-q1w">
+                        <rect key="frame" x="58" y="67.5" width="33" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="cIF-ff-eaB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="EaW-d6-cY4" firstAttribute="leading" secondItem="k6g-zn-yeb" secondAttribute="leading" id="32z-HQ-MbX"/>
@@ -85,12 +94,14 @@
                     <constraint firstAttribute="trailing" secondItem="EaW-d6-cY4" secondAttribute="trailing" id="M0w-Vc-sjk"/>
                     <constraint firstItem="7yX-oh-Sfp" firstAttribute="leading" secondItem="g8E-L3-5MZ" secondAttribute="trailing" constant="8" id="Miw-ga-ZOK"/>
                     <constraint firstItem="EaW-d6-cY4" firstAttribute="top" secondItem="k5s-tR-myN" secondAttribute="bottom" id="OSa-Oa-Ntm"/>
+                    <constraint firstItem="EaW-d6-cY4" firstAttribute="top" secondItem="IPJ-du-q1w" secondAttribute="bottom" id="Xrc-rs-wjo"/>
                     <constraint firstItem="k5s-tR-myN" firstAttribute="leading" secondItem="k6g-zn-yeb" secondAttribute="leading" constant="15" id="YUG-Zd-qOb"/>
                     <constraint firstItem="7q7-Eh-dDa" firstAttribute="centerY" secondItem="k6g-zn-yeb" secondAttribute="centerY" id="YbL-19-cDM"/>
                     <constraint firstItem="bCn-yr-gET" firstAttribute="top" secondItem="g8E-L3-5MZ" secondAttribute="bottom" constant="10" id="ZKJ-A7-ONu"/>
                     <constraint firstItem="g8E-L3-5MZ" firstAttribute="top" secondItem="k6g-zn-yeb" secondAttribute="top" constant="10" id="Zwd-r6-bbS"/>
                     <constraint firstItem="bCn-yr-gET" firstAttribute="leading" secondItem="k6g-zn-yeb" secondAttribute="leading" constant="15" id="cm6-dF-9av"/>
                     <constraint firstItem="7yX-oh-Sfp" firstAttribute="top" secondItem="k6g-zn-yeb" secondAttribute="top" constant="14" id="em9-Bh-qYL"/>
+                    <constraint firstItem="IPJ-du-q1w" firstAttribute="leading" secondItem="k5s-tR-myN" secondAttribute="trailing" constant="10" id="gke-Yt-AGy"/>
                     <constraint firstItem="k5s-tR-myN" firstAttribute="top" secondItem="bCn-yr-gET" secondAttribute="bottom" constant="5" id="ksW-EP-9gc"/>
                     <constraint firstAttribute="trailing" secondItem="7q7-Eh-dDa" secondAttribute="trailing" constant="15" id="ocr-Uu-YRu"/>
                     <constraint firstItem="g8E-L3-5MZ" firstAttribute="leading" secondItem="k6g-zn-yeb" secondAttribute="leading" constant="15" id="r0B-Hf-ScW"/>
@@ -99,6 +110,7 @@
             <connections>
                 <outlet property="coinLabel" destination="7q7-Eh-dDa" id="NSL-6r-yaW"/>
                 <outlet property="distanceLabel" destination="7yX-oh-Sfp" id="aHS-Xb-DDx"/>
+                <outlet property="numOfAnswers" destination="IPJ-du-q1w" id="Wj0-eZ-fZc"/>
                 <outlet property="numOfViews" destination="k5s-tR-myN" id="scn-vf-R4t"/>
                 <outlet property="questionTextLabel" destination="bCn-yr-gET" id="Qt1-3x-yle"/>
                 <outlet property="separator" destination="EaW-d6-cY4" id="ygl-Td-kdZ"/>

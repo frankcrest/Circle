@@ -17,26 +17,34 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var distance : Double?
     var id = ""
     var selectedIndexPath: IndexPath = IndexPath()
-
+    var user: User?
+    let defaults = UserDefaults.standard
+ 
     
     @IBOutlet weak var questionTableView: UITableView!
     @IBOutlet weak var locationLabel: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        getLocation()
-        retreiveQuestions()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.retreiveQuestions()
+            self.fetchUser()
+            self.getLocation()
+            // Bounce back to the main thread to update the UI
+            DispatchQueue.main.async {
+                self.configureTableView()
+            }
+        }
         
         questionTableView.delegate = self
         questionTableView.dataSource = self
         
         //Register Custom Cell
        questionTableView.register(UINib(nibName: "QuestionCell", bundle: nil), forCellReuseIdentifier: "customQuestionCell")
-        
-        configureTableView()
 
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
@@ -71,8 +79,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         getDistance(latitude: questionLat!, longitude: questionLon!)
         
         cell.usernameLabel.text = String(questionArray[indexPath.row].sender.dropLast(10))
+        cell.usernameLabel.textColor = hexStringToUIColor(hex: questionArray[indexPath.row].senderColor)
         cell.questionTextLabel.text = questionArray[indexPath.row].questionText
         cell.numOfViews.text = ("\(String(questionArray[indexPath.row].viewcount)) views")
+        cell.numOfAnswers.text = ("\(String(questionArray[indexPath.row].answercount)) answers")
         
         if let distance = distance{
         switch distance {
@@ -157,6 +167,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         questionTableView.tableFooterView = UIView()
         questionTableView.rowHeight = UITableView.automaticDimension
         questionTableView.estimatedRowHeight = 90.0
+        questionTableView.reloadData()
     }
     
     //MARK Retreive question method
@@ -172,14 +183,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let questionObject = question.value as? [String:AnyObject]
                     let text = questionObject?["QuestionText"]
                     let sender = questionObject?["Sender"]
+                    let senderColor = questionObject?["Color"]
                     let latitude = questionObject?["Latitude"]
                     let longitude = questionObject?["Longitude"]
                     let city = questionObject?["City"]
                     let uid = questionObject?["uid"]
                     let viewCount = questionObject?["Viewcount"]
+                    let answerCount = questionObject?["AnswerCount"]
                     let key = question.key
                     
-                    let question = Question(sender: sender as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String)
+                    let question = Question(sender: sender as! String, senderColor: senderColor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String)
                     self.questionArray.insert(question, at:0)
                 }
                     self.configureTableView()
@@ -187,8 +200,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
         }
-    
-        
     
     
     //Get City Name Method
@@ -208,6 +219,42 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         })
     }
+    
+    func fetchUser(){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let ref = Database.database().reference().child("Users").child(uid)
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
+            self.user = User(dictionary: dictionary)
+            
+            self.defaults.set(String((self.user?.username.dropLast(10))!), forKey: "Username")
+        })
+        {(err) in
+            print("Failed to fetch user::", err)
+        }
+    }
+    //HEXCODE TO UICOLOR
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
 }
-
-

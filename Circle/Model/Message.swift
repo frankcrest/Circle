@@ -7,7 +7,18 @@
 //
 
 class Message {
-//    var sender = ""
-    var message = ""
-//    var senderid = ""
+    var sender : String
+    var senderName : String
+    var message : String
+    var sendTo: String
+    var sendToName: String
+
+    
+    init(sender:String, message:String, senderName:String, sendTo:String, sendToName:String) {
+        self.sender = sender
+        self.senderName = senderName
+        self.message = message
+        self.sendTo = sendTo
+        self.sendToName = sendToName
+    }
 }

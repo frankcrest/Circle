@@ -19,6 +19,8 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     var questionLocation: CLLocation? = nil
     var keyboardHeight : CGFloat?
     var initialBottomViewHc : CGFloat?
+    var userObject: User?
+    var inset : CGFloat?
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var userInputBottomViewHC: NSLayoutConstraint!
@@ -41,20 +43,23 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        getLocation()
-        retreiveAnswers()
         
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.getLocation()
+            self.retreiveAnswers()
+            self.fetchUser()
+            // Bounce back to the main thread to update the UI
+            DispatchQueue.main.async {
+                self.configureTableView()
+            }
+        }
+
         initialBottomViewHc = userInputBottomViewHC.constant
 
         answerTableView.delegate = self
         answerTableView.dataSource = self
         textField.delegate = self
         textField.isScrollEnabled = false
-
-        
-        self.botomView.addBorder(side: .top, thickness: 0.5, color: UIColor.lightGray )
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         //Register Nibs
         answerTableView.register(UINib(nibName: "AnswerCell", bundle: nil), forCellReuseIdentifier: "customAnswerCell")
@@ -69,11 +74,12 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardwillHide), name: UIResponder.keyboardWillHideNotification , object: nil)
         
-        configureTableView()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.botomView.addBorder(side: .top, thickness: 0.5, color: UIColor.lightGray )
         resetTextview()
     }
     
@@ -102,6 +108,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double)!
         UIView.animate(withDuration: duration){
            if #available(iOS 11.0, *){
+            self.inset = self.view.safeAreaInsets.bottom
             self.heightConstraint.constant = self.keyboardHeight! - self.view.safeAreaInsets.bottom
            }else{
             self.heightConstraint.constant = self.keyboardHeight!
@@ -113,6 +120,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func keyboardwillHide(_ notification: Notification){
         UIView.animate(withDuration: duration){
+            self.userInputBottomViewHC.constant = self.initialBottomViewHc!
             self.heightConstraint.constant = 0
             self.view.layoutIfNeeded()
             print(self.keyboardHeight ?? 0)
@@ -133,7 +141,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             userInputBottomViewHC.constant = initialBottomViewHc!
         }
 
-        if textView.text.last == "\n" { //Check if last char is newline
+        if textView.text.last  == "\n" || textView.text.first == "\n" { //Check if last char is newline
             textView.text.removeLast() //Remove newline
             textView.resignFirstResponder() //Dismiss keyboard
         } else if textView.text.first == "\n" {
@@ -173,6 +181,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             
                 cell.separator.addBorder(side: .bottom, thickness: 2, color: hexStringToUIColor(hex: "#FF7E79"))
                 cell.usernameLabel.text = String((selectedQuestion?.sender.dropLast(10))!)
+                cell.usernameLabel.textColor = hexStringToUIColor(hex: (selectedQuestion?.senderColor)!)
                 cell.questionTextLabel.text = selectedQuestion?.questionText
             switch newDistance {
             case 0.0...100.0 :
@@ -196,20 +205,25 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             default:
                 cell.distanceLabel.text = String(format: "%.0f", newDistance / 1000) + " km"
             }
-            let viewcountInt = Int((selectedQuestion?.viewcount)!)! + 1
+            let viewcountInt = Int((selectedQuestion?.viewcount)!)!
+            let answercountInt = Int((selectedQuestion?.answercount)!)!
             cell.numOfViews.text = String(viewcountInt) + " views"
-                print(newDistance)
+            cell.numOfAnswers.text = String(answercountInt) + " answers"
+            print(newDistance)
                 
                 return cell
             }
          else  {
             let cell = tableView.dequeueReusableCell(withIdentifier: "customAnswerCell", for: indexPath) as! AnswerCell
             
+            cell.selectionStyle = .none
+            
             cell.cellDelegate = self
             cell.questionID = uniqueID
             cell.answerID = answerArray[indexPath.row - 1].id
             cell.answerIndex = indexPath.row - 1
             cell.usernameLabel.text = String(answerArray[indexPath.row - 1].sender.dropLast(10))
+            cell.usernameLabel.textColor = hexStringToUIColor(hex: answerArray[indexPath.row - 1].senderColor)
             cell.answerTextLabel.text = answerArray[indexPath.row - 1].answerText
             cell.numberofLikes.text = String(answerArray[indexPath.row - 1].peopleWhoLike.count) + " likes"
             
@@ -268,7 +282,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK Retreive Answers method
     func retreiveAnswers() {
-        let answerDB = Database.database().reference().child("Answers").child(uniqueID)
+        let answerDB = Database.database().reference().child("Answers").child(uniqueID).queryOrdered(byChild: "Likes")
         
         answerDB.observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
@@ -278,32 +292,41 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let answerObject = answer.value as? [String:AnyObject]
                     let text = answerObject?["AnswerText"]
                     let sender = answerObject?["Sender"]
+                    let senderColor = answerObject?["Color"]
                     let like = answerObject?["Likes"]
                     let latitude = answerObject?["Latitude"]
                     let longitude = answerObject?["Longitude"]
                     let uid = answerObject?["Uid"]
                     let key = answer.key
                     
-                    let answer = Answer(sender: sender as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String)
+                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String)
                     
                     if let peopleswholike = answerObject?["peopleWhoLike"] as? [String : AnyObject] {
                         for (_, person) in peopleswholike{
                             answer.peopleWhoLike.append(person as! String)
                         }
                     }
-                    
                      self.answerArray.insert(answer, at:0)
-                   
                 }
                 self.configureTableView()
                 self.answerTableView.reloadData()
             }
         }
     }
-
-
- 
- 
+    //fetchUser
+    func fetchUser(){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let ref = Database.database().reference().child("Users").child(uid)
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
+            self.userObject = User(dictionary: dictionary)
+        })
+        {(err) in
+            print("Failed to fetch user::", err)
+        }
+    }
     
     //MARK Retreive question method
 
@@ -315,8 +338,9 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         let lat = String(lastLocation!.coordinate.latitude)
         let long = String(lastLocation!.coordinate.longitude)
         let uid = user?.uid
+        let userColor = userObject?.Color
         
-            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid]
+            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!,"Color":userColor, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid]
     
             answerDB.setValue(answerDictionary){
             (error,reference) in
@@ -326,6 +350,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             else{
                 let key = answerDB.key
                 myquestionDB.child(key!).setValue(answerDictionary)
+                self.updateAnswerCount()
                 print("My Answer Saved Succesfully")
                 self.resetTextview()
                 }
@@ -334,6 +359,25 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("Please type a valid answer")
             }
     }
+    
+    func updateAnswerCount(){
+        let questionDB = Database.database().reference().child("Questions").child((selectedQuestion?.id)!).child("AnswerCount")
+        let myquestionDB = Database.database().reference().child("Users").child((selectedQuestion?.uid)!).child("myQuestion").child((selectedQuestion?.id)!).child("AnswerCount")
+        
+        questionDB.observeSingleEvent(of: .value) { (snapshot) in
+            if let answerCount = snapshot.value as? String {
+            var answerCountInt = Int(answerCount)
+            answerCountInt! += 1
+            let replyCountIntBackToString = String(answerCountInt!)
+            questionDB.setValue(replyCountIntBackToString)
+            myquestionDB.setValue(replyCountIntBackToString)
+                
+                self.selectedQuestion?.answercount = replyCountIntBackToString
+        }
+            self.answerTableView.reloadData()
+        
+    }
+}
 }
 
 extension QuestionDetail : UpdateLikeButtonDelegate {

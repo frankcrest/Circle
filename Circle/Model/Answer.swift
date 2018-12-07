@@ -8,6 +8,7 @@
 
 class Answer {
     var sender : String
+    var senderColor : String
     var answerText : String
     var likes : String
     var lat : String
@@ -17,8 +18,9 @@ class Answer {
     var checkby : Bool = false
     var chatWith : String
     
-    init(sender:String, answerText: String, likes:String, lat:String, lon:String, id:String, chatWith:String){
+    init(sender:String, senderColor: String, answerText: String, likes:String,lat:String, lon:String, id:String, chatWith:String){
         self.sender = sender
+        self.senderColor = senderColor
         self.answerText = answerText
         self.likes = likes
         self.lat = lat

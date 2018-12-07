@@ -19,24 +19,28 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        retreiveQuestions()
         
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.retreiveQuestions()
+            // Bounce back to the main thread to update the UI
+            DispatchQueue.main.async {
+                self.configureTableView()
+            }
+        }
+
         askedTableView.delegate = self
         askedTableView.dataSource = self
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         //Register Custom Cell
         
         askedTableView.register(UINib(nibName: "QuestionCell", bundle: nil), forCellReuseIdentifier: "customQuestionCell")
-        
-        configureTableView()
-        askedTableView.separatorStyle = .singleLine
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        askedTableView.separatorStyle = .singleLine
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.tabBarController?.tabBar.isHidden = false
     }
     
@@ -48,9 +52,11 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customQuestionCell", for: indexPath) as! CustomQuestoinCell
         cell.usernameLabel.text = String(myQuestionArray[indexPath.row].sender.dropLast(10))
+        cell.usernameLabel.textColor = hexStringToUIColor(hex: myQuestionArray[indexPath.row].senderColor)
         cell.questionTextLabel.text = myQuestionArray[indexPath.row].questionText
         cell.distanceLabel.text = "@" + myQuestionArray[indexPath.row].city
-        cell.numOfViews.text = ("\(String(myQuestionArray[indexPath.row].viewcount)) views")
+        cell.numOfViews.text = ("\(myQuestionArray[indexPath.row].viewcount) views")
+        cell.numOfAnswers.text = ("\(myQuestionArray[indexPath.row].answercount) answers")
         return cell
     }
     
@@ -93,20 +99,45 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     let questionObject = question.value as? [String:AnyObject]
                     let text = questionObject?["QuestionText"]
                     let sender = questionObject?["Sender"]
+                    let senderColor = questionObject?["Color"]
                     let latitude = questionObject?["Latitude"]
                     let longitude = questionObject?["Longitude"]
                     let city = questionObject?["City"]
                     let uid = questionObject?["uid"]
                     let viewCount = questionObject?["Viewcount"]
+                    let answerCount = questionObject?["AnswerCount"]
                     let key = question.key
                     
-                    let question = Question(sender: sender as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String)
+                    let question = Question(sender: sender as! String, senderColor: senderColor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String)
                     self.myQuestionArray.insert(question, at:0)
                 }
                 self.configureTableView()
                 self.askedTableView.reloadData()
             }
         }
+    }
+    
+    //HEXCODE TO UICOLOR
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
     }
     
 

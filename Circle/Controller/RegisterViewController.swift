@@ -11,17 +11,30 @@ import Firebase
 import SVProgressHUD
 import ChameleonFramework
 
-
-
 class RegisterViewController: UIViewController {
-
+    
+    var randomColorHex : String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
+        generateRandomColor()
     }
+
+    func generateRandomColor(){
+        var colorArray = [FlatRed(), FlatOrange(),FlatYellow(), FlatBlack(), FlatMagenta(), FlatSkyBlue(), FlatGreen(), FlatMint(), FlatPurple(), FlatPlum(), FlatWatermelon(), FlatLime(), FlatPink(), FlatMaroon(), FlatBlue()]
+        
+        let randomIndex = Int(arc4random_uniform(UInt32(colorArray.count)))
+        let randomColor = colorArray[randomIndex]
+        randomColorHex = randomColor.hexValue()
+    }
+
     
     
+    
+    
+
     @IBOutlet weak var usernameTextfield: UITextField!
     
     
@@ -40,6 +53,7 @@ class RegisterViewController: UIViewController {
         Auth.auth().createUser(withEmail: username, password: passwordTextfield.text!) {(user, error) in
             if error != nil {
                 print(error!)
+                SVProgressHUD.dismiss()
             }
             else{
                 print("Registration Succesful")
@@ -60,7 +74,7 @@ class RegisterViewController: UIViewController {
         let userDB = Database.database().reference().child("Users")
         let uniqueID = Auth.auth().currentUser?.uid
         
-        let userDictionary = ["Username": username, "Password": password, "Reputation": "100"]
+        let userDictionary = ["Username": username, "Password": password, "Reputation": "100", "Color" : randomColorHex]
         
         userDB.child((uniqueID)!).setValue(userDictionary){
             (error,reference) in
@@ -77,4 +91,5 @@ class RegisterViewController: UIViewController {
     
     
 }
+
 

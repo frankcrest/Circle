@@ -14,9 +14,14 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     var messageArray : [Message] = [Message]()
     var navTitle = ""
     var keyboardHeight : CGFloat?
+    var bottomViewHCInitial : CGFloat?
     var duration = 0.0
     var tabBarSize : CGFloat = 0
     var chatWithUser = ""
+    var chatWithUsername = ""
+    var messageCount = 0
+    var lastMessage = ""
+    var myUsername = ""
     let user = Auth.auth().currentUser
     
     
@@ -25,21 +30,29 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var botomView: UIView!
     @IBOutlet weak var textField: UITextView!
     @IBOutlet weak var textFieldHC: NSLayoutConstraint!
+    @IBOutlet weak var userInputHC: NSLayoutConstraint!
     
     override func viewDidLoad() {
-        navigationItem.title = navTitle
+        
+        super.viewDidLoad()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+          self.retreiveMessages()
+            // Bounce back to the main thread to update the UI
+            DispatchQueue.main.async {
+                self.configureTableView()
+
+            }
+        }
+        
         textField.delegate = self
         textField.isScrollEnabled = false
         directChatTableView.delegate = self
         directChatTableView.dataSource = self
         
-        
-        super.viewDidLoad()
-        
         //Register Nibs
         directChatTableView.register(UINib(nibName: "customChatCell", bundle: nil), forCellReuseIdentifier: "customChatCell")
-        
-        retreiveMessages()
+        directChatTableView.register(UINib(nibName: "customChatCellRight", bundle: nil), forCellReuseIdentifier: "customChatCellRight")
         
         //Get Notification for Keyboard Size
         NotificationCenter.default.addObserver(
@@ -47,33 +60,50 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
             selector: #selector(keyboardWillShow),
             name: UIResponder.keyboardWillShowNotification,
             object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardwillHide), name: UIResponder.keyboardWillHideNotification , object: nil)
         
-        configureTableView()
+        bottomViewHCInitial = userInputHC.constant
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        botomView.addBorder(side: .top, thickness: 0.5, color: UIColor.lightGray)
+          navigationItem.title = navTitle
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        botomView.addBorder(side: .top, thickness: 0.5, color: UIColor.lightGray)
         directChatTableView.separatorStyle = .none
     }
     
     
     //Delegate Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        messageCount = messageArray.count
         return messageArray.count
+        
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customChatCell", for: indexPath) as! customChatCell
+        let cell2 = tableView.dequeueReusableCell(withIdentifier: "customChatCellRight", for: indexPath) as! customChatCellRight
         
+        if messageArray[indexPath.row].sender == user?.uid{
+            cell2.textLabel?.numberOfLines = 0
+            cell2.chatMessage.text = messageArray[indexPath.row].message
+            lastMessage = messageArray[indexPath.row].message
+            cell2.selectionStyle = .none
+            return cell2
+        } else{
+        cell.textLabel?.numberOfLines = 0
         cell.chatMessage.text = messageArray[indexPath.row].message
-        
+        lastMessage = messageArray[indexPath.row].message
+        cell.selectionStyle = .none
         return cell
-        
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        textField.resignFirstResponder()
     }
     
     //MARK Keyboard UI
@@ -85,15 +115,21 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         }
         duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double)!
         UIView.animate(withDuration: duration){
-            self.bottomviewHC.constant = self.keyboardHeight!
+            if #available(iOS 11.0, *){
+                self.bottomviewHC.constant = self.keyboardHeight! - self.view.safeAreaInsets.bottom
+            }else{
+                self.bottomviewHC.constant = self.keyboardHeight!
+            }
             self.view.layoutIfNeeded()
             print(self.keyboardHeight!)
         }
+        scrollToBottom()
     }
     
     @objc func keyboardwillHide(_ notification: Notification){
         UIView.animate(withDuration: duration){
-            self.bottomviewHC.constant = self.tabBarSize - self.botomView.frame.height
+            self.userInputHC.constant = self.bottomViewHCInitial!
+            self.bottomviewHC.constant = 0
             self.view.layoutIfNeeded()
             print(self.keyboardHeight!)
         }
@@ -103,13 +139,17 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     public func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: textField.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
-        print(estimatedSize.height)
-        if estimatedSize.height > textFieldHC.constant {
-            textFieldHC.constant = estimatedSize.height
+        
+        if estimatedSize.height > userInputHC.constant {
+            userInputHC.constant = estimatedSize.height
             print(estimatedSize.height)
+        } else if estimatedSize.height < userInputHC.constant && estimatedSize.height > bottomViewHCInitial! {
+            userInputHC.constant = estimatedSize.height
+        } else if estimatedSize.height < userInputHC.constant && estimatedSize.height < bottomViewHCInitial! {
+            userInputHC.constant = bottomViewHCInitial!
         }
         
-        if textView.text.last == "\n" { //Check if last char is newline
+        if textView.text.last == "\n" || textView.text.first == "\n"  { //Check if last char is newline
             textView.text.removeLast() //Remove newline
             textView.resignFirstResponder() //Dismiss keyboard
         } else if textView.text.first == "\n" {
@@ -128,13 +168,11 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func resetTextview() {
-        
-        textField.endEditing(true)
+
         textField.text = ""
-        textFieldHC.constant = CGFloat(60)
-        
-        self.bottomviewHC.constant = self.tabBarSize - self.botomView.frame.height
+        userInputHC.constant = bottomViewHCInitial!
         self.view.layoutIfNeeded()
+        
         self.tabBarController?.tabBar.isHidden = true
     }
     
@@ -143,22 +181,22 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         let messageDB = Database.database().reference().child("Messages").child((user?.uid)!).child(chatWithUser)
 
         messageDB.observe(.childAdded) { (snapshot) in
-            let snapshotValue = snapshot.value as! Dictionary <String, Any>
-            let text = snapshotValue["Message"]!
-//            let sender = snapshotValue["Sender"]!
-//            let senderid = snapshotValue["SenderID"]!
+            if let snapshotValue = snapshot.value as? Dictionary <String, String> {
+            let text = snapshotValue["Message"]
+            let sender = snapshotValue["Sender"]
+            let senderName = snapshotValue["SenderName"]
+            let sendto = snapshotValue["SendTo"]
+            let sendtoName = snapshotValue["SendToName"]
 
-            let message = Message()
+                let message = Message(sender: sender!, message: text!, senderName: senderName!, sendTo: sendto!, sendToName: sendtoName!)
 
-            message.message = text as! String
-//            message.sender = sender as! String
-//            message.senderid = senderid as! String
-
-            self.messageArray.insert(message, at: 0)
+            self.messageArray.append(message)
             self.configureTableView()
             self.directChatTableView.reloadData()
+            self.scrollToBottom()
 
         }
+    }
     }
     
     @IBAction func submit(_ sender: Any) {
@@ -167,17 +205,17 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         
             let messagesDB=Database.database().reference().child("Messages").child((user?.uid)!).child(chatWithUser).childByAutoId()
             
-            let messageDictionary = ["Message": message]
+            let messageDictionary = ["Message": message, "Sender": user?.uid, "SenderName" : myUsername, "SendTo": chatWithUser, "SendToName": chatWithUsername]
             
             messagesDB.setValue(messageDictionary){
                 (error,reference) in
                 if error != nil {
                     print(error!)
                 }
-                else{
+                else {
                     let theirMessagesDB = Database.database().reference().child("Messages").child(self.chatWithUser).child((self.user?.uid)!).childByAutoId()
                     let message1 = self.textField.text
-                    let messageDictionary = ["Message": message1]
+                    let messageDictionary = ["Message": message1, "Sender":self.user?.uid, "SenderName": self.myUsername, "SendTo": self.chatWithUser, "SendToName": self.chatWithUsername]
                     
                     theirMessagesDB.setValue(messageDictionary){
                         (error,reference) in
@@ -185,7 +223,25 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
                             print(error!)
                         }
                         else {
-                            print("success")
+                            let chatsDB = Database.database().reference().child("Friends").child((self.user?.uid)!).child(self.chatWithUser)
+                            let message2 = self.messageArray[self.messageCount - 1].message
+                            let messageDictionary = ["Message": message2, "Sender":self.user?.uid, "SenderName": self.myUsername, "SendTo": self.chatWithUser, "SendToName": self.chatWithUsername]
+                            chatsDB.setValue(messageDictionary){
+                                (error, reference) in
+                                if error != nil{print(error!)
+                                }else{
+                                    let theirChatsDB = Database.database().reference().child("Friends").child(self.chatWithUser).child((self.user?.uid)!)
+                                    let message3 = self.messageArray[self.messageCount - 1].message
+                                    let messageDictionary = ["Message": message3, "Sender" : self.user?.uid, "SenderName":self.myUsername, "SendTo": self.chatWithUser, "SendToName": self.chatWithUsername]
+                                    theirChatsDB.setValue(messageDictionary){
+                                        (errpr, reference) in
+                                        if error != nil {print(error!)} else{
+                                            print("Sucess")
+                                        }
+                                        
+                                    }
+                                }
+                            }
                         }
                         
                     }
@@ -197,8 +253,9 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             print("Please type a valid answer")
         }
+        directChatTableView.reloadData()
+        scrollToBottom()
     }
-
 
     func configureTableView (){
         directChatTableView.tableFooterView = UIView()
@@ -206,5 +263,9 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         directChatTableView.estimatedRowHeight = 90.0
     }
     
+    func scrollToBottom(){
+            let indexPath = IndexPath(row: self.messageArray.count - 1, section: 0)
+            self.directChatTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+    }
 
 }

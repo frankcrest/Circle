@@ -16,7 +16,7 @@ class CustomQuestoinCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var coinLabel: UIButton!
     @IBOutlet weak var numOfViews: UILabel!
-    
+    @IBOutlet weak var numOfAnswers: UILabel!
     @IBOutlet weak var separator: UIView!
     
     override func awakeFromNib() {

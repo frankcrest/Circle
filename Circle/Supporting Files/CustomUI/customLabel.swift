@@ -11,7 +11,7 @@ import UIKit
 class InsetLabel: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = frame.size.height / 2
+        layer.cornerRadius = frame.size.height / 3
         layer.masksToBounds = true
     }
     

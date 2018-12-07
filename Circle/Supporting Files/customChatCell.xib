@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,26 +18,40 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OO-Za-ceD" customClass="InsetLabel" customModule="Circle" customModuleProvider="target">
-                        <rect key="frame" x="15" y="10" width="42" height="23.5"/>
-                        <color key="backgroundColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                        <size key="shadowOffset" width="0.0" height="0.0"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="smB-74-I0w">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="43.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OO-Za-ceD" customClass="InsetLabel" customModule="Circle" customModuleProvider="target">
+                                <rect key="frame" x="10" y="4" width="42" height="35.5"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="9tM-gK-aUK"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="5OO-Za-ceD" secondAttribute="bottom" constant="4" id="4tW-cz-0hQ"/>
+                            <constraint firstItem="5OO-Za-ceD" firstAttribute="leading" secondItem="smB-74-I0w" secondAttribute="leading" constant="10" id="GyL-fF-jMF"/>
+                            <constraint firstItem="5OO-Za-ceD" firstAttribute="width" relation="lessThanOrEqual" secondItem="smB-74-I0w" secondAttribute="width" id="dVo-Uh-qCz"/>
+                            <constraint firstItem="5OO-Za-ceD" firstAttribute="top" secondItem="smB-74-I0w" secondAttribute="top" constant="4" id="eWN-Jl-GYF"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="5OO-Za-ceD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="QN6-8s-49U"/>
-                    <constraint firstAttribute="bottom" secondItem="5OO-Za-ceD" secondAttribute="bottom" constant="10" id="lw2-uw-Y2k"/>
-                    <constraint firstItem="5OO-Za-ceD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="wp6-8B-p18"/>
+                    <constraint firstAttribute="trailing" secondItem="smB-74-I0w" secondAttribute="trailing" constant="60" id="3Do-zb-0RH"/>
+                    <constraint firstItem="smB-74-I0w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VMO-mI-Wu3"/>
+                    <constraint firstItem="smB-74-I0w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hgD-HJ-jdZ"/>
+                    <constraint firstAttribute="bottom" secondItem="smB-74-I0w" secondAttribute="bottom" id="w09-5p-Yrh"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="chatMessage" destination="5OO-Za-ceD" id="VTu-sa-Pl1"/>
             </connections>
-            <point key="canvasLocation" x="61" y="45"/>
+            <point key="canvasLocation" x="-38" y="35"/>
         </tableViewCell>
     </objects>
 </document>

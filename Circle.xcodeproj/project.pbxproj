@@ -43,6 +43,11 @@
 		E9A4B8C62193BD36009268D6 /* ReceivedAnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9A4B8C42193BD36009268D6 /* ReceivedAnswerCell.xib */; };
 		E9A4B8C821A399CC009268D6 /* customLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4B8C721A399CC009268D6 /* customLabel.swift */; };
 		E9B073C921829B8000B049F5 /* CustomNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B073C821829B8000B049F5 /* CustomNav.swift */; };
+		E9B9D1C721B709E500806651 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9D1C621B709E500806651 /* User.swift */; };
+		E9B9D1CA21B7A8ED00806651 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9D1C821B7A8ED00806651 /* FriendsCell.swift */; };
+		E9B9D1CB21B7A8ED00806651 /* FriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B9D1C921B7A8ED00806651 /* FriendsCell.xib */; };
+		E9B9D1CE21BA026D00806651 /* customChatCellRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9D1CC21BA026D00806651 /* customChatCellRight.swift */; };
+		E9B9D1CF21BA026D00806651 /* customChatCellRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B9D1CD21BA026D00806651 /* customChatCellRight.xib */; };
 		E9CBB74E218A876600617F95 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CBB74D218A876600617F95 /* Message.swift */; };
 		E9FCD11E2187F89C005913E1 /* QuestionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FCD11D2187F89C005913E1 /* QuestionDetail.swift */; };
 /* End PBXBuildFile section */
@@ -88,6 +93,11 @@
 		E9A4B8C42193BD36009268D6 /* ReceivedAnswerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceivedAnswerCell.xib; sourceTree = "<group>"; };
 		E9A4B8C721A399CC009268D6 /* customLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customLabel.swift; sourceTree = "<group>"; };
 		E9B073C821829B8000B049F5 /* CustomNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNav.swift; sourceTree = "<group>"; };
+		E9B9D1C621B709E500806651 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E9B9D1C821B7A8ED00806651 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
+		E9B9D1C921B7A8ED00806651 /* FriendsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsCell.xib; sourceTree = "<group>"; };
+		E9B9D1CC21BA026D00806651 /* customChatCellRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customChatCellRight.swift; sourceTree = "<group>"; };
+		E9B9D1CD21BA026D00806651 /* customChatCellRight.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = customChatCellRight.xib; sourceTree = "<group>"; };
 		E9CBB74D218A876600617F95 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		E9FCD11D2187F89C005913E1 /* QuestionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +137,7 @@
 				E98D54832183AC53008C20D5 /* Question.swift */,
 				E95E94F021880ABD00B85786 /* Answer.swift */,
 				E9CBB74D218A876600617F95 /* Message.swift */,
+				E9B9D1C621B709E500806651 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -168,7 +179,6 @@
 			children = (
 				E995CC9021827FE400670E89 /* GoogleService-Info.plist */,
 				E9A03A8221B3AF25009D0119 /* CustomUI */,
-				E94F65E92183D6E9001DF3A2 /* DesignerSlider.swift */,
 				E954B837218438F000D59354 /* QuestionCell.xib */,
 				E954B83921843D6C00D59354 /* CustomQuestoinCell.swift */,
 				E95E94F321880B8800B85786 /* AnswerCell.xib */,
@@ -177,7 +187,10 @@
 				E9A4B8C32193BD36009268D6 /* ReceivedAnswerCell.swift */,
 				E95E94FB218A734300B85786 /* customChatCell.xib */,
 				E95E94FA218A734300B85786 /* customChatCell.swift */,
-				E90B1479218FAAB500985D68 /* CirclLikeButton.swift */,
+				E9B9D1CD21BA026D00806651 /* customChatCellRight.xib */,
+				E9B9D1CC21BA026D00806651 /* customChatCellRight.swift */,
+				E9B9D1C921B7A8ED00806651 /* FriendsCell.xib */,
+				E9B9D1C821B7A8ED00806651 /* FriendsCell.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -216,6 +229,8 @@
 		E9A03A8221B3AF25009D0119 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				E94F65E92183D6E9001DF3A2 /* DesignerSlider.swift */,
+				E90B1479218FAAB500985D68 /* CirclLikeButton.swift */,
 				E9B073C821829B8000B049F5 /* CustomNav.swift */,
 				E9A4B8C721A399CC009268D6 /* customLabel.swift */,
 				E98D546F2182BD2A008C20D5 /* CustomNavForTabs.swift */,
@@ -289,9 +304,11 @@
 				E995CC9121827FE500670E89 /* GoogleService-Info.plist in Resources */,
 				E954B838218438F000D59354 /* QuestionCell.xib in Resources */,
 				E942ABBA2182AFBB0011DFD5 /* Assets.xcassets in Resources */,
+				E9B9D1CF21BA026D00806651 /* customChatCellRight.xib in Resources */,
 				E989A6DC217CB49A00D964E6 /* Main.storyboard in Resources */,
 				E9A4B8C62193BD36009268D6 /* ReceivedAnswerCell.xib in Resources */,
 				E95E94FD218A734300B85786 /* customChatCell.xib in Resources */,
+				E9B9D1CB21B7A8ED00806651 /* FriendsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +344,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KMPlaceholderTextView/KMPlaceholderTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -337,6 +356,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KMPlaceholderTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -355,15 +376,18 @@
 			files = (
 				E98D54742182C12B008C20D5 /* AskedViewController.swift in Sources */,
 				E98D54842183AC53008C20D5 /* Question.swift in Sources */,
+				E9B9D1CA21B7A8ED00806651 /* FriendsCell.swift in Sources */,
 				E95E94FC218A734300B85786 /* customChatCell.swift in Sources */,
 				E94F65EA2183D6E9001DF3A2 /* DesignerSlider.swift in Sources */,
 				E90B147A218FAAB500985D68 /* CirclLikeButton.swift in Sources */,
 				E98D54702182BD2A008C20D5 /* CustomNavForTabs.swift in Sources */,
 				E98D54782182C151008C20D5 /* ChatViewController.swift in Sources */,
 				E942ABC32182B2790011DFD5 /* LoginViewController.swift in Sources */,
+				E9B9D1C721B709E500806651 /* User.swift in Sources */,
 				E9CBB74E218A876600617F95 /* Message.swift in Sources */,
 				E98D548021837F89008C20D5 /* Switcher.swift in Sources */,
 				E95E94F121880ABD00B85786 /* Answer.swift in Sources */,
+				E9B9D1CE21BA026D00806651 /* customChatCellRight.swift in Sources */,
 				E98D54762182C149008C20D5 /* NewQuestionViewController.swift in Sources */,
 				E9A4B8C821A399CC009268D6 /* customLabel.swift in Sources */,
 				E9FCD11E2187F89C005913E1 /* QuestionDetail.swift in Sources */,

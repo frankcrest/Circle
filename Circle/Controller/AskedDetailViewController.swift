@@ -30,21 +30,26 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        retreiveAnswers()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.retreiveAnswers()
+            // Bounce back to the main thread to update the UI
+            DispatchQueue.main.async {
+                self.configureTableView()
+            }
+        }
         
         askDetailTableView.delegate = self
         askDetailTableView.dataSource = self
         
         askDetailTableView.register(UINib(nibName: "ReceivedAnswerCell", bundle: nil), forCellReuseIdentifier: "receivedAnswerCell")
         askDetailTableView.register(UINib(nibName: "QuestionCell", bundle: nil), forCellReuseIdentifier: "customQuestionCell")
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.tabBarController?.tabBar.isHidden = true
-        
-        configureTableView()
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.title = "Answers"
     }
 
@@ -62,21 +67,25 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "customQuestionCell", for: indexPath) as! CustomQuestoinCell
             
+            cell.selectionStyle = .none
+            
             cell.separator.addBorder(side: .bottom, thickness: 2, color: hexStringToUIColor(hex: "#FF7E79"))
             cell.usernameLabel.text = String((selectedQuestion?.sender.dropLast(10))!)
+            cell.usernameLabel.textColor = hexStringToUIColor(hex: (selectedQuestion?.senderColor)!)
             cell.questionTextLabel.text = selectedQuestion?.questionText
             cell.distanceLabel.text = "@" + (selectedQuestion?.city)!
-        
-            if let viewCount = selectedQuestion?.viewcount{
-            let viewCountString = String(viewCount)
-            cell.numOfViews.text = "\(viewCountString) views"
-        }
             
+            let viewcountInt = Int((selectedQuestion?.viewcount)!)!
+            let answercountInt = Int((selectedQuestion?.answercount)!)!
+            cell.numOfViews.text = String(viewcountInt) + " views"
+            cell.numOfAnswers.text = String(answercountInt) + " answers"
             
             return cell
-        }
-        else  {
+            }
+            else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "receivedAnswerCell", for: indexPath) as! ReceivedAnswerCell
+            
+            cell.selectionStyle = .gray
             cell.cellDelegate = self
             cell.questionID = uniqueID
             cell.answerID = answerArray[indexPath.row - 1].id
@@ -87,6 +96,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             
             
             cell.userName.text = String(answerArray[indexPath.row - 1].sender.dropLast(10))
+            cell.userName.textColor = hexStringToUIColor(hex: answerArray[indexPath.row - 1].senderColor)
             cell.answerText.text = answerArray[indexPath.row - 1].answerText
             cell.numOfLikes.text = String(answerArray[indexPath.row - 1].peopleWhoLike.count) + " likes"
             cell.distanceLabel.text = String(format: "%.0f", distance.rounded(.up)) + " km"
@@ -117,47 +127,44 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         askDetailTableView.tableFooterView = UIView()
         askDetailTableView.rowHeight = UITableView.automaticDimension
         askDetailTableView.estimatedRowHeight = 90.0
+    
         
     }
     
     //Retreive Data from firebase
     
     func retreiveAnswers() {
-        let answerDB = Database.database().reference().child("Answers").child(uniqueID)
-        answerDB.observe(.childAdded) { (snapshot) in
-            
-            let snapshotValue = snapshot.value as? Dictionary<String,AnyObject>
-            
-            
-            let text = snapshotValue?["AnswerText"] as? String
-            let sender = snapshotValue?["Sender"] as? String
-            let like = snapshotValue?["Likes"] as? String
-            let latitude = snapshotValue?["Latitude"] as? String
-            let longitude = snapshotValue?["Longitude"] as? String
-            let chatWithUid = snapshotValue?["Uid"] as? String
-            
-            
-            let answer = Answer(sender: sender ?? "", answerText: text ?? "", likes: like ?? "", lat: latitude ?? "", lon: longitude ?? "", id: snapshot.key, chatWith: chatWithUid ?? "")
-            
-            if let peopleswholike = snapshotValue?["peopleWhoLike"] as? [String : AnyObject] {
-                for (_, person) in peopleswholike {
-                    answer.peopleWhoLike.append(person as! String)
+        let answerDB = Database.database().reference().child("Answers").child(uniqueID).queryOrdered(byChild: "Likes")
+        
+        answerDB.observe(DataEventType.value) { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                self.answerArray.removeAll()
+                
+                for answer in snapshot.children.allObjects as! [DataSnapshot]{
+                    let answerObject = answer.value as? [String:AnyObject]
+                    let text = answerObject?["AnswerText"]
+                    let sender = answerObject?["Sender"]
+                    let senderColor = answerObject?["Color"]
+                    let like = answerObject?["Likes"]
+                    let latitude = answerObject?["Latitude"]
+                    let longitude = answerObject?["Longitude"]
+                    let uid = answerObject?["Uid"]
+                    let key = answer.key
+                    
+                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String)
+                    
+                    if let peopleswholike = answerObject?["peopleWhoLike"] as? [String : AnyObject] {
+                        for (_, person) in peopleswholike{
+                            answer.peopleWhoLike.append(person as! String)
+                        }
+                    }
+                    
+                    self.answerArray.insert(answer, at:0)
+                    
                 }
+                self.configureTableView()
+                self.askDetailTableView.reloadData()
             }
-            
-            if let checkby = snapshotValue?["CheckedBy"] as? String{
-                print("checkby is \(checkby)")
-                if checkby == Auth.auth().currentUser?.uid{
-                    answer.checkby = true
-                } else{
-                    answer.checkby = false
-                }
-            }
-
-            self.answerArray.insert(answer, at: 0)
-            
-            self.configureTableView()
-            self.askDetailTableView.reloadData()
         }
     }
     
@@ -225,7 +232,9 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
             if let indexPath = askDetailTableView.indexPathForSelectedRow{
             destinationVC.navTitle = username
+            destinationVC.myUsername =  String((selectedQuestion?.sender.dropLast(10))!)
             destinationVC.chatWithUser = answerArray[indexPath.row - 1].chatWith
+            destinationVC.chatWithUsername = String(answerArray[indexPath.row - 1].sender.dropLast(10))
     }
     
 }

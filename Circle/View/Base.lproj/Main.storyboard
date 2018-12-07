@@ -308,12 +308,13 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aOn-f3-UN0">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="zwd-fl-fee"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="6QT-iW-Fi1">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="6QT-iW-Fi1">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6QT-iW-Fi1" id="g74-jt-nqy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -352,8 +353,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sgz-T2-Hic">
-                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="9l4-IF-tuG"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="questionText" id="DKM-kj-HLg">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -380,7 +382,7 @@
                             <constraint firstItem="Sgz-T2-Hic" firstAttribute="top" secondItem="zO0-No-cEp" secondAttribute="top" id="11k-Dv-hNj"/>
                             <constraint firstItem="Sgz-T2-Hic" firstAttribute="leading" secondItem="zO0-No-cEp" secondAttribute="leading" id="GHS-3n-uJK"/>
                             <constraint firstItem="Sgz-T2-Hic" firstAttribute="trailing" secondItem="zO0-No-cEp" secondAttribute="trailing" id="Lbf-Uh-ofy"/>
-                            <constraint firstAttribute="bottom" secondItem="Sgz-T2-Hic" secondAttribute="bottom" id="Rq5-vC-Eag"/>
+                            <constraint firstItem="zO0-No-cEp" firstAttribute="bottom" secondItem="Sgz-T2-Hic" secondAttribute="bottom" id="Rq5-vC-Eag"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zO0-No-cEp"/>
                     </view>
@@ -393,7 +395,7 @@
             </objects>
             <point key="canvasLocation" x="5501.6000000000004" y="534.78260869565224"/>
         </scene>
-        <!--10-->
+        <!--New-->
         <scene sceneID="WAo-6z-mbH">
             <objects>
                 <viewController id="db0-Jz-946" customClass="NewQuestionViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
@@ -430,7 +432,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hXq-YH-cS9"/>
                     </view>
-                    <navigationItem key="navigationItem" title="10" id="mm3-n6-El0">
+                    <navigationItem key="navigationItem" title="New" id="mm3-n6-El0">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tYy-kb-05y">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -463,6 +465,17 @@ Anyone within your proximate radius can see your question and respond!</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZVz-WL-5hf">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="GmF-10-N1v"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Rn2-5w-PLU">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rn2-5w-PLU" id="fNB-xg-RID">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -481,6 +494,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                     </navigationItem>
                     <connections>
                         <outlet property="chatTableview" destination="ZVz-WL-5hf" id="8MV-Jg-SdK"/>
+                        <segue destination="ZSc-5n-etL" kind="show" identifier="chatDetailSegue" id="ent-XN-JxE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zth-PX-xXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -553,6 +567,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dN4-nV-eTA">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="d5O-FF-1vg"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="ZLi-DC-20B">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -575,7 +590,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                         <viewLayoutGuide key="safeArea" id="lv7-wN-D2M"/>
                     </view>
                     <navigationItem key="navigationItem" title="Questions" id="DfV-hC-2Da">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="cbH-Xa-F7Z"/>
+                        <barButtonItem key="leftBarButtonItem" id="cbH-Xa-F7Z"/>
                         <barButtonItem key="rightBarButtonItem" title="100" id="woy-is-PxM">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
@@ -712,14 +727,15 @@ Anyone within your proximate radius can see your question and respond!</string>
         <!--Direct Chat View Controller-->
         <scene sceneID="Ycd-dJ-TCw">
             <objects>
-                <viewController id="ZSc-5n-etL" customClass="DirectChatViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="ZSc-5n-etL" customClass="DirectChatViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H9B-2Y-dQm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ijF-UY-KPZ">
-                                <rect key="frame" x="0.0" y="88" width="375" height="634"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="c25-nS-6cI"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="tXp-pO-8HB">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -732,10 +748,10 @@ Anyone within your proximate radius can see your question and respond!</string>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siI-sL-tXH" userLabel="bottomView">
-                                <rect key="frame" x="0.0" y="722" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="729" width="375" height="49"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lee-US-UuJ" userLabel="send">
-                                        <rect key="frame" x="325" y="10" width="40" height="40"/>
+                                        <rect key="frame" x="325" y="-1" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="3EI-4C-6QP"/>
                                             <constraint firstAttribute="width" secondItem="lee-US-UuJ" secondAttribute="height" multiplier="1:1" id="AgH-5A-QS4"/>
@@ -746,11 +762,9 @@ Anyone within your proximate radius can see your question and respond!</string>
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ImF-HZ-hxM" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                        <rect key="frame" x="10" y="0.0" width="305" height="60"/>
+                                        <rect key="frame" x="10" y="0.0" width="305" height="49"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="lxo-vd-rqQ"/>
-                                        </constraints>
+                                        <viewLayoutGuide key="safeArea" id="COi-ME-FHw"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <userDefinedRuntimeAttributes>
@@ -765,16 +779,18 @@ Anyone within your proximate radius can see your question and respond!</string>
                                     <constraint firstAttribute="bottom" secondItem="ImF-HZ-hxM" secondAttribute="bottom" id="OU3-SR-1BL"/>
                                     <constraint firstItem="lee-US-UuJ" firstAttribute="leading" secondItem="ImF-HZ-hxM" secondAttribute="trailing" constant="10" id="Ol1-i2-fUa"/>
                                     <constraint firstItem="ImF-HZ-hxM" firstAttribute="height" secondItem="siI-sL-tXH" secondAttribute="height" id="Oy2-eB-5Xb"/>
+                                    <constraint firstAttribute="height" constant="49" id="TOs-cP-5nc"/>
                                     <constraint firstAttribute="bottom" secondItem="lee-US-UuJ" secondAttribute="bottom" constant="10" id="X4H-7f-4Pp"/>
                                     <constraint firstItem="ImF-HZ-hxM" firstAttribute="top" secondItem="siI-sL-tXH" secondAttribute="top" id="ric-L9-UPF"/>
                                 </constraints>
+                                <viewLayoutGuide key="safeArea" id="mUm-ON-6ft"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="siI-sL-tXH" firstAttribute="leading" secondItem="H9B-2Y-dQm" secondAttribute="leading" id="LS6-fE-VZM"/>
                             <constraint firstItem="ijF-UY-KPZ" firstAttribute="top" secondItem="QhD-UO-fhD" secondAttribute="top" id="PQO-5A-qty"/>
-                            <constraint firstAttribute="bottom" secondItem="siI-sL-tXH" secondAttribute="bottom" constant="30" id="V2I-S1-aul"/>
+                            <constraint firstItem="QhD-UO-fhD" firstAttribute="bottom" secondItem="siI-sL-tXH" secondAttribute="bottom" id="V2I-S1-aul"/>
                             <constraint firstItem="ijF-UY-KPZ" firstAttribute="leading" secondItem="QhD-UO-fhD" secondAttribute="leading" id="hZ7-gN-gTk"/>
                             <constraint firstItem="siI-sL-tXH" firstAttribute="trailing" secondItem="H9B-2Y-dQm" secondAttribute="trailing" id="kOP-39-h5T"/>
                             <constraint firstItem="ijF-UY-KPZ" firstAttribute="trailing" secondItem="QhD-UO-fhD" secondAttribute="trailing" id="o2D-p7-bLu"/>
@@ -791,7 +807,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                         <outlet property="bottomviewHC" destination="V2I-S1-aul" id="wWa-g3-iLm"/>
                         <outlet property="directChatTableView" destination="ijF-UY-KPZ" id="HVm-94-xyY"/>
                         <outlet property="textField" destination="ImF-HZ-hxM" id="iJI-Pm-rgY"/>
-                        <outlet property="textFieldHC" destination="lxo-vd-rqQ" id="5eM-8u-66I"/>
+                        <outlet property="userInputHC" destination="TOs-cP-5nc" id="cTr-Bs-cer"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHc-eS-d7a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -899,7 +915,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="R6X-bq-3QA">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -971,5 +987,7 @@ Anyone within your proximate radius can see your question and respond!</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="e6c-7c-cKv"/>
+        <segue reference="ent-XN-JxE"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
