@@ -37,9 +37,9 @@ class MeViewController: UIViewController, MKMapViewDelegate {
           self.getLocation()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
-                let viewRegion = MKCoordinateRegion(center: (self.lastLocation?.coordinate)!, latitudinalMeters: 30000, longitudinalMeters: 30000)
+                let viewRegion = MKCoordinateRegion(center: (self.lastLocation?.coordinate)!, latitudinalMeters: 9000, longitudinalMeters: 9000)
                 self.myMapview.setRegion(viewRegion, animated: false)
-                self.myMapview.addOverlay(MKCircle(center: (self.lastLocation?.coordinate)!, radius: 10000))
+                self.myMapview.addOverlay(MKCircle(center: (self.lastLocation?.coordinate)!, radius: 3000))
                 let myAnnotation = MKPointAnnotation()
                 myAnnotation.coordinate = (self.lastLocation?.coordinate)!
                 myAnnotation.title = self.user?.username
