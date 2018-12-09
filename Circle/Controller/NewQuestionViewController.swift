@@ -160,7 +160,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         let long = String(lastLocation!.coordinate.longitude)
         let uid = user?.uid
         let userColor = userObject?.Color
-            let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "Color" : userColor, "QuestionText": questionText.text!, "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "1", "AnswerCount" : "0"]
+            let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "Color" : userColor, "QuestionText": questionText.text!, "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "0", "AnswerCount" : "0"]
         
         questionsDB.setValue(questionDictionary){
             (error, reference) in

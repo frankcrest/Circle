@@ -507,10 +507,10 @@ Anyone within your proximate radius can see your question and respond!</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="L8q-wl-QQA">
-                                <rect key="frame" x="0.0" y="158" width="375" height="571"/>
+                                <rect key="frame" x="0.0" y="178" width="375" height="551"/>
                             </mapView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4ct-zB-W0t">
-                                <rect key="frame" x="0.0" y="88" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="98" width="375" height="70"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dct-IC-iqL">
                                         <rect key="frame" x="0.0" y="9.0000000000000036" width="125" height="52.333333333333343"/>
@@ -521,7 +521,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ques views" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDX-2k-Xks">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ques views" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDX-2k-Xks">
                                                 <rect key="frame" x="0.0" y="32" width="125" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -538,7 +538,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ans likes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnF-dv-IOw">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ans likes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnF-dv-IOw">
                                                 <rect key="frame" x="0.0" y="32" width="125" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -555,7 +555,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ans accepted" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fb3-wX-qpj">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ans accepted" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fb3-wX-qpj">
                                                 <rect key="frame" x="0.0" y="32" width="125" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -574,8 +574,8 @@ Anyone within your proximate radius can see your question and respond!</string>
                             <constraint firstItem="4ct-zB-W0t" firstAttribute="trailing" secondItem="OaG-Rj-q7o" secondAttribute="trailing" id="ITw-uS-OB2"/>
                             <constraint firstItem="L8q-wl-QQA" firstAttribute="leading" secondItem="01H-7F-WpP" secondAttribute="leading" id="KvO-nm-wEy"/>
                             <constraint firstItem="L8q-wl-QQA" firstAttribute="trailing" secondItem="01H-7F-WpP" secondAttribute="trailing" id="X9s-d8-pdD"/>
-                            <constraint firstItem="L8q-wl-QQA" firstAttribute="top" secondItem="4ct-zB-W0t" secondAttribute="bottom" id="bsy-79-hKc"/>
-                            <constraint firstItem="4ct-zB-W0t" firstAttribute="top" secondItem="01H-7F-WpP" secondAttribute="top" id="gSQ-Ma-ZTM"/>
+                            <constraint firstItem="L8q-wl-QQA" firstAttribute="top" secondItem="4ct-zB-W0t" secondAttribute="bottom" constant="10" id="bsy-79-hKc"/>
+                            <constraint firstItem="4ct-zB-W0t" firstAttribute="top" secondItem="01H-7F-WpP" secondAttribute="top" constant="10" id="gSQ-Ma-ZTM"/>
                             <constraint firstItem="L8q-wl-QQA" firstAttribute="bottom" secondItem="01H-7F-WpP" secondAttribute="bottom" id="qy0-iz-XlM"/>
                             <constraint firstItem="L8q-wl-QQA" firstAttribute="centerX" secondItem="OaG-Rj-q7o" secondAttribute="centerX" id="xTD-p8-Bvs"/>
                             <constraint firstItem="4ct-zB-W0t" firstAttribute="leading" secondItem="OaG-Rj-q7o" secondAttribute="leading" id="zJh-YO-rjK"/>
@@ -595,9 +595,12 @@ Anyone within your proximate radius can see your question and respond!</string>
                     </navigationItem>
                     <connections>
                         <outlet property="acceptedLabel" destination="low-CR-XKY" id="XVn-0I-bYF"/>
+                        <outlet property="answerAcceptedText" destination="fb3-wX-qpj" id="Awk-u9-ITk"/>
+                        <outlet property="answerText" destination="vnF-dv-IOw" id="wDg-r8-ztY"/>
                         <outlet property="likesLabel" destination="43l-Vw-8JZ" id="f6V-8k-fD6"/>
                         <outlet property="myMapview" destination="L8q-wl-QQA" id="8Ua-8w-KTT"/>
                         <outlet property="viewsLabel" destination="5b0-TE-Xu8" id="iCi-70-Tgf"/>
+                        <outlet property="viewsText" destination="wDX-2k-Xks" id="Plx-bp-msv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NSM-eS-vvd" userLabel="First Responder" sceneMemberID="firstResponder"/>
