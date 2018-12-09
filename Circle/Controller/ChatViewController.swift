@@ -26,6 +26,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.retreiveMessages()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
+                self.tabBarController?.tabBar.isHidden = false
                 self.configureTableView()
             }
         }
