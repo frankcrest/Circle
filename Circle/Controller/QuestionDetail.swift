@@ -114,7 +114,6 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.heightConstraint.constant = self.keyboardHeight!
             }
             self.view.layoutIfNeeded()
-            print(self.keyboardHeight!)
         }
     }
     
@@ -123,7 +122,6 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.userInputBottomViewHC.constant = self.initialBottomViewHc!
             self.heightConstraint.constant = 0
             self.view.layoutIfNeeded()
-            print(self.keyboardHeight ?? 0)
         }
     }
     
@@ -131,10 +129,8 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     public func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: textField.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
-        print(estimatedSize.height)
         if estimatedSize.height > userInputBottomViewHC.constant {
         userInputBottomViewHC.constant = estimatedSize.height
-        print(estimatedSize.height)
         } else if estimatedSize.height < userInputBottomViewHC.constant && estimatedSize.height > initialBottomViewHc! {
             userInputBottomViewHC.constant = estimatedSize.height
         } else if estimatedSize.height < userInputBottomViewHC.constant && estimatedSize.height < initialBottomViewHc! {
@@ -164,7 +160,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     //Tableviwe Delegate methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("there are\(answerArray.count) items")
+    
         if answerArray.count == 0 {
             return 1}
         else {
@@ -209,7 +205,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             let answercountInt = Int((selectedQuestion?.answercount)!)!
             cell.numOfViews.text = String(viewcountInt) + " views"
             cell.numOfAnswers.text = String(answercountInt) + " answers"
-            print(newDistance)
+         
                 
                 return cell
             }
@@ -229,7 +225,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             for person in answerArray[indexPath.row - 1].peopleWhoLike {
                 if person == Auth.auth().currentUser!.uid{
-                    print(person)
+            
                     cell.likeButtonOutlet.isHidden = true
                     cell.likedButtonOutlet.isHidden = false
                     break
@@ -275,9 +271,6 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         textField.text = ""
         
         userInputBottomViewHC.constant = initialBottomViewHc!
-
-        self.view.layoutIfNeeded()
-        self.tabBarController?.tabBar.isHidden = true
     }
     
     //MARK Retreive Answers method

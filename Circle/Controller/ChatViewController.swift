@@ -90,7 +90,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 destinationVC.chatWithUser = friendArray[indexPath.row].sender
                 destinationVC.chatWithUsername = friendArray[indexPath.row].senderName
-                destinationVC.myUsername = friendArray[indexPath.row].senderName
+                destinationVC.myUsername = friendArray[indexPath.row].sendToName
                 
             }
         }

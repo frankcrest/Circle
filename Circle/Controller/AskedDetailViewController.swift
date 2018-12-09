@@ -69,6 +69,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             
             cell.selectionStyle = .none
             
+            
             cell.separator.addBorder(side: .bottom, thickness: 2, color: hexStringToUIColor(hex: "#FF7E79"))
             cell.usernameLabel.text = String((selectedQuestion?.sender.dropLast(10))!)
             cell.usernameLabel.textColor = hexStringToUIColor(hex: (selectedQuestion?.senderColor)!)

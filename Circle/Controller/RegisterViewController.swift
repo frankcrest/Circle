@@ -74,7 +74,7 @@ class RegisterViewController: UIViewController {
         let userDB = Database.database().reference().child("Users")
         let uniqueID = Auth.auth().currentUser?.uid
         
-        let userDictionary = ["Username": username, "Password": password, "Reputation": "100", "Color" : randomColorHex]
+        let userDictionary = ["Username": username, "Password": password, "Reputation": "100", "Color" : randomColorHex, "QuestionViews" : "0", "AnswerLikes" : "0", "AnswerAccepted" : "0"]
         
         userDB.child((uniqueID)!).setValue(userDictionary){
             (error,reference) in

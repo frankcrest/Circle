@@ -48,7 +48,7 @@ class AnswerCell: UITableViewCell {
         
         likeButtonOutlet.isEnabled = false
         let ref = Database.database().reference().child("Answers")
-        let keyToPost = ref.child(questionID).child(answerID).childByAutoId().key!
+        let keyToPost = userID!
 
         ref.child(questionID).child(answerID).observeSingleEvent(of: .value) { (snapshot) in
 
@@ -69,8 +69,9 @@ class AnswerCell: UITableViewCell {
                                     let count = likes.count
                                     self.numberofLikes.text = "\(count) likes"
                                     let update = ["Likes" : String(count)]
+                                    let userAnswerUid = properties["Uid"] as? String
                                     ref.child(self.questionID).child(self.answerID).updateChildValues(update)
-
+                                    self.updateMyLike(userid: userAnswerUid!)
                                     self.likeButtonOutlet.isHidden = true
                                     self.likeButtonOutlet.isEnabled = true
                                     self.likedButtonOutlet.isHidden = false
@@ -87,6 +88,38 @@ class AnswerCell: UITableViewCell {
     
         }
     
+    func updateMyLike(userid:String){
+        let userDB = Database.database().reference().child("Users").child(userid).child("AnswerLikes")
+        
+        userDB.keepSynced(true)
+        userDB.observeSingleEvent(of: .value) { (snapshot) in
+            if let answerLikes = snapshot.value as? String{
+                var answerLikesInt = Int(answerLikes)
+                answerLikesInt! += 1
+                
+                userDB.setValue(String(answerLikesInt!))
+            }
+        }
+    }
+    
+    func updateMyLikeDown(userid:String){
+        let userDB = Database.database().reference().child("Users").child(userid).child("AnswerLikes")
+        
+        userDB.keepSynced(true)
+        userDB.observeSingleEvent(of: .value) { (snapshot) in
+            if let answerLikes = snapshot.value as? String{
+                var answerLikesInt = Int(answerLikes)
+                answerLikesInt! -= 1
+                
+                userDB.setValue(String(answerLikesInt!))
+            }
+        }
+    }
+    
+    
+
+    
+    
     @IBAction func likedButtonPressed(_ sender: Any) {
         
         self.likedButtonOutlet.isEnabled = false
@@ -95,8 +128,8 @@ class AnswerCell: UITableViewCell {
         ref.child(questionID).child(answerID).observeSingleEvent(of: .value) { (snapshot) in
             if let properties = snapshot.value as? [String : AnyObject]{
                 if let peopleWhoLike = properties["peopleWhoLike"] as? [String : AnyObject] {
-                    for (id, person) in peopleWhoLike {
-                        if person as? String == Auth.auth().currentUser!.uid{
+                    for (id, _) in peopleWhoLike {
+                        if id == self.userID{
                             ref.child(self.questionID).child(self.answerID).child("peopleWhoLike").child(id).removeValue(completionBlock: { (error, reference) in
                                 if error != nil {
                                     print(error!)
@@ -109,7 +142,9 @@ class AnswerCell: UITableViewCell {
                                                 let count = likes.count
                                                 self.numberofLikes.text = "\(count) likes"
                                                 let update = ["Likes" : String(count)]
+                                                let userAnswerUid = prop["Uid"] as? String
                                                 ref.child(self.questionID).child(self.answerID).updateChildValues(update)
+                                                self.updateMyLikeDown(userid: userAnswerUid!)
                                             } else {
                                                 self.numberofLikes.text = "0 likes"
                                                 ref.child(self.questionID).child(self.answerID).updateChildValues(["Likes" : "0"]   )

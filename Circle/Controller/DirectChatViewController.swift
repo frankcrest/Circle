@@ -16,7 +16,6 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     var keyboardHeight : CGFloat?
     var bottomViewHCInitial : CGFloat?
     var duration = 0.0
-    var tabBarSize : CGFloat = 0
     var chatWithUser = ""
     var chatWithUsername = ""
     var messageCount = 0
@@ -40,6 +39,8 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
           self.retreiveMessages()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
+                self.tabBarController?.tabBar.invalidateIntrinsicContentSize()
+                self.tabBarController?.tabBar.isHidden = true
                 self.configureTableView()
 
             }
@@ -168,12 +169,10 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func resetTextview() {
-
         textField.text = ""
         userInputHC.constant = bottomViewHCInitial!
-        self.view.layoutIfNeeded()
-        
         self.tabBarController?.tabBar.isHidden = true
+        self.view.layoutIfNeeded()
     }
     
     
@@ -264,8 +263,10 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func scrollToBottom(){
+        if self.messageArray.count > 0 {
             let indexPath = IndexPath(row: self.messageArray.count - 1, section: 0)
             self.directChatTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
     }
 
 }

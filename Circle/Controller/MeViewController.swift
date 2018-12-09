@@ -8,48 +8,66 @@
 
 import UIKit
 import Firebase
+import MapKit
+import CoreLocation
 
-class MeViewController: UIViewController {
+class MeViewController: UIViewController, MKMapViewDelegate {
+   
+    var user : User?
+    var lastLocation: CLLocation? = nil
+    let userdefaults = UserDefaults.standard
 
+    
+    @IBOutlet weak var viewsLabel: UILabel!
+    @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var acceptedLabel: UILabel!
+    @IBOutlet weak var myMapview: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        myMapview.delegate = self
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+          self.getLocation()
+            // Bounce back to the main thread to update the UI
+            DispatchQueue.main.async {
+                let viewRegion = MKCoordinateRegion(center: (self.lastLocation?.coordinate)!, latitudinalMeters: 20000, longitudinalMeters: 20000)
+                self.myMapview.setRegion(viewRegion, animated: false)
+                self.myMapview.addOverlay(MKCircle(center: (self.lastLocation?.coordinate)!, radius: 5000))
+                let myAnnotation = MKPointAnnotation()
+                myAnnotation.coordinate = (self.lastLocation?.coordinate)!
+                myAnnotation.title = self.user?.username
+                self.myMapview.addAnnotation(myAnnotation)
+                
+            }
+        }
+
         
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        fetchUser()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.topItem?.title = userdefaults.string(forKey: "Username")
     }
     
-    var user: User?
-    
-    func fetchUser(){
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard overlay is MKCircle else { return MKOverlayRenderer() }
         
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        let ref = Database.database().reference().child("Users").child(uid)
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-        
-            guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
-            self.user = User(dictionary: dictionary)
-            self.navigationItem.title = String(self.user?.username.dropLast(10) ?? "Me")
-        })
-        {(err) in
-            print("Failed to fetch user::", err)
-        }
+        let circle = MKCircleRenderer(overlay: overlay)
+        circle.strokeColor = UIColor.blue
+        circle.fillColor = UIColor(red: 0, green: 0, blue: 255, alpha: 0.1)
+        circle.lineWidth = 1
+        return circle
     }
+    
+    func getLocation () {
+        lastLocation = CustomLocationManager.shared.locationManager.location
+    }
+    
 }
 
-struct User {
-    let username: String
-    let Reputation: String
-    
-    init(dictionary: [String: Any]) {
-        self.username = dictionary["Username"] as? String ?? ""
-        self.Reputation = dictionary["Reputation"]  as? String ?? ""
-    }
-}
 
     
 

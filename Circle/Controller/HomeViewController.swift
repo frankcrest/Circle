@@ -14,11 +14,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var questionArray : [Question] = [Question]()
     var lastLocation: CLLocation? = nil
+    var cityName : String? = nil
     var distance : Double?
     var id = ""
     var selectedIndexPath: IndexPath = IndexPath()
     var user: User?
     let defaults = UserDefaults.standard
+    
  
     
     @IBOutlet weak var questionTableView: UITableView!
@@ -28,12 +30,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
         DispatchQueue.global(qos: .userInitiated).async {
-            self.retreiveQuestions()
             self.fetchUser()
+            self.retreiveQuestions()
             self.getLocation()
+            self.getCityName()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
                 self.configureTableView()
+                self.tabBarController?.tabBar.isHidden = false
+                self.tabBarController?.tabBar.invalidateIntrinsicContentSize()
             }
         }
         
@@ -45,10 +50,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.view.layoutIfNeeded()
         
     }
     
@@ -65,7 +69,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func getLocation () {
         lastLocation = CustomLocationManager.shared.locationManager.location
-        getCityName()
     }
     
     //MARK cellForRowAt
@@ -123,6 +126,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         id = questionArray[indexPath.row].id
         
         updateViewCount(qid:self.id, question: self.questionArray[indexPath.row], userid: questionArray[indexPath.row].uid)
+        updateMyViewcount(userid: questionArray[indexPath.row].uid)
         
         performSegue(withIdentifier: "questionDetailSegue", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -131,7 +135,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func updateViewCount(qid:String, question: Question, userid:String? = nil){
         let questionDB = Database.database().reference().child("Questions").child(qid).child("Viewcount")
         let myQuestionDB = Database.database().reference().child("Users").child(userid!).child("myQuestion").child(qid).child("Viewcount")
-        
+      
         questionDB.keepSynced(true)
         questionDB.observeSingleEvent(of: .value) { (snapshot) in
             
@@ -148,6 +152,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.questionTableView.reloadData()
     }
     }
+    
+    func updateMyViewcount(userid:String){
+        let userDB = Database.database().reference().child("Users").child(userid).child("QuestionViews")
+        
+        userDB.keepSynced(true)
+        userDB.observeSingleEvent(of: .value) { (snapshot) in
+            if let viewsValue = snapshot.value as? String{
+                var viewsIntValue = Int(viewsValue)
+                viewsIntValue! += 1
+                
+                userDB.setValue(String(viewsIntValue!))
+            }
+        }
+    }
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -182,8 +201,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for question in snapshot.children.allObjects as! [DataSnapshot]{
                     let questionObject = question.value as? [String:AnyObject]
                     let text = questionObject?["QuestionText"]
-                    let sender = questionObject?["Sender"]
-                    let senderColor = questionObject?["Color"]
+                    let sender = questionObject?["Sender"]  
+                    let sendercolor = questionObject?["Color"]
                     let latitude = questionObject?["Latitude"]
                     let longitude = questionObject?["Longitude"]
                     let city = questionObject?["City"]
@@ -192,7 +211,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let answerCount = questionObject?["AnswerCount"]
                     let key = question.key
                     
-                    let question = Question(sender: sender as! String, senderColor: senderColor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String)
+                    let question = Question(sender: sender as! String, senderColor: sendercolor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String)
                     self.questionArray.insert(question, at:0)
                 }
                     self.configureTableView()
@@ -213,9 +232,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             placeMark = placemarks?[0]
             
             // Complete address as PostalAddress
-            guard let cityName = placeMark.locality else {return}
-            self.locationLabel.title = "@\(cityName)"
-            
+            self.cityName = placeMark.locality
+            self.locationLabel.title = "@\(self.cityName!)"
             
         })
     }
