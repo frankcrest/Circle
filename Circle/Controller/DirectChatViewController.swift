@@ -39,8 +39,6 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
           self.retreiveMessages()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
-                self.tabBarController?.tabBar.invalidateIntrinsicContentSize()
-                self.tabBarController?.tabBar.isHidden = true
                 self.configureTableView()
 
             }

@@ -80,7 +80,7 @@ class MeViewController: UIViewController, MKMapViewDelegate {
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let ref = Database.database().reference().child("Users").child(uid)
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.observe(.value, with: { (snapshot) in
             
             guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
             self.user = User(dictionary: dictionary)

@@ -96,7 +96,6 @@ class AnswerCell: UITableViewCell {
             if let answerLikes = snapshot.value as? String{
                 var answerLikesInt = Int(answerLikes)
                 answerLikesInt! += 1
-                
                 userDB.setValue(String(answerLikesInt!))
             }
         }
@@ -110,8 +109,8 @@ class AnswerCell: UITableViewCell {
             if let answerLikes = snapshot.value as? String{
                 var answerLikesInt = Int(answerLikes)
                 answerLikesInt! -= 1
-                
                 userDB.setValue(String(answerLikesInt!))
+                print("CALLED")
             }
         }
     }
@@ -130,6 +129,7 @@ class AnswerCell: UITableViewCell {
                 if let peopleWhoLike = properties["peopleWhoLike"] as? [String : AnyObject] {
                     for (id, _) in peopleWhoLike {
                         if id == self.userID{
+                            self.updateMyLikeDown(userid: id)
                             ref.child(self.questionID).child(self.answerID).child("peopleWhoLike").child(id).removeValue(completionBlock: { (error, reference) in
                                 if error != nil {
                                     print(error!)
@@ -145,7 +145,7 @@ class AnswerCell: UITableViewCell {
                                                 let userAnswerUid = prop["Uid"] as? String
                                                 ref.child(self.questionID).child(self.answerID).updateChildValues(update)
                                                 self.updateMyLikeDown(userid: userAnswerUid!)
-                                            } else {
+                                            } else{
                                                 self.numberofLikes.text = "0 likes"
                                                 ref.child(self.questionID).child(self.answerID).updateChildValues(["Likes" : "0"]   )
                                                 

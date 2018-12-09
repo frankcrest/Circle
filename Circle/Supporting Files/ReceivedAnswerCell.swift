@@ -67,8 +67,16 @@ class ReceivedAnswerCell: UITableViewCell {
                 ref.child(self.questionID).child(self.answerID).updateChildValues(updateChecked,withCompletionBlock: { (error, ref) in
                     if error != nil {
                         print(error!)
-                        } else {
+                        } else {    
                         self.cellDelegate?.updateCheckedDelegate(index: self.answerIndex, userID: self.userID!, isAdd: true)
+                        
+                        let ref = Database.database().reference().child("Answers").child(self.questionID).child(self.answerID).child("Uid")
+                        ref.observe(.value, with: { (snapshot) in
+                            if let value = snapshot.value as? String{
+                                self.updateMyAnswerAccepted(userid: value)
+                            }
+                            
+                        })
                         self.answerCheckMark.isEnabled = true
                         self.answerCheckMark.tintColor = self.hexStringToUIColor(hex: "#FF7878")
                                 }
@@ -88,6 +96,14 @@ class ReceivedAnswerCell: UITableViewCell {
                         }
                         else {
                             self.cellDelegate?.updateCheckedDelegate(index: self.answerIndex, userID: self.userID!, isAdd: false)
+                            
+                            let ref = Database.database().reference().child("Answers").child(self.questionID).child(self.answerID).child("Uid")
+                            ref.observe(.value, with: { (snapshot) in
+                                if let value = snapshot.value as? String{
+                                    self.updateMyAnswerAcceptedDown(userid: value)
+                                }
+                                
+                            })
                             self.answerCheckMark.tintColor = UIColor.lightGray
                             self.answerCheckMark.isEnabled = true
                         }
@@ -95,6 +111,33 @@ class ReceivedAnswerCell: UITableViewCell {
                 }
             }
             ref.removeAllObservers()
+        }
+    }
+    
+    func updateMyAnswerAccepted(userid:String){
+        let userDB = Database.database().reference().child("Users").child(userid).child("AnswerAccepted")
+        
+        userDB.keepSynced(true)
+        userDB.observeSingleEvent(of: .value) { (snapshot) in
+            if let answerAccepted = snapshot.value as? String{
+                var answerAcceptedInt = Int(answerAccepted)
+                answerAcceptedInt! += 1
+                userDB.setValue(String(answerAcceptedInt!))
+            }
+        }
+    }
+    
+    
+    func updateMyAnswerAcceptedDown(userid:String){
+        let userDB = Database.database().reference().child("Users").child(userid).child("AnswerAccepted")
+        
+        userDB.keepSynced(true)
+        userDB.observeSingleEvent(of: .value) { (snapshot) in
+            if let answerAccepted = snapshot.value as? String{
+                var answerAcceptedInt = Int(answerAccepted)
+                answerAcceptedInt! -= 1
+                userDB.setValue(String(answerAcceptedInt!))
+            }
         }
     }
     

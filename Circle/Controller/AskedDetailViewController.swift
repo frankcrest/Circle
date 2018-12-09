@@ -49,7 +49,6 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.title = "Answers"
     }
 
