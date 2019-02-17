@@ -16,11 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        CustomLocationManager.shared.startTracking()
+        
         FirebaseApp.configure()
         
         Switcher.updateRootVC()
-
+        
         // Override point for customization after application launch.
         return true
     }

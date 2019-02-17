@@ -18,6 +18,7 @@ class Answer {
     var checkby : Bool = false
     var chatWith : String
     
+    
     init(sender:String, senderColor: String, answerText: String, likes:String,lat:String, lon:String, id:String, chatWith:String){
         self.sender = sender
         self.senderColor = senderColor

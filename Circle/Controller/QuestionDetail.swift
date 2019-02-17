@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import CoreLocation
 import ChameleonFramework
+import FirebaseDatabase
 
 class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     
@@ -24,6 +25,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var userInputBottomViewHC: NSLayoutConstraint!
+    @IBOutlet weak var reputationLabel: UIBarButtonItem!
     
     var duration = 0.0
     var newDistance = 0.0
@@ -311,10 +313,11 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let ref = Database.database().reference().child("Users").child(uid)
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.observe(.value, with: { (snapshot) in
             
             guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
             self.userObject = User(dictionary: dictionary)
+            self.reputationLabel.title = "\(self.userObject?.Reputation ?? 0)"
         })
         {(err) in
             print("Failed to fetch user::", err)
@@ -332,8 +335,9 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         let long = String(lastLocation!.coordinate.longitude)
         let uid = user?.uid
         let userColor = userObject?.Color
+        let userRep = (userObject?.Reputation)
         
-            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!,"Color":userColor, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid]
+            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!,"Color":userColor, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid, "rep" : "\(userRep ?? 0)"]
     
             answerDB.setValue(answerDictionary){
             (error,reference) in
@@ -386,3 +390,4 @@ extension QuestionDetail : UpdateLikeButtonDelegate {
     }
     
 }
+    

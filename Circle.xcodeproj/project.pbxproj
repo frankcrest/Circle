@@ -24,6 +24,7 @@
 		E95E94F9218A728400B85786 /* DirectChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E94F8218A728400B85786 /* DirectChatViewController.swift */; };
 		E95E94FC218A734300B85786 /* customChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E94FA218A734300B85786 /* customChatCell.swift */; };
 		E95E94FD218A734300B85786 /* customChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E94FB218A734300B85786 /* customChatCell.xib */; };
+		E9725BF021C338EE004F4CCF /* ReputationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */; };
 		E989A6D7217CB49A00D964E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989A6D6217CB49A00D964E6 /* AppDelegate.swift */; };
 		E989A6D9217CB49A00D964E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989A6D8217CB49A00D964E6 /* ViewController.swift */; };
 		E989A6DC217CB49A00D964E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E989A6DA217CB49A00D964E6 /* Main.storyboard */; };
@@ -38,6 +39,8 @@
 		E98D548021837F89008C20D5 /* Switcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D547F21837F89008C20D5 /* Switcher.swift */; };
 		E98D54842183AC53008C20D5 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D54832183AC53008C20D5 /* Question.swift */; };
 		E995CC9121827FE500670E89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E995CC9021827FE400670E89 /* GoogleService-Info.plist */; };
+		E99B80EE21BDCFC300D26F7F /* customSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B80EC21BDCFC300D26F7F /* customSettingsCell.swift */; };
+		E99B80EF21BDCFC300D26F7F /* customSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E99B80ED21BDCFC300D26F7F /* customSettingsCell.xib */; };
 		E9A4B8C221927314009268D6 /* AskedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4B8C121927314009268D6 /* AskedDetailViewController.swift */; };
 		E9A4B8C52193BD36009268D6 /* ReceivedAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4B8C32193BD36009268D6 /* ReceivedAnswerCell.swift */; };
 		E9A4B8C62193BD36009268D6 /* ReceivedAnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9A4B8C42193BD36009268D6 /* ReceivedAnswerCell.xib */; };
@@ -72,6 +75,7 @@
 		E95E94F8218A728400B85786 /* DirectChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectChatViewController.swift; sourceTree = "<group>"; };
 		E95E94FA218A734300B85786 /* customChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customChatCell.swift; sourceTree = "<group>"; };
 		E95E94FB218A734300B85786 /* customChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = customChatCell.xib; sourceTree = "<group>"; };
+		E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationViewController.swift; sourceTree = "<group>"; };
 		E989A6D3217CB49A00D964E6 /* Circle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Circle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E989A6D6217CB49A00D964E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E989A6D8217CB49A00D964E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 		E98D547F21837F89008C20D5 /* Switcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switcher.swift; sourceTree = "<group>"; };
 		E98D54832183AC53008C20D5 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		E995CC9021827FE400670E89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E99B80EC21BDCFC300D26F7F /* customSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSettingsCell.swift; sourceTree = "<group>"; };
+		E99B80ED21BDCFC300D26F7F /* customSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = customSettingsCell.xib; sourceTree = "<group>"; };
 		E9A4B8C121927314009268D6 /* AskedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskedDetailViewController.swift; sourceTree = "<group>"; };
 		E9A4B8C32193BD36009268D6 /* ReceivedAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedAnswerCell.swift; sourceTree = "<group>"; };
 		E9A4B8C42193BD36009268D6 /* ReceivedAnswerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceivedAnswerCell.xib; sourceTree = "<group>"; };
@@ -161,6 +167,7 @@
 				E98D54772182C151008C20D5 /* ChatViewController.swift */,
 				E98D54792182C159008C20D5 /* MeViewController.swift */,
 				E98D547D21837EE9008C20D5 /* LogoutViewController.swift */,
+				E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +198,8 @@
 				E9B9D1CC21BA026D00806651 /* customChatCellRight.swift */,
 				E9B9D1C921B7A8ED00806651 /* FriendsCell.xib */,
 				E9B9D1C821B7A8ED00806651 /* FriendsCell.swift */,
+				E99B80ED21BDCFC300D26F7F /* customSettingsCell.xib */,
+				E99B80EC21BDCFC300D26F7F /* customSettingsCell.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -299,6 +308,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E99B80EF21BDCFC300D26F7F /* customSettingsCell.xib in Resources */,
 				E989A6E1217CB49C00D964E6 /* LaunchScreen.storyboard in Resources */,
 				E95E94F521880B8800B85786 /* AnswerCell.xib in Resources */,
 				E995CC9121827FE500670E89 /* GoogleService-Info.plist in Resources */,
@@ -393,8 +403,10 @@
 				E9FCD11E2187F89C005913E1 /* QuestionDetail.swift in Sources */,
 				E954B83A21843D6C00D59354 /* CustomQuestoinCell.swift in Sources */,
 				E942ABC52182B2A30011DFD5 /* RegisterViewController.swift in Sources */,
+				E9725BF021C338EE004F4CCF /* ReputationViewController.swift in Sources */,
 				E98D547A2182C159008C20D5 /* MeViewController.swift in Sources */,
 				E98D54722182C11D008C20D5 /* HomeViewController.swift in Sources */,
+				E99B80EE21BDCFC300D26F7F /* customSettingsCell.swift in Sources */,
 				E989A6D9217CB49A00D964E6 /* ViewController.swift in Sources */,
 				E9A4B8C52193BD36009268D6 /* ReceivedAnswerCell.swift in Sources */,
 				E95E94F9218A728400B85786 /* DirectChatViewController.swift in Sources */,
@@ -553,6 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = M2U5V49YFZ;
 				INFOPLIST_FILE = Circle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -561,8 +574,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sprucelee.Circle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -572,6 +587,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = M2U5V49YFZ;
 				INFOPLIST_FILE = Circle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -580,8 +596,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sprucelee.Circle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

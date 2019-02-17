@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 import CoreLocation
+import FirebaseDatabase
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, locationDelegate{
     
     var questionArray : [Question] = [Question]()
     var lastLocation: CLLocation? = nil
@@ -25,6 +26,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var questionTableView: UITableView!
     @IBOutlet weak var locationLabel: UIBarButtonItem!
+    @IBOutlet weak var reputationLabel: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +46,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         questionTableView.delegate = self
         questionTableView.dataSource = self
+        CustomLocationManager.shared.delegateLoc = self
         
         //Register Custom Cell
        questionTableView.register(UINib(nibName: "QuestionCell", bundle: nil), forCellReuseIdentifier: "customQuestionCell")
@@ -51,9 +54,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.view.layoutIfNeeded()
-        
+        getLocation()
+        questionTableView.reloadData()
     }
     
     
@@ -215,6 +220,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.questionArray.insert(question, at:0)
                 }
                     self.configureTableView()
+                    self.getLocation()
                     self.questionTableView.reloadData()
                 }
             }
@@ -238,16 +244,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
     }
     
+    func locationFound(_ loc: CLLocation) {
+        lastLocation = loc
+        print("LOL")
+        questionTableView.reloadData()
+    }
+    
     func fetchUser(){
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let ref = Database.database().reference().child("Users").child(uid)
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.observe(.value, with: { (snapshot) in
             
             guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
             self.user = User(dictionary: dictionary)
             
             self.defaults.set(String((self.user?.username.dropLast(10))!), forKey: "Username")
+            self.reputationLabel.title = "\(self.user?.Reputation ?? 0)"
         })
         {(err) in
             print("Failed to fetch user::", err)

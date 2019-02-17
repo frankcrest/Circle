@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
+
 
 class DirectChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate{
     

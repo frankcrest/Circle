@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 import CoreLocation
 
 class NewQuestionViewController: UIViewController, UITextViewDelegate{
@@ -43,8 +44,6 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardwillHide), name: UIResponder.keyboardWillHideNotification , object: nil)
 
         // Do any additional setup after loading the view.
-        getLocation()
- 
     }
     
     func getLocation () {
@@ -58,7 +57,6 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationItem.title = "New"
         
-        getCityName()
         
     }
     
@@ -79,7 +77,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
 
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool{
-
+        getCityName()
         let currentText = textView.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         
@@ -91,6 +89,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     
     //Get City From Location
     func getCityName (){
+        getLocation()
         let geoCoder = CLGeocoder()
         let location = lastLocation
         geoCoder.reverseGeocodeLocation(location!, completionHandler: { (placemarks, error) -> Void in
@@ -216,6 +215,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
             print("Failed to fetch user::", err)
         }
     }
+
     
     
 }

@@ -19,12 +19,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8E-L3-5MZ" userLabel="userName">
-                        <rect key="frame" x="15" y="10" width="42" height="21"/>
+                        <rect key="frame" x="15" y="10" width="45" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="IfE-Zx-N0Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WzS-0m-isc"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yX-oh-Sfp" userLabel="distance">
-                        <rect key="frame" x="65" y="14" width="33" height="16"/>
+                        <rect key="frame" x="68" y="14" width="33" height="16"/>
                         <viewLayoutGuide key="safeArea" id="Qxd-vo-6km"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

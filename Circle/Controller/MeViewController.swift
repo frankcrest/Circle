@@ -8,10 +8,11 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 import MapKit
 import CoreLocation
 
-class MeViewController: UIViewController, MKMapViewDelegate {
+class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
    
     var user : User?
     var lastLocation: CLLocation? = nil
@@ -26,30 +27,34 @@ class MeViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var answerText: UILabel!
     @IBOutlet weak var answerAcceptedText: UILabel!
     
+    @IBOutlet weak var reputationLabel: UIBarButtonItem!
     
     @IBOutlet weak var myMapview: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
         DispatchQueue.global(qos: .userInitiated).async {
           self.fetchUser()
           self.getLocation()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
-                let viewRegion = MKCoordinateRegion(center: (self.lastLocation?.coordinate)!, latitudinalMeters: 9000, longitudinalMeters: 9000)
+                guard let last = self.lastLocation?.coordinate else { return}
+                let viewRegion = MKCoordinateRegion(center: (last), latitudinalMeters: 24000, longitudinalMeters: 24000)
                 self.myMapview.setRegion(viewRegion, animated: false)
-                self.myMapview.addOverlay(MKCircle(center: (self.lastLocation?.coordinate)!, radius: 3000))
+                self.myMapview.addOverlay(MKCircle(center: last, radius: 8000))
                 let myAnnotation = MKPointAnnotation()
                 myAnnotation.coordinate = (self.lastLocation?.coordinate)!
                 myAnnotation.title = self.user?.username
                 self.myMapview.addAnnotation(myAnnotation)
-
             }
         }
         myMapview.delegate = self
+        CustomLocationManager.shared.delegateLoc = self
         
     }
+
+    
     
     override func viewWillAppear(_ animated: Bool) {
         self.viewsText.text = "question\nviews"
@@ -76,6 +81,26 @@ class MeViewController: UIViewController, MKMapViewDelegate {
         lastLocation = CustomLocationManager.shared.locationManager.location
     }
     
+    func locationFound(_ loc: CLLocation) {
+        //let viewRegion = MKCoordinateRegion(center: (loc.coordinate), latitudinalMeters: 9000, longitudinalMeters: 9000)
+        //self.myMapview.setRegion(viewRegion, animated: false)
+        let overlays = myMapview.overlays
+        self.myMapview.removeOverlays(overlays)
+        self.myMapview.addOverlay(MKCircle(center: loc.coordinate, radius: 8000))
+        let myAnnotation = MKPointAnnotation()
+        myAnnotation.coordinate = loc.coordinate
+        let username = userdefaults.string(forKey: "Username")
+        myAnnotation.title = username
+        let annotation = myMapview.annotations
+        self.myMapview.removeAnnotations(annotation)
+        self.myMapview.addAnnotation(myAnnotation)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    
     func fetchUser(){
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -91,6 +116,7 @@ class MeViewController: UIViewController, MKMapViewDelegate {
             
             
             self.userdefaults.set(String((self.user?.username.dropLast(10))!), forKey: "Username")
+            self.reputationLabel.title = "\(self.user?.Reputation ?? 0)"
         })
         {(err) in
             print("Failed to fetch user::", err)

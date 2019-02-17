@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -18,6 +19,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var chatTableview: UITableView!
     
+    @IBOutlet weak var reputationLabel: UIBarButtonItem!
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -132,6 +134,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
             self.userObject = User(dictionary: dictionary)
+            self.reputationLabel.title = "\(self.userObject?.Reputation ?? 0)"
         })
         {(err) in
             print("Failed to fetch user::", err)

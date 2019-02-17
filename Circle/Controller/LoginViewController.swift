@@ -11,13 +11,12 @@ import Firebase
 import SVProgressHUD
 import ChameleonFramework
 
+
 class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-
     // Do any additional setup after loading the view.
     }
     
@@ -34,8 +33,23 @@ class LoginViewController: UIViewController {
         
         Auth.auth().signIn(withEmail: username, password: passwordTextfield.text!) { (user, error) in
             if error != nil {
-                print(error!)
-                SVProgressHUD.dismiss()
+                switch error{
+                case .some(let error as NSError) where error.code == AuthErrorCode.wrongPassword.rawValue:
+                    self.AuthAlert(title: "Login Failed", message: "You have entered the wrong password, please try again.")
+                    SVProgressHUD.dismiss()
+                case .some(let error as NSError) where error.code == AuthErrorCode.networkError.rawValue:
+                    self.AuthAlert(title: "Login Failed", message: "There is something wrong with your network connection, please try again.")
+                    SVProgressHUD.dismiss()
+                case .some(let error as NSError) where error.code == AuthErrorCode.userNotFound.rawValue:
+                    self.AuthAlert(title: "Login Failed", message: "User not found, please sign up to use our service.")
+                    SVProgressHUD.dismiss()
+                case .none:
+                    print("your are in")
+                    SVProgressHUD.dismiss()
+                case .some(let error):
+                    print("Login Error: \(error.localizedDescription)")
+                    SVProgressHUD.dismiss()
+                }
             }
             else {
                 self.usernameTextfield.text = ""
@@ -49,4 +63,22 @@ class LoginViewController: UIViewController {
         
     }
     
+    func AuthAlert(title:String, message:String){
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+    switch action.style{
+    case .default:
+    print("default")
+    
+    case .cancel:
+    print("cancel")
+    
+    case .destructive:
+    print("destructive")
+    
+    
+    }}))
+    self.present(alert, animated: true, completion: nil)
+    }
+
 }

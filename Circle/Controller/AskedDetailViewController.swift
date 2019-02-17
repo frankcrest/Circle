@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import CoreLocation
+import FirebaseDatabase
 
 class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -25,14 +26,17 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var questionLocation : CLLocation? = nil
     var username = ""
     var chatWithUid = ""
+    var user: User?
     
     @IBOutlet weak var askDetailTableView: UITableView!
     
+    @IBOutlet weak var reputationLabel: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.retreiveAnswers()
+            self.fetchUser()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
                 self.configureTableView()
@@ -224,6 +228,22 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    func fetchUser(){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let ref = Database.database().reference().child("Users").child(uid)
+        ref.observe(.value, with: { (snapshot) in
+            
+            guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
+            self.user = User(dictionary: dictionary)
+            
+            self.reputationLabel.title = "\(self.user?.Reputation ?? 0)"
+        })
+        {(err) in
+            print("Failed to fetch user::", err)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
        navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
@@ -239,6 +259,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
 }
 }
+
 
 extension AskedDetailViewController : UpdateCheckedDelegate {
     

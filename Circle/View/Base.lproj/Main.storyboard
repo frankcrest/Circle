@@ -330,12 +330,13 @@
                         <viewLayoutGuide key="safeArea" id="Kzh-VL-1mH"/>
                     </view>
                     <navigationItem key="navigationItem" title="You Asked" id="S2h-y3-WZK">
-                        <barButtonItem key="rightBarButtonItem" title="100" id="aNQ-nU-ZUe">
+                        <barButtonItem key="rightBarButtonItem" id="aNQ-nU-ZUe">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="askedTableView" destination="aOn-f3-UN0" id="MNM-pN-vo4"/>
+                        <outlet property="reputationLabel" destination="aNQ-nU-ZUe" id="bf8-TB-hpn"/>
                         <segue destination="yPM-E7-VUu" kind="show" identifier="askedDetailSegue" id="Cxw-RS-4O5"/>
                     </connections>
                 </viewController>
@@ -343,7 +344,7 @@
             </objects>
             <point key="canvasLocation" x="4773.6000000000004" y="534.78260869565224"/>
         </scene>
-        <!--Asked Detail View Controller-->
+        <!--Answers-->
         <scene sceneID="GnF-D6-8Ek">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="yPM-E7-VUu" customClass="AskedDetailViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
@@ -384,8 +385,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="D8a-n0-0T8"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Answers" id="YSp-77-AwU">
+                        <barButtonItem key="rightBarButtonItem" id="y9Z-JG-duc"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="askDetailTableView" destination="Sgz-T2-Hic" id="iyF-Rh-aQU"/>
+                        <outlet property="reputationLabel" destination="y9Z-JG-duc" id="7TK-jq-f7d"/>
                         <segue destination="ZSc-5n-etL" kind="show" identifier="directChatSegue" id="c2O-4V-Vpf"/>
                     </connections>
                 </viewController>
@@ -411,8 +416,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder">
                                         <string key="value">Want to find out something from people around you?
 
-Type it now to get an answer.  
-
+Type it now to get an answer. 
+ 
 Anyone within your proximate radius can see your question and respond!</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
@@ -491,6 +496,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                     </navigationItem>
                     <connections>
                         <outlet property="chatTableview" destination="ZVz-WL-5hf" id="8MV-Jg-SdK"/>
+                        <outlet property="reputationLabel" destination="dpv-L0-ePA" id="0RY-hP-EUS"/>
                         <segue destination="ZSc-5n-etL" kind="show" identifier="chatDetailSegue" id="ent-XN-JxE"/>
                     </connections>
                 </viewController>
@@ -518,7 +524,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5b0-TE-Xu8">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ques views" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDX-2k-Xks">
@@ -535,7 +541,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43l-Vw-8JZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ans likes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnF-dv-IOw">
@@ -552,7 +558,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="low-CR-XKY">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ans accepted" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fb3-wX-qpj">
@@ -589,7 +595,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                                 <segue destination="urq-Gu-zKD" kind="show" identifier="settingsSegue" id="eiF-vs-S0e"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="100" id="ePX-pq-yli">
+                        <barButtonItem key="rightBarButtonItem" id="ePX-pq-yli">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
@@ -599,6 +605,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                         <outlet property="answerText" destination="vnF-dv-IOw" id="wDg-r8-ztY"/>
                         <outlet property="likesLabel" destination="43l-Vw-8JZ" id="f6V-8k-fD6"/>
                         <outlet property="myMapview" destination="L8q-wl-QQA" id="8Ua-8w-KTT"/>
+                        <outlet property="reputationLabel" destination="ePX-pq-yli" id="YQY-n1-rsL"/>
                         <outlet property="viewsLabel" destination="5b0-TE-Xu8" id="iCi-70-Tgf"/>
                         <outlet property="viewsText" destination="wDX-2k-Xks" id="Plx-bp-msv"/>
                     </connections>
@@ -607,34 +614,158 @@ Anyone within your proximate radius can see your question and respond!</string>
             </objects>
             <point key="canvasLocation" x="4772" y="-830.54187192118229"/>
         </scene>
-        <!--Logout View Controller-->
+        <!--Settings-->
         <scene sceneID="hyI-aQ-h3E">
             <objects>
-                <viewController id="urq-Gu-zKD" customClass="LogoutViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="urq-Gu-zKD" customClass="LogoutViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BxY-09-9o1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyh-C2-zqD">
-                                <rect key="frame" x="156.66666666666666" y="391" width="62" height="30"/>
-                                <state key="normal" title="LOGOUT"/>
-                                <connections>
-                                    <action selector="logoutButton:" destination="urq-Gu-zKD" eventType="touchUpInside" id="qBM-jY-oT2"/>
-                                </connections>
-                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nt5-ok-1yt">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="hbu-qK-Yaj">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hbu-qK-Yaj" id="vye-6E-ntn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="zyh-C2-zqD" firstAttribute="centerX" secondItem="tdT-OO-gYH" secondAttribute="centerX" id="cS9-op-QLO"/>
-                            <constraint firstItem="zyh-C2-zqD" firstAttribute="centerY" secondItem="BxY-09-9o1" secondAttribute="centerY" id="yah-av-jyC"/>
+                            <constraint firstItem="tdT-OO-gYH" firstAttribute="bottom" secondItem="Nt5-ok-1yt" secondAttribute="bottom" id="7tB-0s-CgP"/>
+                            <constraint firstItem="Nt5-ok-1yt" firstAttribute="leading" secondItem="tdT-OO-gYH" secondAttribute="leading" id="Cem-ro-uQ1"/>
+                            <constraint firstItem="tdT-OO-gYH" firstAttribute="trailing" secondItem="Nt5-ok-1yt" secondAttribute="trailing" id="O9c-jR-MWg"/>
+                            <constraint firstItem="Nt5-ok-1yt" firstAttribute="top" secondItem="tdT-OO-gYH" secondAttribute="top" id="rVk-qd-wEn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tdT-OO-gYH"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Settings" id="s0L-g8-NZu">
+                        <barButtonItem key="rightBarButtonItem" id="iaj-hd-iHN"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="reputationLabel" destination="iaj-hd-iHN" id="AZ4-w2-tiR"/>
+                        <outlet property="settingsTable" destination="Nt5-ok-1yt" id="51J-0p-eRS"/>
+                        <segue destination="VTM-qb-gKY" kind="show" identifier="reputationSegue" id="H5m-Cw-GKT"/>
+                        <segue destination="yH0-3l-ddb" kind="show" identifier="privacySegue" id="gas-J6-tJy"/>
+                        <segue destination="9Jy-hP-DkA" kind="show" identifier="termsSegue" id="Hxn-Ub-E7d"/>
+                        <segue destination="mpt-3e-bQa" kind="show" identifier="contactSegue" id="fQx-IU-COZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXf-nH-DTI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5501.6000000000004" y="-831.2807881773399"/>
+        </scene>
+        <!--Privacy Policy-->
+        <scene sceneID="0wF-2A-JDi">
+            <objects>
+                <viewController id="yH0-3l-ddb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ECL-X3-0tf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="poE-ky-eKp"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Privacy Policy" id="5jn-fE-OSd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tEr-8W-3jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6490" y="-502"/>
+        </scene>
+        <!--Contact Us-->
+        <scene sceneID="nVw-6g-ETw">
+            <objects>
+                <viewController id="mpt-3e-bQa" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tQn-jI-Dmz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z8R-FW-Unb">
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Thank you for installing our App and helping others answer their questions.  We woud love your feedback, please contact us at for any concerns or questions.</string>
+                                <color key="textColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="v4O-oX-IPM" firstAttribute="bottom" secondItem="Z8R-FW-Unb" secondAttribute="bottom" id="JDU-kR-Zts"/>
+                            <constraint firstItem="v4O-oX-IPM" firstAttribute="trailing" secondItem="Z8R-FW-Unb" secondAttribute="trailing" id="asX-Yz-7yL"/>
+                            <constraint firstItem="Z8R-FW-Unb" firstAttribute="top" secondItem="v4O-oX-IPM" secondAttribute="top" id="hiw-av-dvY"/>
+                            <constraint firstItem="Z8R-FW-Unb" firstAttribute="leading" secondItem="v4O-oX-IPM" secondAttribute="leading" id="jy2-Fh-dSx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="v4O-oX-IPM"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Contact Us" id="Moy-UO-mHC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O2c-fr-iVm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7191" y="-501"/>
+        </scene>
+        <!--Terms of Service-->
+        <scene sceneID="cbs-vM-9yg">
+            <objects>
+                <viewController id="9Jy-hP-DkA" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sLb-2O-VG1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="DAu-TB-RgP"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Terms of Service" id="DVD-Mc-182"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="02L-Qy-khN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7372" y="-1170"/>
+        </scene>
+        <!--Reputation-->
+        <scene sceneID="8rK-vo-5iv">
+            <objects>
+                <viewController id="VTM-qb-gKY" customClass="ReputationViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xFG-Be-JW7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="idc-Qv-hyk">
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Circl has a reputation system that shows your contribution to other users.
+ The system is based on the following factors: 
+Number of views from your questions. Number of likes from your answers. Number of answers accepted by the original person asking.</string>
+                                <color key="textColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Circl has a reputation system that represents your contribution to other users."/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="idc-Qv-hyk" firstAttribute="leading" secondItem="JDV-Mx-xq5" secondAttribute="leading" id="5g8-hr-SkE"/>
+                            <constraint firstItem="idc-Qv-hyk" firstAttribute="bottom" secondItem="JDV-Mx-xq5" secondAttribute="bottom" id="C8J-9U-WVS"/>
+                            <constraint firstItem="idc-Qv-hyk" firstAttribute="top" secondItem="JDV-Mx-xq5" secondAttribute="top" id="gJg-q0-9zZ"/>
+                            <constraint firstItem="idc-Qv-hyk" firstAttribute="trailing" secondItem="JDV-Mx-xq5" secondAttribute="trailing" id="hq0-Ii-uMm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JDV-Mx-xq5"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Reputation" id="j6L-Qy-s9K"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z8C-VB-UKU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6464.8000000000002" y="-1170.4433497536945"/>
         </scene>
         <!--Questions-->
         <scene sceneID="fNf-rg-Ro0">
@@ -670,13 +801,14 @@ Anyone within your proximate radius can see your question and respond!</string>
                     </view>
                     <navigationItem key="navigationItem" title="Questions" id="DfV-hC-2Da">
                         <barButtonItem key="leftBarButtonItem" id="cbH-Xa-F7Z"/>
-                        <barButtonItem key="rightBarButtonItem" title="100" id="woy-is-PxM">
+                        <barButtonItem key="rightBarButtonItem" id="woy-is-PxM">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="locationLabel" destination="cbH-Xa-F7Z" id="VlQ-Dh-EaK"/>
                         <outlet property="questionTableView" destination="dN4-nV-eTA" id="gwY-mr-Tkh"/>
+                        <outlet property="reputationLabel" destination="woy-is-PxM" id="tgJ-yf-8Kk"/>
                         <segue destination="6vr-0W-FKF" kind="show" identifier="questionDetailSegue" id="4tU-5E-Ljf"/>
                     </connections>
                 </viewController>
@@ -782,7 +914,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                         <viewLayoutGuide key="safeArea" id="753-SA-CpA"/>
                     </view>
                     <navigationItem key="navigationItem" title="Answers" id="Dw5-kJ-dBM">
-                        <barButtonItem key="rightBarButtonItem" title="100" id="Uvh-zR-96q"/>
+                        <barButtonItem key="rightBarButtonItem" id="Uvh-zR-96q"/>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -793,6 +925,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                         <outlet property="answerTableView" destination="9Qy-lB-PTl" id="7ra-RK-tTH"/>
                         <outlet property="botomView" destination="KFQ-Nq-HR4" id="95r-Ze-6vq"/>
                         <outlet property="heightConstraint" destination="xl9-8Z-qfO" id="SpB-Sk-HkY"/>
+                        <outlet property="reputationLabel" destination="Uvh-zR-96q" id="C3N-QZ-Txs"/>
                         <outlet property="textField" destination="qYn-a7-g3J" id="QNi-dl-cWi"/>
                         <outlet property="userInputBottomViewHC" destination="833-pq-if1" id="BaS-Ko-hdg"/>
                     </connections>
@@ -875,7 +1008,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                         <viewLayoutGuide key="safeArea" id="4z5-Zr-sI6"/>
                     </view>
                     <navigationItem key="navigationItem" id="C5X-ae-5l4">
-                        <barButtonItem key="rightBarButtonItem" title="100" id="ujI-Ql-NtF"/>
+                        <barButtonItem key="rightBarButtonItem" id="ujI-Ql-NtF"/>
                     </navigationItem>
                     <connections>
                         <outlet property="botomView" destination="siI-sL-tXH" id="c5f-RD-nUF"/>
@@ -1062,7 +1195,7 @@ Anyone within your proximate radius can see your question and respond!</string>
         <image name="user" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="e6c-7c-cKv"/>
+        <segue reference="vi5-x1-pCe"/>
         <segue reference="c2O-4V-Vpf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

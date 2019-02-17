@@ -8,19 +8,23 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var myQuestionArray : [Question] = [Question]()
     var id = ""
     var city = ""
+    var user : User?
+
     
     @IBOutlet weak var askedTableView: UITableView!
-    
+    @IBOutlet weak var reputationLabel: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         DispatchQueue.global(qos: .userInitiated).async {
+            self.fetchUser()
             self.retreiveQuestions()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
@@ -116,6 +120,23 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
+    
+    func fetchUser(){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let ref = Database.database().reference().child("Users").child(uid)
+        ref.observe(.value, with: { (snapshot) in
+            
+            guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
+            self.user = User(dictionary: dictionary)
+            
+            self.reputationLabel.title = "\(self.user?.Reputation ?? 0)"
+        })
+        {(err) in
+            print("Failed to fetch user::", err)
+        }
+    }
+
     
     //HEXCODE TO UICOLOR
     func hexStringToUIColor (hex:String) -> UIColor {
