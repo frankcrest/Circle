@@ -27,15 +27,15 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var username = ""
     var chatWithUid = ""
     var user: User?
+    lazy var answerDB = Database.database().reference().child("Answers").child(uniqueID).queryOrdered(byChild: "Likes")
     
     @IBOutlet weak var askDetailTableView: UITableView!
     
-    @IBOutlet weak var reputationLabel: UIBarButtonItem!
+    @IBOutlet weak var moreOptions: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         DispatchQueue.global(qos: .userInitiated).async {
-            self.retreiveAnswers()
             self.fetchUser()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
@@ -52,8 +52,17 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.retreiveAnswers()
+        }
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationItem.title = "Answers"
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        answerDB.removeAllObservers()
     }
 
     //Delegate Methods
@@ -138,7 +147,6 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     //Retreive Data from firebase
     
     func retreiveAnswers() {
-        let answerDB = Database.database().reference().child("Answers").child(uniqueID).queryOrdered(byChild: "Likes")
         
         answerDB.observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
@@ -153,9 +161,10 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
                     let latitude = answerObject?["Latitude"]
                     let longitude = answerObject?["Longitude"]
                     let uid = answerObject?["Uid"]
+                    let posterID = answerObject?["PosterID"]
                     let key = answer.key
                     
-                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String)
+                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String, posterID: posterID as! String)
                     
                     if let peopleswholike = answerObject?["peopleWhoLike"] as? [String : AnyObject] {
                         for (_, person) in peopleswholike{
@@ -228,6 +237,32 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    @IBAction func moreOptions(_ sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let action = UIAlertAction(title: "Delete", style: .destructive) { (UIAlertAction) in
+            self.deleteQuestion()
+            self.navigationController?.popViewController(animated: true)
+        }
+        let action1 = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.addAction(action1)
+       
+        present(alert, animated: true, completion: nil)
+    }
+
+    func deleteQuestion(){
+        let currentUesr = Auth.auth().currentUser?.uid
+        let questionID = selectedQuestion?.id
+        let dbRef = Database.database().reference().child("Questions").child(questionID!)
+        let answerRef = Database.database().reference().child("Answers").child(questionID!)
+        let myRef = Database.database().reference().child("Users").child(currentUesr!).child("myQuestion").child(questionID!)
+        dbRef.removeValue()
+        answerRef.removeValue()
+        myRef.removeValue()
+        askDetailTableView.reloadData()
+    }
+    
     func fetchUser(){
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -236,8 +271,6 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             
             guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
             self.user = User(dictionary: dictionary)
-            
-            self.reputationLabel.title = "\(self.user?.Reputation ?? 0)"
         })
         {(err) in
             print("Failed to fetch user::", err)

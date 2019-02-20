@@ -12,13 +12,15 @@ class Message {
     var message : String
     var sendTo: String
     var sendToName: String
+    var id: String
 
     
-    init(sender:String, message:String, senderName:String, sendTo:String, sendToName:String) {
+    init(sender:String, message:String, senderName:String, sendTo:String, sendToName:String, id:String) {
         self.sender = sender
         self.senderName = senderName
         self.message = message
         self.sendTo = sendTo
         self.sendToName = sendToName
+        self.id = id
     }
 }

@@ -293,7 +293,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func moreOptions(_ sender: UIBarButtonItem) {
         
         let optionsAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let reportAction = UIAlertAction(title: "Report", style: .default) { (UIAlertAction) in
+        let reportAction = UIAlertAction(title: "Report", style: .destructive) { (UIAlertAction) in
             self.showReportActions(reportMethod: self.reportQuestion)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -307,16 +307,16 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func showReportActions(reportMethod: @escaping () -> Void){
         let reportAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let reportAction1 = UIAlertAction(title: "Harassment or hate speech", style: .default) { (UIAlertAction) in
+        let reportAction1 = UIAlertAction(title: "Harassment or hate speech", style: .destructive) { (UIAlertAction) in
             reportMethod()
         }
-        let reportAction2 = UIAlertAction(title: "Violence or threat of violence", style: .default) { (UIAlertAction) in
+        let reportAction2 = UIAlertAction(title: "Violence or threat of violence", style: .destructive) { (UIAlertAction) in
             reportMethod()
         }
-        let reportAction3 = UIAlertAction(title: "Sexually explicity content", style: .default) { (UIAlertAction) in
+        let reportAction3 = UIAlertAction(title: "Sexually explicity content", style: .destructive) { (UIAlertAction) in
             reportMethod()
         }
-        let reportAction4 = UIAlertAction(title: "Inappropriate or graphic content", style: .default) { (UIAlertAction) in
+        let reportAction4 = UIAlertAction(title: "Inappropriate or graphic content", style: .destructive) { (UIAlertAction) in
             reportMethod()
         }
         let reportAction5 = UIAlertAction(title: "I just don't want to see it", style: .default) { (UIAlertAction) in
@@ -443,9 +443,10 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let latitude = answerObject?["Latitude"]
                     let longitude = answerObject?["Longitude"]
                     let uid = answerObject?["Uid"]
+                    let posterID = answerObject?["PosterID"]
                     let key = answer.key
                     
-                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String)
+                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String, posterID: posterID as! String)
                     
                     if let peopleswholike = answerObject?["peopleWhoLike"] as? [String : AnyObject] {
                         for (_, person) in peopleswholike{
@@ -491,7 +492,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         let userColor = userObject?.Color
         let userRep = (userObject?.Reputation)
         
-            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!,"Color":userColor, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid, "rep" : "\(userRep ?? 0)"]
+            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!,"Color":userColor, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid, "rep" : "\(userRep ?? 0)", "PosterID" : selectedQuestion?.uid]
     
             answerDB.setValue(answerDictionary){
             (error,reference) in

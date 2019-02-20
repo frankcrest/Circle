@@ -16,6 +16,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     var friendArray : [Message] = [Message]()
     var username = ""
     var userObject : User?
+    lazy var messageDB = Database.database().reference().child("Friends").child((user?.uid)!)
     
     @IBOutlet weak var chatTableview: UITableView!
     
@@ -25,7 +26,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         DispatchQueue.global(qos: .userInitiated).async {
             self.fetchUser()
-            self.retreiveMessages()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
                 self.tabBarController?.tabBar.isHidden = false
@@ -43,8 +43,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         
+        DispatchQueue.main.async {
+            self.retreiveMessages()
+        }
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         chatTableview.separatorStyle = .singleLine
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        messageDB.removeAllObservers()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,10 +96,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let indexPath = chatTableview.indexPathForSelectedRow{
             destinationVC.navTitle = username
             if friendArray[indexPath.row].sender == user?.uid {
+                destinationVC.selectedMessage = friendArray[indexPath.row]
                 destinationVC.chatWithUser = friendArray[indexPath.row].sendTo
                 destinationVC.chatWithUsername = friendArray[indexPath.row].sendToName
                 destinationVC.myUsername = friendArray[indexPath.row].senderName
             } else {
+                destinationVC.selectedMessage = friendArray[indexPath.row]
                 destinationVC.chatWithUser = friendArray[indexPath.row].sender
                 destinationVC.chatWithUsername = friendArray[indexPath.row].senderName
                 destinationVC.myUsername = friendArray[indexPath.row].sendToName
@@ -101,9 +112,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func retreiveMessages(){
-        let messageDB = Database.database().reference().child("Friends").child((user?.uid)!)
 
-        messageDB.observe(DataEventType.value) { (snapshot) in
+        messageDB.queryOrdered(byChild: (user?.uid)!).queryEqual(toValue: nil).observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 self.friendArray.removeAll()
                 
@@ -115,13 +125,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let text = friendObject?["Message"]
                     let sendto = friendObject?["SendTo"]
                     let sendtoName = friendObject?["SendToName"]
+                    let key = friend.key
                     
-                    let friend = Message(sender: sender as! String, message: text as! String, senderName: senderName as! String, sendTo: sendto as! String, sendToName: sendtoName as! String)
+                    let friend = Message(sender: sender as! String, message: text as! String, senderName: senderName as! String, sendTo: sendto as! String, sendToName: sendtoName as! String, id : key )
                     self.friendArray.insert(friend, at: 0)
                 }
                 self.configureTableView()
                 self.chatTableview.reloadData()
             
+            }else{
+                self.friendArray.removeAll()
+                self.chatTableview.reloadData()
             }
         }
     }

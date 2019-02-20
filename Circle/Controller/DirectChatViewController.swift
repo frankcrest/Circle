@@ -25,6 +25,11 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     var myUsername = ""
     let user = Auth.auth().currentUser
     
+    var selectedMessage : Message? {
+        didSet{
+        }
+    }
+    
     
     @IBOutlet weak var directChatTableView: UITableView!
     @IBOutlet weak var bottomviewHC: NSLayoutConstraint!
@@ -107,6 +112,112 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         textField.resignFirstResponder()
     }
     
+    @IBAction func moreOptions(_ sender: UIBarButtonItem) {
+        let optionsAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let blockAction = UIAlertAction(title: "Block", style: .destructive) { (UIAlertAction) in
+            self.blockUser()
+        }
+        let reportAction = UIAlertAction(title: "Report", style: .destructive) { (UIAlertAction) in
+            self.showReportActions(reportMethod: self.reportUser)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        
+        optionsAlert.addAction(blockAction)
+        optionsAlert.addAction(reportAction)
+        optionsAlert.addAction(cancelAction)
+        
+        present(optionsAlert, animated: true, completion: nil)
+    }
+    
+    func showReportActions(reportMethod: @escaping () -> Void){
+        let reportAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let reportAction1 = UIAlertAction(title: "Harassment or hate speech", style: .destructive) { (UIAlertAction) in
+            reportMethod()
+        }
+        let reportAction2 = UIAlertAction(title: "Violence or threat of violence", style: .destructive) { (UIAlertAction) in
+            reportMethod()
+        }
+        let reportAction3 = UIAlertAction(title: "Sexually explicity content", style: .destructive) { (UIAlertAction) in
+            reportMethod()
+        }
+        let reportAction4 = UIAlertAction(title: "Inappropriate or graphic content", style: .destructive) { (UIAlertAction) in
+            reportMethod()
+        }
+        let reportAction5 = UIAlertAction(title: "I just don't want to see it", style: .default) { (UIAlertAction) in
+            reportMethod()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){ (UIAlertAction) in
+            self.directChatTableView.reloadData()
+        }
+        
+        reportAlert.addAction(reportAction1)
+        reportAlert.addAction(reportAction2)
+        reportAlert.addAction(reportAction3)
+        reportAlert.addAction(reportAction4)
+        reportAlert.addAction(reportAction5)
+        reportAlert.addAction(cancelAction)
+        
+        present(reportAlert, animated: true,completion: nil)
+    }
+    
+    func reportUser(){
+        let userID = user?.uid
+        var willBlockUserID : String
+        if userID == messageArray[0].sendTo{
+            willBlockUserID = messageArray[0].sender
+        } else{
+            willBlockUserID = messageArray[0].sendTo
+        }
+        
+        //let dictionary = [userID:willBlockUserID]
+        
+        //let dbRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
+        //let blockUserRef = Database.database().reference().child("Blocklist").child(willBlockUserID)
+        let UserToReport = Database.database().reference().child("Users").child(willBlockUserID).child("Reports")
+        //dbRef.updateChildValues(dictionary)
+        //blockUserRef.updateChildValues(dictionary)
+        
+        UserToReport.observeSingleEvent(of: .value) { (snapshot) in
+            let reportCount = snapshot.value as? String
+            let newReportCount = Int(reportCount!)! + 1
+            UserToReport.setValue(String(newReportCount))
+        }
+        let alert = UIAlertController(title: "User Reported", message: "Thank you for reporting \(chatWithUsername), to ignore this user, please use the block feature.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    func blockUser(){
+        let userID = user?.uid
+        var willBlockUserID : String
+        if user?.uid == messageArray[0].sendTo{
+            willBlockUserID = messageArray[0].sender
+        } else{
+            willBlockUserID = messageArray[0].sendTo
+        }
+        
+        let dictionary = [willBlockUserID:"true"]
+        let reverseDictionary = [userID:"true"]
+        let blockedDictionary = [userID:"True"]
+        
+        let dbRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
+        let blockUserRef = Database.database().reference().child("Blocklist").child(willBlockUserID)
+        dbRef.updateChildValues(dictionary)
+        blockUserRef.updateChildValues(reverseDictionary)
+        
+        let friendRef = Database.database().reference().child("Friends").child(userID!).child(willBlockUserID)
+        friendRef.updateChildValues(blockedDictionary)
+        
+        
+        
+        
+        self.navigationController?.popViewController(animated: true)
+        
+    }
+
+    
     //MARK Keyboard UI
     //Change UI depending on keyboard size
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -186,8 +297,9 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
             let senderName = snapshotValue["SenderName"]
             let sendto = snapshotValue["SendTo"]
             let sendtoName = snapshotValue["SendToName"]
+            let key = snapshot.key
 
-                let message = Message(sender: sender!, message: text!, senderName: senderName!, sendTo: sendto!, sendToName: sendtoName!)
+                let message = Message(sender: sender!, message: text!, senderName: senderName!, sendTo: sendto!, sendToName: sendtoName!, id: key)
 
             self.messageArray.append(message)
             self.configureTableView()

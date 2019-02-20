@@ -16,6 +16,7 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var id = ""
     var city = ""
     var user : User?
+    let myQuestionDB = Database.database().reference().child("Users")
 
     
     @IBOutlet weak var askedTableView: UITableView!
@@ -25,7 +26,6 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.fetchUser()
-            self.retreiveQuestions()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
                 self.configureTableView()
@@ -43,9 +43,20 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        DispatchQueue.main.async {
+            self.retreiveQuestions()
+        }
         askedTableView.separatorStyle = .singleLine
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.tabBarController?.tabBar.isHidden = false
+        askedTableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        myQuestionDB.removeAllObservers()
     }
     
     //Delegate Methods
@@ -92,7 +103,6 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //Retreive Data from firebase
     func retreiveQuestions() {
-        let myQuestionDB = Database.database().reference().child("Users")
         let uid = Auth.auth().currentUser?.uid
         
         myQuestionDB.child(uid!).child("myQuestion").observe(DataEventType.value) { (snapshot) in
@@ -118,8 +128,11 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
                 self.configureTableView()
                 self.askedTableView.reloadData()
-            }
+            } else {
+            self.myQuestionArray.removeAll()
+            self.askedTableView.reloadData()
         }
+    }
     }
     
     func fetchUser(){

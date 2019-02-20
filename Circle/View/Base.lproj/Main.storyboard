@@ -386,11 +386,15 @@
                         <viewLayoutGuide key="safeArea" id="D8a-n0-0T8"/>
                     </view>
                     <navigationItem key="navigationItem" title="Answers" id="YSp-77-AwU">
-                        <barButtonItem key="rightBarButtonItem" id="y9Z-JG-duc"/>
+                        <barButtonItem key="rightBarButtonItem" image="More" id="y9Z-JG-duc">
+                            <connections>
+                                <action selector="moreOptions:" destination="yPM-E7-VUu" id="7Xd-is-S0F"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="askDetailTableView" destination="Sgz-T2-Hic" id="iyF-Rh-aQU"/>
-                        <outlet property="reputationLabel" destination="y9Z-JG-duc" id="7TK-jq-f7d"/>
+                        <outlet property="moreOptions" destination="y9Z-JG-duc" id="7TK-jq-f7d"/>
                         <segue destination="ZSc-5n-etL" kind="show" identifier="directChatSegue" id="c2O-4V-Vpf"/>
                     </connections>
                 </viewController>
@@ -502,7 +506,7 @@ Anyone within your proximate radius can see your question and respond!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zth-PX-xXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4772" y="-1511.6941529235382"/>
+            <point key="canvasLocation" x="4774" y="-1525"/>
         </scene>
         <!--Me-->
         <scene sceneID="Sxe-wV-X2o">
@@ -1038,7 +1042,11 @@ Number of views from your questions. Number of likes from your answers. Numb
                         <viewLayoutGuide key="safeArea" id="4z5-Zr-sI6"/>
                     </view>
                     <navigationItem key="navigationItem" id="C5X-ae-5l4">
-                        <barButtonItem key="rightBarButtonItem" id="ujI-Ql-NtF"/>
+                        <barButtonItem key="rightBarButtonItem" image="More" id="ujI-Ql-NtF">
+                            <connections>
+                                <action selector="moreOptions:" destination="ZSc-5n-etL" id="QQT-tC-Oai"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="botomView" destination="siI-sL-tXH" id="c5f-RD-nUF"/>
@@ -1050,7 +1058,7 @@ Number of views from your questions. Number of likes from your answers. Numb
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHc-eS-d7a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6216.8000000000002" y="534.78260869565224"/>
+            <point key="canvasLocation" x="6190" y="541"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="eAE-5x-BpZ">
@@ -1227,7 +1235,7 @@ Number of views from your questions. Number of likes from your answers. Numb
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="e6c-7c-cKv"/>
-        <segue reference="c2O-4V-Vpf"/>
+        <segue reference="ent-XN-JxE"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

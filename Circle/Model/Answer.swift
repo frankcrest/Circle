@@ -17,9 +17,10 @@ class Answer {
     var peopleWhoLike : [String] = [String]()
     var checkby : Bool = false
     var chatWith : String
+    var posterID : String
     
     
-    init(sender:String, senderColor: String, answerText: String, likes:String,lat:String, lon:String, id:String, chatWith:String){
+    init(sender:String, senderColor: String, answerText: String, likes:String,lat:String, lon:String, id:String, chatWith:String, posterID : String){
         self.sender = sender
         self.senderColor = senderColor
         self.answerText = answerText
@@ -28,5 +29,6 @@ class Answer {
         self.lon = lon
         self.id = id
         self.chatWith = chatWith
+        self.posterID = posterID
     }
 }

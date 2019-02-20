@@ -16,7 +16,8 @@ struct User {
     let answerAccepted : String
     var latitude : String
     var longitude : String
-    var Reputation: Int {
+    var reports : String
+    var Reputation: Int{
         get{
             return Int(questionViews)! + Int(answerLikes)! * 5 + Int(answerAccepted)! * 25
         }
@@ -30,5 +31,6 @@ struct User {
         self.answerAccepted = dictionary["AnswerAccepted"] as? String ?? ""
         self.latitude = dictionary["Latitude"] as? String ?? ""
         self.longitude = dictionary["Longittude"] as? String ?? ""
+        self.reports = dictionary["Reports"] as? String ?? ""
     }
 }
