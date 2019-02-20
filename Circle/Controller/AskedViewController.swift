@@ -110,9 +110,10 @@ class AskedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     let uid = questionObject?["uid"]
                     let viewCount = questionObject?["Viewcount"]
                     let answerCount = questionObject?["AnswerCount"]
+                    let reportCount = questionObject?["Reports"]
                     let key = question.key
                     
-                    let question = Question(sender: sender as! String, senderColor: senderColor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String)
+                    let question = Question(sender: sender as! String, senderColor: senderColor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String, reports: reportCount as! String)
                     self.myQuestionArray.insert(question, at:0)
                 }
                 self.configureTableView()

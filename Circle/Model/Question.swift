@@ -18,8 +18,9 @@ class Question {
     var peopleWhoView : [String] = [String]()
     var viewcount : String
     var answercount : String
+    var reports : String
     
-    init(sender:String, senderColor:String, questionText: String, lat:String, lon:String, city:String, id: String, uid: String, viewcount:String, answercount:String){
+    init(sender:String, senderColor:String, questionText: String, lat:String, lon:String, city:String, id: String, uid: String, viewcount:String, answercount:String, reports: String){
         self.sender = sender
         self.senderColor = senderColor
         self.questionText = questionText
@@ -30,5 +31,6 @@ class Question {
         self.uid = uid
         self.viewcount = viewcount
         self.answercount = answercount
+        self.reports = reports
     }
 }

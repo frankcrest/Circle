@@ -132,7 +132,7 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
             self.userInputHC.constant = self.bottomViewHCInitial!
             self.bottomviewHC.constant = 0
             self.view.layoutIfNeeded()
-            print(self.keyboardHeight!)
+            //print(self.keyboardHeight!)
         }
     }
     

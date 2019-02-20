@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6A74949ED76B8E3FBF31D0C7 /* Pods_Circle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493C58FDAEB26CA3602EE6A4 /* Pods_Circle.framework */; };
 		E90B147A218FAAB500985D68 /* CirclLikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B1479218FAAB500985D68 /* CirclLikeButton.swift */; };
+		E91BC9D7221A3B16005E686C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E91BC9D6221A3B16005E686C /* GoogleService-Info.plist */; };
 		E942ABBA2182AFBB0011DFD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E942ABB92182AFBA0011DFD5 /* Assets.xcassets */; };
 		E942ABC32182B2790011DFD5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942ABC22182B2790011DFD5 /* LoginViewController.swift */; };
 		E942ABC52182B2A30011DFD5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942ABC42182B2A30011DFD5 /* RegisterViewController.swift */; };
@@ -24,6 +25,8 @@
 		E95E94F9218A728400B85786 /* DirectChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E94F8218A728400B85786 /* DirectChatViewController.swift */; };
 		E95E94FC218A734300B85786 /* customChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E94FA218A734300B85786 /* customChatCell.swift */; };
 		E95E94FD218A734300B85786 /* customChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E94FB218A734300B85786 /* customChatCell.xib */; };
+		E9671684221A135B007E43D2 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9671683221A135B007E43D2 /* PrivacyViewController.swift */; };
+		E9671686221A1630007E43D2 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9671685221A1630007E43D2 /* TermsViewController.swift */; };
 		E9725BF021C338EE004F4CCF /* ReputationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */; };
 		E989A6D7217CB49A00D964E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989A6D6217CB49A00D964E6 /* AppDelegate.swift */; };
 		E989A6D9217CB49A00D964E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989A6D8217CB49A00D964E6 /* ViewController.swift */; };
@@ -38,7 +41,6 @@
 		E98D547E21837EE9008C20D5 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D547D21837EE9008C20D5 /* LogoutViewController.swift */; };
 		E98D548021837F89008C20D5 /* Switcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D547F21837F89008C20D5 /* Switcher.swift */; };
 		E98D54842183AC53008C20D5 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D54832183AC53008C20D5 /* Question.swift */; };
-		E995CC9121827FE500670E89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E995CC9021827FE400670E89 /* GoogleService-Info.plist */; };
 		E99B80EE21BDCFC300D26F7F /* customSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B80EC21BDCFC300D26F7F /* customSettingsCell.swift */; };
 		E99B80EF21BDCFC300D26F7F /* customSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E99B80ED21BDCFC300D26F7F /* customSettingsCell.xib */; };
 		E9A4B8C221927314009268D6 /* AskedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4B8C121927314009268D6 /* AskedDetailViewController.swift */; };
@@ -60,6 +62,7 @@
 		76D14F4035E90FDFC6D96A6A /* Pods-Circle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Circle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Circle/Pods-Circle.debug.xcconfig"; sourceTree = "<group>"; };
 		E402A7E2FAE328CA5BA2BFC7 /* Pods-Circle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Circle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Circle/Pods-Circle.release.xcconfig"; sourceTree = "<group>"; };
 		E90B1479218FAAB500985D68 /* CirclLikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclLikeButton.swift; sourceTree = "<group>"; };
+		E91BC9D6221A3B16005E686C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E942ABB92182AFBA0011DFD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E942ABC22182B2790011DFD5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E942ABC42182B2A30011DFD5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +78,8 @@
 		E95E94F8218A728400B85786 /* DirectChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectChatViewController.swift; sourceTree = "<group>"; };
 		E95E94FA218A734300B85786 /* customChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customChatCell.swift; sourceTree = "<group>"; };
 		E95E94FB218A734300B85786 /* customChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = customChatCell.xib; sourceTree = "<group>"; };
+		E9671683221A135B007E43D2 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		E9671685221A1630007E43D2 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationViewController.swift; sourceTree = "<group>"; };
 		E989A6D3217CB49A00D964E6 /* Circle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Circle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E989A6D6217CB49A00D964E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +96,6 @@
 		E98D547D21837EE9008C20D5 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		E98D547F21837F89008C20D5 /* Switcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switcher.swift; sourceTree = "<group>"; };
 		E98D54832183AC53008C20D5 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
-		E995CC9021827FE400670E89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E99B80EC21BDCFC300D26F7F /* customSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSettingsCell.swift; sourceTree = "<group>"; };
 		E99B80ED21BDCFC300D26F7F /* customSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = customSettingsCell.xib; sourceTree = "<group>"; };
 		E9A4B8C121927314009268D6 /* AskedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskedDetailViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 				E98D54792182C159008C20D5 /* MeViewController.swift */,
 				E98D547D21837EE9008C20D5 /* LogoutViewController.swift */,
 				E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */,
+				E9671685221A1630007E43D2 /* TermsViewController.swift */,
+				E9671683221A135B007E43D2 /* PrivacyViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -184,7 +190,7 @@
 		E942ABBF2182B0F20011DFD5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E995CC9021827FE400670E89 /* GoogleService-Info.plist */,
+				E91BC9D6221A3B16005E686C /* GoogleService-Info.plist */,
 				E9A03A8221B3AF25009D0119 /* CustomUI */,
 				E954B837218438F000D59354 /* QuestionCell.xib */,
 				E954B83921843D6C00D59354 /* CustomQuestoinCell.swift */,
@@ -311,10 +317,10 @@
 				E99B80EF21BDCFC300D26F7F /* customSettingsCell.xib in Resources */,
 				E989A6E1217CB49C00D964E6 /* LaunchScreen.storyboard in Resources */,
 				E95E94F521880B8800B85786 /* AnswerCell.xib in Resources */,
-				E995CC9121827FE500670E89 /* GoogleService-Info.plist in Resources */,
 				E954B838218438F000D59354 /* QuestionCell.xib in Resources */,
 				E942ABBA2182AFBB0011DFD5 /* Assets.xcassets in Resources */,
 				E9B9D1CF21BA026D00806651 /* customChatCellRight.xib in Resources */,
+				E91BC9D7221A3B16005E686C /* GoogleService-Info.plist in Resources */,
 				E989A6DC217CB49A00D964E6 /* Main.storyboard in Resources */,
 				E9A4B8C62193BD36009268D6 /* ReceivedAnswerCell.xib in Resources */,
 				E95E94FD218A734300B85786 /* customChatCell.xib in Resources */,
@@ -401,10 +407,12 @@
 				E98D54762182C149008C20D5 /* NewQuestionViewController.swift in Sources */,
 				E9A4B8C821A399CC009268D6 /* customLabel.swift in Sources */,
 				E9FCD11E2187F89C005913E1 /* QuestionDetail.swift in Sources */,
+				E9671684221A135B007E43D2 /* PrivacyViewController.swift in Sources */,
 				E954B83A21843D6C00D59354 /* CustomQuestoinCell.swift in Sources */,
 				E942ABC52182B2A30011DFD5 /* RegisterViewController.swift in Sources */,
 				E9725BF021C338EE004F4CCF /* ReputationViewController.swift in Sources */,
 				E98D547A2182C159008C20D5 /* MeViewController.swift in Sources */,
+				E9671686221A1630007E43D2 /* TermsViewController.swift in Sources */,
 				E98D54722182C11D008C20D5 /* HomeViewController.swift in Sources */,
 				E99B80EE21BDCFC300D26F7F /* customSettingsCell.swift in Sources */,
 				E989A6D9217CB49A00D964E6 /* ViewController.swift in Sources */,
@@ -564,19 +572,20 @@
 			baseConfigurationReference = 76D14F4035E90FDFC6D96A6A /* Pods-Circle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = M2U5V49YFZ;
+				DEVELOPMENT_TEAM = WPKBU3MB67;
 				INFOPLIST_FILE = Circle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sprucelee.Circle;
+				PRODUCT_BUNDLE_IDENTIFIER = com.westguards.circl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -586,19 +595,20 @@
 			baseConfigurationReference = E402A7E2FAE328CA5BA2BFC7 /* Pods-Circle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = M2U5V49YFZ;
+				DEVELOPMENT_TEAM = WPKBU3MB67;
 				INFOPLIST_FILE = Circle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sprucelee.Circle;
+				PRODUCT_BUNDLE_IDENTIFIER = com.westguards.circl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

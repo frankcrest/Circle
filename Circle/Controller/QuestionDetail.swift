@@ -25,7 +25,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var userInputBottomViewHC: NSLayoutConstraint!
-    @IBOutlet weak var reputationLabel: UIBarButtonItem!
+    @IBOutlet weak var optionsLabel: UIBarButtonItem!
     
     var duration = 0.0
     var newDistance = 0.0
@@ -239,8 +239,73 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    //More options for flagging
+    @IBAction func moreOptions(_ sender: UIBarButtonItem) {
+        
+        let optionsAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let reportAction = UIAlertAction(title: "Report", style: .default) { (UIAlertAction) in
+            self.showReportActions()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        optionsAlert.addAction(reportAction)
+        optionsAlert.addAction(cancelAction)
+        
+        present(optionsAlert, animated: true, completion: nil)
+        
+       
+    }
     
-
+    func showReportActions(){
+        let reportAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let reportAction1 = UIAlertAction(title: "Harassment or hate speech", style: .default) { (UIAlertAction) in
+            self.addReport()
+        }
+        let reportAction2 = UIAlertAction(title: "Violence or threat of violence", style: .default) { (UIAlertAction) in
+            self.addReport()
+        }
+        let reportAction3 = UIAlertAction(title: "Sexually explicity content", style: .default) { (UIAlertAction) in
+            self.addReport()
+        }
+        let reportAction4 = UIAlertAction(title: "Inappropriate or graphic content", style: .default) { (UIAlertAction) in
+            self.addReport()
+        }
+        let reportAction5 = UIAlertAction(title: "I just don't want to see it", style: .default) { (UIAlertAction) in
+            self.addReport()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        reportAlert.addAction(reportAction1)
+        reportAlert.addAction(reportAction2)
+        reportAlert.addAction(reportAction3)
+        reportAlert.addAction(reportAction4)
+        reportAlert.addAction(reportAction5)
+        reportAlert.addAction(cancelAction)
+        
+        present(reportAlert, animated: true,completion: nil)
+    }
+    
+    func addReport(){
+        let key = selectedQuestion?.id
+        let uid = selectedQuestion?.uid
+        let currentId = Auth.auth().currentUser?.uid
+        let post = [currentId : "true"]
+        if let questionID = key, let reportedUser = uid{
+            let dbRef = Database.database().reference().child("Questions").child(questionID)
+            let reportRef = Database.database().reference().child("Questions").child(questionID).child("Reports")
+            let userReportRef = Database.database().reference().child("Users").child(reportedUser).child("myQuestion").child(questionID).child("Reports")
+            reportRef.observeSingleEvent(of: .value) { (snapshot) in
+                let reportCount = snapshot.value as? String
+                let newReportCount = Int(reportCount!)! + 1
+                reportRef.setValue(String(newReportCount))
+                userReportRef.setValue(String(newReportCount))
+                dbRef.updateChildValues(post)
+            }
+        }
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
     
     //HEXCODE TO UICOLOR
     func hexStringToUIColor (hex:String) -> UIColor {
@@ -317,7 +382,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}
             self.userObject = User(dictionary: dictionary)
-            self.reputationLabel.title = "\(self.userObject?.Reputation ?? 0)"
+            self.optionsLabel.title = "\(self.userObject?.Reputation ?? 0)"
         })
         {(err) in
             print("Failed to fetch user::", err)

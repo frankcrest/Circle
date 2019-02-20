@@ -53,10 +53,11 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
  
     //MARK ViewWillApear
     override func viewWillAppear(_ animated: Bool) {
+        
+        getCityName()
       
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationItem.title = "New"
-        
         
     }
     
@@ -77,7 +78,6 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
 
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool{
-        getCityName()
         let currentText = textView.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         
@@ -99,8 +99,10 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
             placeMark = placemarks?[0]
             
             // Complete address as PostalAddress
-            print(placeMark.locality as Any)  //  Import Contacts
-            self.cityName = placeMark.locality!
+            guard let city = placeMark.locality else {return}
+            print(city as Any)  //  Import Contacts
+            self.cityName = city
+    
             
             // Location name
             if let locationName = placeMark.name  {
@@ -159,7 +161,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         let long = String(lastLocation!.coordinate.longitude)
         let uid = user?.uid
         let userColor = userObject?.Color
-            let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "Color" : userColor, "QuestionText": questionText.text!, "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "0", "AnswerCount" : "0"]
+        let questionDictionary = ["Sender": Auth.auth().currentUser?.email!, "Color" : userColor, "QuestionText": questionText.text!, "Latitude": lat, "Longitude" : long, "City": cityName, "uid" : uid, uid: "True", "Viewcount" : "0", "AnswerCount" : "0", "Reports" : "0"]
         
         questionsDB.setValue(questionDictionary){
             (error, reference) in

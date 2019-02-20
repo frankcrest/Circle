@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>562241971426-0k4tvvbphg5d2o5bctbvf3kbebtnbmoe.apps.googleusercontent.com</string>
+	<string>39785023547-nus9ce4mas6hqfgkl4u9rbn3013lu031.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.562241971426-0k4tvvbphg5d2o5bctbvf3kbebtnbmoe</string>
+	<string>com.googleusercontent.apps.39785023547-nus9ce4mas6hqfgkl4u9rbn3013lu031</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDJzI0NZbeft5rPFAa3V8MZqEFV-Z_obVk</string>
+	<string>AIzaSyBfWHv-WPD4a0dsC2l4KM9XthkaPEXibc0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>562241971426</string>
+	<string>39785023547</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sprucelee.Circle</string>
+	<string>com.westguards.circl</string>
 	<key>PROJECT_ID</key>
-	<string>circl-573df</string>
+	<string>circl-2019</string>
 	<key>STORAGE_BUCKET</key>
-	<string>circl-573df.appspot.com</string>
+	<string>circl-2019.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:562241971426:ios:5cdb7c387591a563</string>
+	<string>1:39785023547:ios:0f8c40432fe2aadb</string>
 	<key>DATABASE_URL</key>
-	<string>https://circl-573df.firebaseio.com</string>
+	<string>https://circl-2019.firebaseio.com</string>
 </dict>
 </plist>

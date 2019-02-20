@@ -21,8 +21,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var selectedIndexPath: IndexPath = IndexPath()
     var user: User?
     let defaults = UserDefaults.standard
-    
- 
+    let questionDB = Database.database().reference().child("Questions")
     
     @IBOutlet weak var questionTableView: UITableView!
     @IBOutlet weak var locationLabel: UIBarButtonItem!
@@ -33,7 +32,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.fetchUser()
-            self.retreiveQuestions()
             self.getLocation()
             self.getCityName()
             // Bounce back to the main thread to update the UI
@@ -53,14 +51,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.view.layoutIfNeeded()
-        getLocation()
-        questionTableView.reloadData()
-    }
+        override func viewWillAppear(_ animated: Bool) {
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            DispatchQueue.main.async {
+                self.retreiveQuestions()
+            }
+            
+            self.view.layoutIfNeeded()
+        }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        questionDB.removeAllObservers()
+    }
     
     func getDistance(latitude: Double, longitude: Double){
         guard let coordinate0 = lastLocation else {return}
@@ -196,12 +200,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //MARK Retreive question method
     func retreiveQuestions() {
-        let questionDB = Database.database().reference().child("Questions")
         let uid = Auth.auth().currentUser?.uid
         
         questionDB.queryOrdered(byChild: uid!).queryEqual(toValue: nil).observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 self.questionArray.removeAll()
+                print("CALLED")
                 
                 for question in snapshot.children.allObjects as! [DataSnapshot]{
                     let questionObject = question.value as? [String:AnyObject]
@@ -214,14 +218,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let uid = questionObject?["uid"]
                     let viewCount = questionObject?["Viewcount"]
                     let answerCount = questionObject?["AnswerCount"]
+                    let reportCount = questionObject?["Reports"]
                     let key = question.key
+                   
                     
-                    let question = Question(sender: sender as! String, senderColor: sendercolor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String)
+                    let question = Question(sender: sender as! String, senderColor: sendercolor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String, reports: reportCount as! String)
                     self.questionArray.insert(question, at:0)
                 }
+                    print("called")
                     self.configureTableView()
                     self.getLocation()
-                    self.questionTableView.reloadData()
                 }
             }
         }
@@ -238,15 +244,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             placeMark = placemarks?[0]
             
             // Complete address as PostalAddress
-            self.cityName = placeMark.locality
+            if let city = placeMark.locality{
+            self.cityName = city
             self.locationLabel.title = "@\(self.cityName!)"
+            } else {
+                return
+            }
             
         })
     }
     
     func locationFound(_ loc: CLLocation) {
         lastLocation = loc
-        print("LOL")
         questionTableView.reloadData()
     }
     

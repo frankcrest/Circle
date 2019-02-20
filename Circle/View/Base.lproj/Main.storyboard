@@ -159,7 +159,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.47058823529411764" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.49411764705882355" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="uuj-KI-VNM" firstAttribute="top" secondItem="5q3-e0-Gt0" secondAttribute="bottom" constant="5" id="1le-ck-SFi"/>
                             <constraint firstItem="f2X-yL-FVh" firstAttribute="leading" secondItem="Epp-Ea-5TF" secondAttribute="leading" constant="82" id="268-da-6KL"/>
@@ -267,7 +267,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.47058823529411764" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.49411764705882355" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xog-yz-dBM" firstAttribute="top" secondItem="LKO-ky-f3w" secondAttribute="bottom" constant="5" id="3ad-P9-Zzm"/>
                             <constraint firstItem="S68-bF-CdI" firstAttribute="trailing" secondItem="LKO-ky-f3w" secondAttribute="trailing" constant="82" id="8Q7-sx-Rce"/>
@@ -666,14 +666,29 @@ Anyone within your proximate radius can see your question and respond!</string>
         <!--Privacy Policy-->
         <scene sceneID="0wF-2A-JDi">
             <objects>
-                <viewController id="yH0-3l-ddb" sceneMemberID="viewController">
+                <viewController id="yH0-3l-ddb" customClass="PrivacyViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ECL-X3-0tf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NrF-ZP-z5o">
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NrF-ZP-z5o" firstAttribute="leading" secondItem="poE-ky-eKp" secondAttribute="leading" id="HvN-WY-aHK"/>
+                            <constraint firstItem="NrF-ZP-z5o" firstAttribute="top" secondItem="poE-ky-eKp" secondAttribute="top" id="O9E-cT-YE3"/>
+                            <constraint firstItem="poE-ky-eKp" firstAttribute="bottom" secondItem="NrF-ZP-z5o" secondAttribute="bottom" id="OgI-Ru-RIN"/>
+                            <constraint firstItem="poE-ky-eKp" firstAttribute="trailing" secondItem="NrF-ZP-z5o" secondAttribute="trailing" id="bPM-gF-4oD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="poE-ky-eKp"/>
                     </view>
                     <navigationItem key="navigationItem" title="Privacy Policy" id="5jn-fE-OSd"/>
+                    <connections>
+                        <outlet property="webView" destination="NrF-ZP-z5o" id="DWE-BS-qm7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tEr-8W-3jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -714,14 +729,29 @@ Anyone within your proximate radius can see your question and respond!</string>
         <!--Terms of Service-->
         <scene sceneID="cbs-vM-9yg">
             <objects>
-                <viewController id="9Jy-hP-DkA" sceneMemberID="viewController">
+                <viewController id="9Jy-hP-DkA" customClass="TermsViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sLb-2O-VG1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1IF-09-ECe">
+                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DAu-TB-RgP" firstAttribute="trailing" secondItem="1IF-09-ECe" secondAttribute="trailing" id="Tay-zW-mPt"/>
+                            <constraint firstItem="1IF-09-ECe" firstAttribute="top" secondItem="DAu-TB-RgP" secondAttribute="top" id="dYj-10-5lm"/>
+                            <constraint firstItem="DAu-TB-RgP" firstAttribute="bottom" secondItem="1IF-09-ECe" secondAttribute="bottom" id="ifO-ur-Lfh"/>
+                            <constraint firstItem="1IF-09-ECe" firstAttribute="leading" secondItem="sLb-2O-VG1" secondAttribute="leading" id="xor-hE-Clh"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="DAu-TB-RgP"/>
                     </view>
                     <navigationItem key="navigationItem" title="Terms of Service" id="DVD-Mc-182"/>
+                    <connections>
+                        <outlet property="webView" destination="1IF-09-ECe" id="5jS-ke-BgX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="02L-Qy-khN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -791,6 +821,7 @@ Number of views from your questions. Number of likes from your answers. Numb
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="dN4-nV-eTA" firstAttribute="leading" secondItem="NFI-lK-j2B" secondAttribute="leading" id="Xp6-fB-Wzr"/>
                             <constraint firstItem="dN4-nV-eTA" firstAttribute="bottom" secondItem="NFI-lK-j2B" secondAttribute="bottom" id="f8s-Zw-6Ev"/>
@@ -914,7 +945,11 @@ Number of views from your questions. Number of likes from your answers. Numb
                         <viewLayoutGuide key="safeArea" id="753-SA-CpA"/>
                     </view>
                     <navigationItem key="navigationItem" title="Answers" id="Dw5-kJ-dBM">
-                        <barButtonItem key="rightBarButtonItem" id="Uvh-zR-96q"/>
+                        <barButtonItem key="rightBarButtonItem" image="More" id="Uvh-zR-96q">
+                            <connections>
+                                <action selector="moreOptions:" destination="6vr-0W-FKF" id="IfA-Kg-BTz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -925,7 +960,7 @@ Number of views from your questions. Number of likes from your answers. Numb
                         <outlet property="answerTableView" destination="9Qy-lB-PTl" id="7ra-RK-tTH"/>
                         <outlet property="botomView" destination="KFQ-Nq-HR4" id="95r-Ze-6vq"/>
                         <outlet property="heightConstraint" destination="xl9-8Z-qfO" id="SpB-Sk-HkY"/>
-                        <outlet property="reputationLabel" destination="Uvh-zR-96q" id="C3N-QZ-Txs"/>
+                        <outlet property="optionsLabel" destination="Uvh-zR-96q" id="C3N-QZ-Txs"/>
                         <outlet property="textField" destination="qYn-a7-g3J" id="QNi-dl-cWi"/>
                         <outlet property="userInputBottomViewHC" destination="833-pq-if1" id="BaS-Ko-hdg"/>
                     </connections>
@@ -1083,7 +1118,7 @@ Number of views from your questions. Number of likes from your answers. Numb
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0qs-ST-v3r">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.49411764705882355" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1104,7 +1139,7 @@ Number of views from your questions. Number of likes from your answers. Numb
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.49411764705882355" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1125,7 +1160,7 @@ Number of views from your questions. Number of likes from your answers. Numb
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.49411764705882355" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
@@ -1149,7 +1184,7 @@ Number of views from your questions. Number of likes from your answers. Numb
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.49411764705882355" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
@@ -1172,7 +1207,7 @@ Number of views from your questions. Number of likes from your answers. Numb
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="siP-AX-m8Q">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.49411764705882355" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1185,6 +1220,7 @@ Number of views from your questions. Number of likes from your answers. Numb
         </scene>
     </scenes>
     <resources>
+        <image name="More" width="24" height="24"/>
         <image name="add" width="25" height="25"/>
         <image name="chat" width="25" height="25"/>
         <image name="circleImage" width="170" height="170"/>
@@ -1195,7 +1231,7 @@ Number of views from your questions. Number of likes from your answers. Numb
         <image name="user" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vi5-x1-pCe"/>
+        <segue reference="e6c-7c-cKv"/>
         <segue reference="c2O-4V-Vpf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
