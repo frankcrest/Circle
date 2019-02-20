@@ -951,11 +951,6 @@ Number of views from your questions. Number of likes from your answers. Numb
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="answerTableView" destination="9Qy-lB-PTl" id="7ra-RK-tTH"/>
                         <outlet property="botomView" destination="KFQ-Nq-HR4" id="95r-Ze-6vq"/>

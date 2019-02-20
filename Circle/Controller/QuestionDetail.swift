@@ -22,6 +22,8 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     var initialBottomViewHc : CGFloat?
     var userObject: User?
     var inset : CGFloat?
+    var indexPathForReport : IndexPath!
+    let answerDB = Database.database().reference().child("Answers")
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var userInputBottomViewHC: NSLayoutConstraint!
@@ -48,7 +50,6 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.getLocation()
-            self.retreiveAnswers()
             self.fetchUser()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
@@ -80,9 +81,18 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.retreiveAnswers()
+        }
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.botomView.addBorder(side: .top, thickness: 0.5, color: UIColor.lightGray )
         resetTextview()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        answerDB.removeAllObservers()
     }
     
     func configureTableView() {
@@ -218,8 +228,10 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.cellDelegate = self
             cell.questionID = uniqueID
+            print("the index \(answerArray)")
             cell.answerID = answerArray[indexPath.row - 1].id
-            cell.answerIndex = indexPath.row - 1
+            print("the index path is currently \(indexPath.row - 1)")
+            cell.answerIndex = indexPath.row
             cell.usernameLabel.text = String(answerArray[indexPath.row - 1].sender.dropLast(10))
             cell.usernameLabel.textColor = hexStringToUIColor(hex: answerArray[indexPath.row - 1].senderColor)
             cell.answerTextLabel.text = answerArray[indexPath.row - 1].answerText
@@ -239,12 +251,50 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    //Swipe
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        if answerArray[indexPath.row - 1].chatWith == user?.uid{
+            let trashAction = UIContextualAction(style: .destructive, title: "Trash") { (action, view, handler) in
+                print("Trash action tapped")
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let action = UIAlertAction(title: "Delete", style: .destructive, handler: { (UIAlertAction) in
+                    self.deleteMessage(index: indexPath)
+                    //self.answerArray.remove(at: indexPath.row - 1)
+                    print("remove at \(indexPath.row - 1)")
+                })
+                let action1 = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alert.addAction(action)
+                alert.addAction(action1)
+                self.present(alert, animated: true, completion: nil)
+            }
+            trashAction.backgroundColor = hexStringToUIColor(hex: "#FF7E79")
+            trashAction.image = UIImage(named: "trash")
+            let configuration = UISwipeActionsConfiguration(actions: [trashAction])
+            answerTableView.reloadData()
+            return configuration
+        } else {
+        
+        let flagAction = UIContextualAction(style: .normal, title: "Flag") { (action, view, handler) in
+            
+            print("Flag action tapped")
+            self.showReportActions(reportMethod: self.reportMessage)
+            self.indexPathForReport = indexPath
+        }
+        flagAction.backgroundColor = hexStringToUIColor(hex: "#FF7E79")
+        flagAction.image = UIImage(named: "flag")
+        let configuration = UISwipeActionsConfiguration(actions: [flagAction])
+        answerTableView.reloadData()
+        return configuration
+    }
+    }
+    
     //More options for flagging
     @IBAction func moreOptions(_ sender: UIBarButtonItem) {
         
         let optionsAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let reportAction = UIAlertAction(title: "Report", style: .default) { (UIAlertAction) in
-            self.showReportActions()
+            self.showReportActions(reportMethod: self.reportQuestion)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -252,28 +302,29 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         optionsAlert.addAction(cancelAction)
         
         present(optionsAlert, animated: true, completion: nil)
-        
        
     }
     
-    func showReportActions(){
+    func showReportActions(reportMethod: @escaping () -> Void){
         let reportAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let reportAction1 = UIAlertAction(title: "Harassment or hate speech", style: .default) { (UIAlertAction) in
-            self.addReport()
+            reportMethod()
         }
         let reportAction2 = UIAlertAction(title: "Violence or threat of violence", style: .default) { (UIAlertAction) in
-            self.addReport()
+            reportMethod()
         }
         let reportAction3 = UIAlertAction(title: "Sexually explicity content", style: .default) { (UIAlertAction) in
-            self.addReport()
+            reportMethod()
         }
         let reportAction4 = UIAlertAction(title: "Inappropriate or graphic content", style: .default) { (UIAlertAction) in
-            self.addReport()
+            reportMethod()
         }
         let reportAction5 = UIAlertAction(title: "I just don't want to see it", style: .default) { (UIAlertAction) in
-            self.addReport()
+            reportMethod()
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){ (UIAlertAction) in
+            self.answerTableView.reloadData()
+            }
         
         reportAlert.addAction(reportAction1)
         reportAlert.addAction(reportAction2)
@@ -285,7 +336,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         present(reportAlert, animated: true,completion: nil)
     }
     
-    func addReport(){
+    func reportQuestion(){
         let key = selectedQuestion?.id
         let uid = selectedQuestion?.uid
         let currentId = Auth.auth().currentUser?.uid
@@ -305,7 +356,41 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.navigationController?.popViewController(animated: true)
     }
     
+    func reportMessage(){
+        let key = selectedQuestion?.id
+        let reportedAnswerID = answerArray[indexPathForReport.row - 1].id
+        let currentId = Auth.auth().currentUser?.uid
+        let post = [currentId : "true"]
+        
+        if let questionID = key{
+        let dbRef = Database.database().reference().child("Answers").child(questionID).child(reportedAnswerID)
+        dbRef.updateChildValues(post)
+        }
+        answerTableView.reloadData()
+    }
     
+    func deleteMessage(index:IndexPath){
+        let questionKey = selectedQuestion?.id
+        let answerKey = answerArray[index.row - 1].id
+        if let questionID = questionKey{
+            let dbRef = Database.database().reference().child("Answers").child(questionID).child(answerKey)
+            let userRef = Database.database().reference().child("Users").child(user!.uid).child("myAnswer").child(answerKey)
+            
+            dbRef.removeValue()
+            userRef.removeValue()
+            
+            answerTableView.reloadData()
+        }
+    }
+    
+    //Editing Style
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == 0 {
+            return false
+        } else{
+            return true
+        }
+    }
     
     //HEXCODE TO UICOLOR
     func hexStringToUIColor (hex:String) -> UIColor {
@@ -342,9 +427,10 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK Retreive Answers method
     func retreiveAnswers() {
-        let answerDB = Database.database().reference().child("Answers").child(uniqueID).queryOrdered(byChild: "Likes")
+        let uid = Auth.auth().currentUser?.uid
+            //.queryOrdered(byChild: "Likes")
         
-        answerDB.observe(DataEventType.value) { (snapshot) in
+        answerDB.child(uniqueID).queryOrdered(byChild: uid!).queryEqual(toValue: nil).observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 self.answerArray.removeAll()
                 
@@ -369,6 +455,9 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                      self.answerArray.insert(answer, at:0)
                 }
                 self.configureTableView()
+                self.answerTableView.reloadData()
+            } else{
+                self.answerArray.removeAll()
                 self.answerTableView.reloadData()
             }
         }
@@ -446,10 +535,10 @@ extension QuestionDetail : UpdateLikeButtonDelegate {
 
     func updateAnswerArrayDelegate(index: Int, userID: String, isAdd: Bool) {
         if isAdd {
-            self.answerArray[index].peopleWhoLike.append(userID)
+            self.answerArray[index - 1].peopleWhoLike.append(userID)
         } else {
-            if self.answerArray[index].peopleWhoLike.contains(userID) {
-                self.answerArray[index].peopleWhoLike.removeAll{ $0 == userID}
+            if self.answerArray[index - 1].peopleWhoLike.contains(userID) {
+                self.answerArray[index - 1].peopleWhoLike.removeAll{ $0 == userID}
                 }
             }
     }

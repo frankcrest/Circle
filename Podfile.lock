@@ -64,9 +64,6 @@ PODS:
   - GTMSessionFetcher/Core (1.2.0)
   - KMPlaceholderTextView (1.4.0)
   - leveldb-library (1.20)
-  - MessageInputBar/Core (0.4.1)
-  - MessageKit (2.0.0):
-    - MessageInputBar/Core
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -80,7 +77,6 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - KMPlaceholderTextView (~> 1.4.0)
-  - MessageKit
   - SVProgressHUD
 
 SPEC REPOS:
@@ -97,8 +93,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - KMPlaceholderTextView
     - leveldb-library
-    - MessageInputBar
-    - MessageKit
     - nanopb
     - SVProgressHUD
 
@@ -125,11 +119,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
-  MessageInputBar: e81c7535347f1f7b923de7080409a535a004b6e4
-  MessageKit: 29c1c87e5a396d2ca7a3f712e5171dc9aba42a1e
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: d5bd2685801a1b3267ef5ab013b4be9f12598d3d
+PODFILE CHECKSUM: 7e7726b11f8cf2d313ca9b9807b0970766e32aac
 
 COCOAPODS: 1.5.3

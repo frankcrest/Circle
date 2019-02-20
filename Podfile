@@ -11,6 +11,5 @@ pod 'Firebase/Database'
 pod 'SVProgressHUD'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
 pod 'KMPlaceholderTextView', '~> 1.4.0'
-pod 'MessageKit'
-
+    
 end
