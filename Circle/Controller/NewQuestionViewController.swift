@@ -19,6 +19,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     var lastLocation: CLLocation? = nil
     var cityName = ""
     var userObject: User?
+    var blockList = [String]()
     
     @IBOutlet weak var questionText: UITextView!
     //MARK ViewDidLoad
@@ -54,6 +55,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     //MARK ViewWillApear
     override func viewWillAppear(_ animated: Bool) {
         
+        retreiveBlockList()
         getCityName()
       
         self.tabBarController?.tabBar.isHidden = true
@@ -180,16 +182,36 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
                     }
                     else {
                         print("My question saved succesfully")
+                        for blocked in self.blockList{
+                            let dictionary = [blocked:"True"]
+                            myquestionDB.child(key!).updateChildValues(dictionary)
+                        }
                     }
                 }
+                for blocked in self.blockList{
+                    let dictionary = [blocked:"True"]
+                    questionsDB.updateChildValues(dictionary)
+                }
             }
+
         }
-        
         } else {
             print ("You need to type something")
         }
     }
     
+    //retreiveBlockList
+    func retreiveBlockList(){
+        let blockListRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
+        blockListRef.observeSingleEvent(of: .value) { (snapshot) in
+            for a in ((snapshot.value as AnyObject).allKeys)!{
+                self.blockList.append(a as! String)
+                print(self.blockList)
+            }
+        }
+    }
+    
+   
     
     //resetTextview Function
     

@@ -24,12 +24,15 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     var lastMessage = ""
     var myUsername = ""
     let user = Auth.auth().currentUser
-    
+    var willBlockUserID : String?
+    var questionListForBlock = [String]()
+    var reverseQuestionListForBlock = [String]()
     var selectedMessage : Message? {
         didSet{
         }
     }
-    
+    lazy var messageDB = Database.database().reference().child("Messages").child((user?.uid)!).child(chatWithUser)
+    let getQuestionRef = Database.database().reference().child("Questions")
     
     @IBOutlet weak var directChatTableView: UITableView!
     @IBOutlet weak var bottomviewHC: NSLayoutConstraint!
@@ -42,15 +45,9 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         
         super.viewDidLoad()
         
-        DispatchQueue.global(qos: .userInitiated).async {
-          self.retreiveMessages()
-            // Bounce back to the main thread to update the UI
-            DispatchQueue.main.async {
-                self.configureTableView()
+        // Bounce back to the main thread to update the UI
+        self.configureTableView()
 
-            }
-        }
-        
         textField.delegate = self
         textField.isScrollEnabled = false
         directChatTableView.delegate = self
@@ -73,11 +70,20 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     
     
     override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.retreiveMessages()
+        }
           navigationItem.title = navTitle
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         botomView.addBorder(side: .top, thickness: 0.5, color: UIColor.lightGray)
         directChatTableView.separatorStyle = .none
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        messageDB.removeAllObservers()
+        getQuestionRef.removeAllObservers()
     }
     
     
@@ -163,7 +169,6 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     
     func reportUser(){
         let userID = user?.uid
-        var willBlockUserID : String
         if userID == messageArray[0].sendTo{
             willBlockUserID = messageArray[0].sender
         } else{
@@ -174,11 +179,10 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         
         //let dbRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
         //let blockUserRef = Database.database().reference().child("Blocklist").child(willBlockUserID)
-        let UserToReport = Database.database().reference().child("Users").child(willBlockUserID).child("Reports")
         //dbRef.updateChildValues(dictionary)
         //blockUserRef.updateChildValues(dictionary)
-        
-        UserToReport.observeSingleEvent(of: .value) { (snapshot) in
+         let UserToReport = Database.database().reference().child("Users").child(willBlockUserID!).child("Reports")
+            UserToReport.observeSingleEvent(of: .value) { (snapshot) in
             let reportCount = snapshot.value as? String
             let newReportCount = Int(reportCount!)! + 1
             UserToReport.setValue(String(newReportCount))
@@ -191,30 +195,83 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     }
     func blockUser(){
         let userID = user?.uid
-        var willBlockUserID : String
         if user?.uid == messageArray[0].sendTo{
             willBlockUserID = messageArray[0].sender
         } else{
             willBlockUserID = messageArray[0].sendTo
         }
         
-        let dictionary = [willBlockUserID:"true"]
-        let reverseDictionary = [userID:"true"]
+        let dictionary = [willBlockUserID:"True"]
+        let reverseDictionary = [userID:"True"]
         let blockedDictionary = [userID:"True"]
         
         let dbRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
-        let blockUserRef = Database.database().reference().child("Blocklist").child(willBlockUserID)
+        let blockUserRef = Database.database().reference().child("Blocklist").child(willBlockUserID!)
         dbRef.updateChildValues(dictionary)
         blockUserRef.updateChildValues(reverseDictionary)
         
-        let friendRef = Database.database().reference().child("Friends").child(userID!).child(willBlockUserID)
+        let friendRef = Database.database().reference().child("Friends").child(userID!).child(willBlockUserID!)
         friendRef.updateChildValues(blockedDictionary)
+        let reverseFriendRef = Database.database().reference().child("Friends").child(willBlockUserID!).child(userID!)
+        reverseFriendRef.updateChildValues([userID!:"True"])
         
-        
-        
+        getQuestionListToBlock()
+        getReverseQuestionListToBlock()
         
         self.navigationController?.popViewController(animated: true)
         
+    }
+    
+    func getQuestionListToBlock(){
+        
+        getQuestionRef.queryOrdered(byChild: "uid").queryEqual(toValue: willBlockUserID).observe(DataEventType.value) { (snapshot) in
+            
+            if snapshot.childrenCount > 0 {
+                self.questionListForBlock.removeAll()
+                
+                for question in snapshot.children.allObjects as! [DataSnapshot]{
+                    let key = question.key
+                    self.questionListForBlock.append(key)
+   
+                    }
+                }
+            self.blockQuestionList()
+            }
+        }
+    
+    func getReverseQuestionListToBlock(){
+        getQuestionRef.queryOrdered(byChild: "uid").queryEqual(toValue: user?.uid).observe(DataEventType.value) { (snapshot) in
+            
+            if snapshot.childrenCount > 0 {
+                self.reverseQuestionListForBlock.removeAll()
+                
+                for question in snapshot.children.allObjects as! [DataSnapshot]{
+                    let key = question.key
+                    self.reverseQuestionListForBlock.append(key)
+                    
+                }
+            }
+            self.blockReverseQuestionList()
+        }
+        
+    }
+    
+    
+    func blockQuestionList(){
+        for key in questionListForBlock{
+        let dbRef = Database.database().reference().child("Questions").child(key)
+        let dictionary = [user?.uid : "True"]
+        dbRef.updateChildValues(dictionary)
+        }
+        
+    }
+    
+    func blockReverseQuestionList(){
+        for key in reverseQuestionListForBlock{
+            let dbRef = Database.database().reference().child("Questions").child(key)
+            let dictionary = [willBlockUserID : "True"]
+            dbRef.updateChildValues(dictionary)
+        }
     }
 
     
@@ -288,7 +345,6 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func retreiveMessages(){
-        let messageDB = Database.database().reference().child("Messages").child((user?.uid)!).child(chatWithUser)
 
         messageDB.observe(.childAdded) { (snapshot) in
             if let snapshotValue = snapshot.value as? Dictionary <String, String> {

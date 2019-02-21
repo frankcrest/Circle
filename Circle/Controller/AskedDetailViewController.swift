@@ -122,7 +122,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             
             for person in answerArray[indexPath.row - 1].peopleWhoLike {
                 if person == Auth.auth().currentUser!.uid{
-                    print(person)
+                    //print(person)
                     cell.answerCheckMark.isHidden = true
                     cell.answerCheckMark.isHidden = false
                     break

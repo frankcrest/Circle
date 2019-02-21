@@ -39,7 +39,7 @@ class CustomLocationManager:NSObject, CLLocationManagerDelegate {
         for currentLocation in locations{
             self.delegateLoc?.locationFound(locations.last!)
    
-            print("\(index):\(currentLocation)")
+            //print("\(index):\(currentLocation)")
 
 
         }

@@ -39,6 +39,8 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         didSet{
         }
     }
+    
+    var blockList = [String]()
 
     @IBOutlet weak var answerTableView: UITableView!
     @IBOutlet weak var textField: UITextView!
@@ -83,6 +85,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.retreiveAnswers()
+            self.retreiveBlockList()
         }
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.botomView.addBorder(side: .top, thickness: 0.5, color: UIColor.lightGray )
@@ -479,6 +482,19 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    //retreiveBlockList
+    func retreiveBlockList(){
+        let user = Auth.auth().currentUser
+        let blockListRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
+        blockListRef.observeSingleEvent(of: .value) { (snapshot) in
+            for a in ((snapshot.value as AnyObject).allKeys)!{
+                self.blockList.append(a as! String)
+                print(self.blockList)
+            }
+        }
+    }
+
+    
     //MARK Retreive question method
 
     @IBAction func submitButton(_ sender: UIButton) {
@@ -500,8 +516,16 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(error!)
             }
             else{
+                for blocked in self.blockList{
+                let dictionary = [blocked:"True"]
+                answerDB.updateChildValues(dictionary)
+                }
                 let key = answerDB.key
                 myquestionDB.child(key!).setValue(answerDictionary)
+                for blocked in self.blockList{
+                    let dictionary = [blocked:"True"]
+                    myquestionDB.child(key!).updateChildValues(dictionary)
+                }
                 self.updateAnswerCount()
                 print("My Answer Saved Succesfully")
                 self.resetTextview()
