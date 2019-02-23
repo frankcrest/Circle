@@ -269,8 +269,6 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
         
         let flagAction = UIContextualAction(style: .normal, title: "Flag") { (action, view, handler) in
-            
-            print("Flag action tapped")
             self.showReportActions(reportMethod: self.reportMessage)
             self.indexPathForReport = indexPath
         }
@@ -347,22 +345,24 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
         let alert = UIAlertController(title: "Question Reported", message: "Thank you for reporting, this question have been removed from your feed.", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        let action = UIAlertAction(title: "Okay", style: .default){(action) in
+            self.navigationController?.popViewController(animated: true)
+        }
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
-        self.navigationController?.popViewController(animated: true)
+        
     }
     
     func reportMessage(){
         let key = selectedQuestion?.id
         let reportedAnswerID = answerArray[indexPathForReport.row - 1].id
-        let reportedAnswerUserID = answerArray[indexPathForReport.row - 1].posterID
+        let reportedAnswerUserID = answerArray[indexPathForReport.row - 1].chatWith
         let currentId = Auth.auth().currentUser?.uid
         let post = [currentId : "true"]
 
         if let questionID = key{
         let dbRef = Database.database().reference().child("Answers").child(questionID).child(reportedAnswerID)
-        let userReportRef = Database.database().reference().child("Users").child(reportedAnswerUserID).child("myAnswer").child(questionID).child("Reports")
+        let userReportRef = Database.database().reference().child("Users").child(reportedAnswerUserID).child("myAnswer").child(reportedAnswerID).child("Reports")
         dbRef.updateChildValues(post)
         let reportCountRef = dbRef.child("Reports")
             reportCountRef.observeSingleEvent(of: .value) { (snapshot) in
@@ -521,7 +521,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func submitButton(_ sender: UIButton) {
     
         if !textField.text.trimmingCharacters(in: .whitespaces).isEmpty{
-        let myquestionDB=Database.database().reference().child("Users").child((user?.uid)!).child("myAnswer")
+        let myAnswerDB=Database.database().reference().child("Users").child((user?.uid)!).child("myAnswer")
         let answerDB = Database.database().reference().child("Answers").child(uniqueID).childByAutoId()
         let lat = String(lastLocation!.coordinate.latitude)
         let long = String(lastLocation!.coordinate.longitude)
@@ -542,10 +542,10 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                 answerDB.updateChildValues(dictionary)
                 }
                 let key = answerDB.key
-                myquestionDB.child(key!).setValue(answerDictionary)
+                myAnswerDB.child(key!).setValue(answerDictionary)
                 for blocked in self.blockList{
                     let dictionary = [blocked:"True"]
-                    myquestionDB.child(key!).updateChildValues(dictionary)
+                    myAnswerDB.child(key!).updateChildValues(dictionary)
                 }
                 self.updateAnswerCount()
                 print("My Answer Saved Succesfully")
