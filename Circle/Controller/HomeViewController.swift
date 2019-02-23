@@ -90,6 +90,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let questionLon = Double(questionArray[indexPath.row].lon)
         getDistance(latitude: questionLat!, longitude: questionLon!)
         
+        if Int(questionArray[indexPath.row].reports)! < 10 {
+        
         cell.usernameLabel.text = String(questionArray[indexPath.row].sender.dropLast(10))
         cell.usernameLabel.textColor = hexStringToUIColor(hex: questionArray[indexPath.row].senderColor)
         cell.questionTextLabel.text = questionArray[indexPath.row].questionText
@@ -118,10 +120,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.distanceLabel.text = "900m"
         default:
         cell.distanceLabel.text = String(format: "%.0f", distance / 1000) + " km"
-        }
+                }
+            }
         }
         return cell
-        
     }
     
     //MARK numOfRowsInSection
@@ -240,8 +242,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
             
             // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
+            //var placeMark: CLPlacemark!
+            guard let placeMark = placemarks?[0] else {return}
             
             // Complete address as PostalAddress
             if let city = placeMark.locality{

@@ -162,9 +162,10 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
                     let longitude = answerObject?["Longitude"]
                     let uid = answerObject?["Uid"]
                     let posterID = answerObject?["PosterID"]
+                    let reportCount = answerObject?["Reports"]
                     let key = answer.key
                     
-                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String, posterID: posterID as! String)
+                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String, posterID: posterID as! String, reports: reportCount as! String)
                     
                     if let peopleswholike = answerObject?["peopleWhoLike"] as? [String : AnyObject] {
                         for (_, person) in peopleswholike{

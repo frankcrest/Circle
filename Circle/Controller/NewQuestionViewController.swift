@@ -20,6 +20,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     var cityName = ""
     var userObject: User?
     var blockList = [String]()
+    let networkManager = NetworkManager()
     
     @IBOutlet weak var questionText: UITextView!
     //MARK ViewDidLoad
@@ -97,8 +98,7 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         geoCoder.reverseGeocodeLocation(location!, completionHandler: { (placemarks, error) -> Void in
             
             // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
+            guard let placeMark = placemarks?[0] else {return}
             
             // Complete address as PostalAddress
             guard let city = placeMark.locality else {return}
@@ -156,7 +156,13 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
     
     //Mark submitButton
     @IBAction func submitQuestion(_ sender: UIBarButtonItem) {
+        
+        if networkManager.reachability.connection == .none{
+            connectionAlert()
+        } else {
+        
         if !questionText.text.trimmingCharacters(in: .whitespaces).isEmpty{
+            
         let myquestionDB=Database.database().reference().child("Users").child((user?.uid)!).child("myQuestion")
         let questionsDB = Database.database().reference().child("Questions").childByAutoId()
         let lat = String(lastLocation!.coordinate.latitude)
@@ -168,7 +174,6 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
         questionsDB.setValue(questionDictionary){
             (error, reference) in
             if error != nil {
-                print(error!)
             }
             else {
                 let key = questionsDB.key
@@ -191,22 +196,35 @@ class NewQuestionViewController: UIViewController, UITextViewDelegate{
                 for blocked in self.blockList{
                     let dictionary = [blocked:"True"]
                     questionsDB.updateChildValues(dictionary)
+                    }
                 }
             }
-
-        }
         } else {
-            print ("You need to type something")
+            let alert = UIAlertController(title: "Empty Question", message: "You need to type a question", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
         }
+        }
+    }
+    
+    func connectionAlert(){
+        let alert = UIAlertController(title: "Error Connecting", message: "Please make sure you are connected to the internet", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
     //retreiveBlockList
     func retreiveBlockList(){
         let blockListRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
         blockListRef.observeSingleEvent(of: .value) { (snapshot) in
-            for a in ((snapshot.value as AnyObject).allKeys)!{
-                self.blockList.append(a as! String)
-                print(self.blockList)
+            if snapshot.childrenCount > 0 {
+                self.blockList.removeAll()
+                for a in ((snapshot.value as AnyObject).allKeys)!{
+                    self.blockList.append(a as! String)
+                    print(self.blockList)
+                }
             }
         }
     }

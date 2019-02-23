@@ -228,12 +228,11 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: "customAnswerCell", for: indexPath) as! AnswerCell
             
             cell.selectionStyle = .none
-            
             cell.cellDelegate = self
+            
+            if Int(answerArray[indexPath.row - 1].reports)! < 5 {
             cell.questionID = uniqueID
-            print("the index \(answerArray)")
             cell.answerID = answerArray[indexPath.row - 1].id
-            print("the index path is currently \(indexPath.row - 1)")
             cell.answerIndex = indexPath.row
             cell.usernameLabel.text = String(answerArray[indexPath.row - 1].sender.dropLast(10))
             cell.usernameLabel.textColor = hexStringToUIColor(hex: answerArray[indexPath.row - 1].senderColor)
@@ -248,6 +247,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                     break
             }
             }
+            }
 
             return cell
 
@@ -259,17 +259,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         if answerArray[indexPath.row - 1].chatWith == user?.uid{
             let trashAction = UIContextualAction(style: .destructive, title: "Trash") { (action, view, handler) in
-                print("Trash action tapped")
-                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                let action = UIAlertAction(title: "Delete", style: .destructive, handler: { (UIAlertAction) in
                     self.deleteMessage(index: indexPath)
-                    //self.answerArray.remove(at: indexPath.row - 1)
-                    print("remove at \(indexPath.row - 1)")
-                })
-                let action1 = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                alert.addAction(action)
-                alert.addAction(action1)
-                self.present(alert, animated: true, completion: nil)
             }
             trashAction.backgroundColor = hexStringToUIColor(hex: "#FF7E79")
             trashAction.image = UIImage(named: "trash")
@@ -356,34 +346,61 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                 dbRef.updateChildValues(post)
             }
         }
+        let alert = UIAlertController(title: "Question Reported", message: "Thank you for reporting, this question have been removed from your feed.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
     }
     
     func reportMessage(){
         let key = selectedQuestion?.id
         let reportedAnswerID = answerArray[indexPathForReport.row - 1].id
+        let reportedAnswerUserID = answerArray[indexPathForReport.row - 1].posterID
         let currentId = Auth.auth().currentUser?.uid
         let post = [currentId : "true"]
-        
+
         if let questionID = key{
         let dbRef = Database.database().reference().child("Answers").child(questionID).child(reportedAnswerID)
+        let userReportRef = Database.database().reference().child("Users").child(reportedAnswerUserID).child("myAnswer").child(questionID).child("Reports")
         dbRef.updateChildValues(post)
+        let reportCountRef = dbRef.child("Reports")
+            reportCountRef.observeSingleEvent(of: .value) { (snapshot) in
+                let reportCount = snapshot.value as? String
+                let newReportCount = Int(reportCount!)! + 1
+                reportCountRef.setValue(String(newReportCount))
+                userReportRef.setValue(String(newReportCount))
+            }
         }
+        let alert = UIAlertController(title: "Answer Reported", message: "Thank you for reporting, this answer have been removed from your feed.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
         answerTableView.reloadData()
     }
     
     func deleteMessage(index:IndexPath){
         let questionKey = selectedQuestion?.id
         let answerKey = answerArray[index.row - 1].id
-        if let questionID = questionKey{
-            let dbRef = Database.database().reference().child("Answers").child(questionID).child(answerKey)
-            let userRef = Database.database().reference().child("Users").child(user!.uid).child("myAnswer").child(answerKey)
-            
-            dbRef.removeValue()
-            userRef.removeValue()
-            
-            answerTableView.reloadData()
+        let alert = UIAlertController(title: "Delete Answer?", message: "Deleting your answer will remove it from the feed and it cannot be reversed.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){(action) in
+            self.answerTableView.reloadData()
         }
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (UIAlertAction) in
+            if let questionID = questionKey{
+                let dbRef = Database.database().reference().child("Answers").child(questionID).child(answerKey)
+                let userRef = Database.database().reference().child("Users").child(self.user!.uid).child("myAnswer").child(answerKey)
+                
+                dbRef.removeValue()
+                userRef.removeValue()
+                
+                self.answerTableView.reloadData()
+            }
+        }
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+        
     }
     
     //Editing Style
@@ -447,9 +464,10 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let longitude = answerObject?["Longitude"]
                     let uid = answerObject?["Uid"]
                     let posterID = answerObject?["PosterID"]
+                    let reportCount = answerObject?["Reports"]
                     let key = answer.key
                     
-                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String, posterID: posterID as! String)
+                    let answer = Answer(sender: sender as! String, senderColor: senderColor as! String, answerText: text as! String, likes: like as! String, lat: latitude as! String, lon: longitude as! String, id: key, chatWith: uid as! String, posterID: posterID as! String, reports: reportCount as! String)
                     
                     if let peopleswholike = answerObject?["peopleWhoLike"] as? [String : AnyObject] {
                         for (_, person) in peopleswholike{
@@ -487,9 +505,12 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         let user = Auth.auth().currentUser
         let blockListRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
         blockListRef.observeSingleEvent(of: .value) { (snapshot) in
-            for a in ((snapshot.value as AnyObject).allKeys)!{
-                self.blockList.append(a as! String)
-                print(self.blockList)
+            if snapshot.childrenCount > 0 {
+                self.blockList.removeAll()
+                for a in ((snapshot.value as AnyObject).allKeys)!{
+                    self.blockList.append(a as! String)
+                    print(self.blockList)
+                }
             }
         }
     }
@@ -508,7 +529,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         let userColor = userObject?.Color
         let userRep = (userObject?.Reputation)
         
-            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!,"Color":userColor, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid, "rep" : "\(userRep ?? 0)", "PosterID" : selectedQuestion?.uid]
+            let answerDictionary = ["Sender": Auth.auth().currentUser?.email!,"Color":userColor, "AnswerText": textField.text!, "Latitude": lat, "Longitude" : long, "Likes" : "0", "Uid" : uid, "rep" : "\(userRep ?? 0)", "PosterID" : selectedQuestion?.uid, "Reports" : "0"]
     
             answerDB.setValue(answerDictionary){
             (error,reference) in
@@ -532,6 +553,10 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
             } else {
+                let alert = UIAlertController(title: "Answer Empty", message: "Please type a valid answer", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+                alert.addAction(action)
+            present(alert, animated:true, completion: nil)
                 print("Please type a valid answer")
             }
     }

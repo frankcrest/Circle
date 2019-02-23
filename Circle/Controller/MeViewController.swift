@@ -17,6 +17,8 @@ class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
     var user : User?
     var lastLocation: CLLocation? = nil
     let userdefaults = UserDefaults.standard
+    let uid = Auth.auth().currentUser?.uid
+    lazy var ref = Database.database().reference().child("Users").child(uid!)
 
     
     @IBOutlet weak var viewsLabel: UILabel!
@@ -57,6 +59,9 @@ class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
     
     
     override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.fetchUser()
+        }
         self.viewsText.text = "question\nviews"
         self.answerText.text = "answer\nlikes"
         self.answerAcceptedText.text = "answer\naccepted"
@@ -65,6 +70,10 @@ class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
         self.acceptedLabel.text = self.user?.answerAccepted
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.topItem?.title = userdefaults.string(forKey: "Username")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        ref.removeAllObservers()
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -102,9 +111,7 @@ class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
     
     
     func fetchUser(){
-        
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        let ref = Database.database().reference().child("Users").child(uid)
+
         ref.observe(.value, with: { (snapshot) in
             
             guard let dictionary = snapshot.value as? Dictionary<String, Any> else {return}

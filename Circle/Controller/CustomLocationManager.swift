@@ -36,12 +36,9 @@ class CustomLocationManager:NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        for currentLocation in locations{
+        for _ in locations{
             self.delegateLoc?.locationFound(locations.last!)
-   
-            //print("\(index):\(currentLocation)")
-
-
+            //print("\(index):\(currentLocation)"
         }
     }
 }

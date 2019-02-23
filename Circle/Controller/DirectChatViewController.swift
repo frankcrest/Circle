@@ -121,6 +121,7 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
     @IBAction func moreOptions(_ sender: UIBarButtonItem) {
         let optionsAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let blockAction = UIAlertAction(title: "Block", style: .destructive) { (UIAlertAction) in
+
             self.blockUser()
         }
         let reportAction = UIAlertAction(title: "Report", style: .destructive) { (UIAlertAction) in
@@ -175,12 +176,6 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
             willBlockUserID = messageArray[0].sendTo
         }
         
-        //let dictionary = [userID:willBlockUserID]
-        
-        //let dbRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
-        //let blockUserRef = Database.database().reference().child("Blocklist").child(willBlockUserID)
-        //dbRef.updateChildValues(dictionary)
-        //blockUserRef.updateChildValues(dictionary)
          let UserToReport = Database.database().reference().child("Users").child(willBlockUserID!).child("Reports")
             UserToReport.observeSingleEvent(of: .value) { (snapshot) in
             let reportCount = snapshot.value as? String
@@ -207,19 +202,24 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         
         let dbRef = Database.database().reference().child("Blocklist").child((user?.uid)!)
         let blockUserRef = Database.database().reference().child("Blocklist").child(willBlockUserID!)
-        dbRef.updateChildValues(dictionary)
-        blockUserRef.updateChildValues(reverseDictionary)
-        
         let friendRef = Database.database().reference().child("Friends").child(userID!).child(willBlockUserID!)
-        friendRef.updateChildValues(blockedDictionary)
         let reverseFriendRef = Database.database().reference().child("Friends").child(willBlockUserID!).child(userID!)
-        reverseFriendRef.updateChildValues([userID!:"True"])
-        
-        getQuestionListToBlock()
-        getReverseQuestionListToBlock()
-        
-        self.navigationController?.popViewController(animated: true)
-        
+       
+        let alert = UIAlertController(title: "Block \(navTitle)?", message: "They won't be able to find your questions or answers on Circl. Circl won't let them know you blocked them.", preferredStyle: .alert)
+        let blockAction = UIAlertAction(title: "Block", style: .default) { (action) in
+            dbRef.updateChildValues(dictionary)
+            blockUserRef.updateChildValues(reverseDictionary)
+            friendRef.updateChildValues(blockedDictionary)
+            reverseFriendRef.updateChildValues([userID!:"True"])
+            self.getQuestionListToBlock()
+            self.getReverseQuestionListToBlock()
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(blockAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     
     func getQuestionListToBlock(){

@@ -1235,7 +1235,7 @@ Number of views from your questions. Number of likes from your answers. Numb
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="e6c-7c-cKv"/>
-        <segue reference="ent-XN-JxE"/>
+        <segue reference="c2O-4V-Vpf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

@@ -18,9 +18,10 @@ class Answer {
     var checkby : Bool = false
     var chatWith : String
     var posterID : String
+    var reports: String
     
     
-    init(sender:String, senderColor: String, answerText: String, likes:String,lat:String, lon:String, id:String, chatWith:String, posterID : String){
+    init(sender:String, senderColor: String, answerText: String, likes:String,lat:String, lon:String, id:String, chatWith:String, posterID : String, reports:String){
         self.sender = sender
         self.senderColor = senderColor
         self.answerText = answerText
@@ -30,5 +31,6 @@ class Answer {
         self.id = id
         self.chatWith = chatWith
         self.posterID = posterID
+        self.reports = reports
     }
 }

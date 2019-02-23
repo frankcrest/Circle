@@ -32,6 +32,7 @@
 		E989A6D9217CB49A00D964E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989A6D8217CB49A00D964E6 /* ViewController.swift */; };
 		E989A6DC217CB49A00D964E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E989A6DA217CB49A00D964E6 /* Main.storyboard */; };
 		E989A6E1217CB49C00D964E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E989A6DF217CB49C00D964E6 /* LaunchScreen.storyboard */; };
+		E98A6024221FB2FD00725251 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A6023221FB2FD00725251 /* NetworkManager.swift */; };
 		E98D54702182BD2A008C20D5 /* CustomNavForTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D546F2182BD2A008C20D5 /* CustomNavForTabs.swift */; };
 		E98D54722182C11D008C20D5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D54712182C11D008C20D5 /* HomeViewController.swift */; };
 		E98D54742182C12B008C20D5 /* AskedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D54732182C12B008C20D5 /* AskedViewController.swift */; };
@@ -87,6 +88,7 @@
 		E989A6DB217CB49A00D964E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E989A6E0217CB49C00D964E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E989A6E2217CB49C00D964E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E98A6023221FB2FD00725251 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E98D546F2182BD2A008C20D5 /* CustomNavForTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavForTabs.swift; sourceTree = "<group>"; };
 		E98D54712182C11D008C20D5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E98D54732182C12B008C20D5 /* AskedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskedViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				E989A6D6217CB49A00D964E6 /* AppDelegate.swift */,
+				E98A6023221FB2FD00725251 /* NetworkManager.swift */,
 				E94F65EF21840DFA001DF3A2 /* CustomLocationManager.swift */,
 				E98D547F21837F89008C20D5 /* Switcher.swift */,
 				E989A6D8217CB49A00D964E6 /* ViewController.swift */,
@@ -360,6 +363,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KMPlaceholderTextView/KMPlaceholderTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -370,6 +374,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KMPlaceholderTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -405,6 +410,7 @@
 				E9FCD11E2187F89C005913E1 /* QuestionDetail.swift in Sources */,
 				E9671684221A135B007E43D2 /* PrivacyViewController.swift in Sources */,
 				E954B83A21843D6C00D59354 /* CustomQuestoinCell.swift in Sources */,
+				E98A6024221FB2FD00725251 /* NetworkManager.swift in Sources */,
 				E942ABC52182B2A30011DFD5 /* RegisterViewController.swift in Sources */,
 				E9725BF021C338EE004F4CCF /* ReputationViewController.swift in Sources */,
 				E98D547A2182C159008C20D5 /* MeViewController.swift in Sources */,
@@ -573,7 +579,10 @@
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = WPKBU3MB67;
 				INFOPLIST_FILE = Circle/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westguards.circl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -593,7 +602,10 @@
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = WPKBU3MB67;
 				INFOPLIST_FILE = Circle/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westguards.circl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

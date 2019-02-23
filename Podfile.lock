@@ -69,6 +69,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - ReachabilitySwift (4.3.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
@@ -77,6 +78,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - KMPlaceholderTextView (~> 1.4.0)
+  - ReachabilitySwift
   - SVProgressHUD
 
 SPEC REPOS:
@@ -94,6 +96,7 @@ SPEC REPOS:
     - KMPlaceholderTextView
     - leveldb-library
     - nanopb
+    - ReachabilitySwift
     - SVProgressHUD
 
 EXTERNAL SOURCES:
@@ -120,8 +123,9 @@ SPEC CHECKSUMS:
   KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 7e7726b11f8cf2d313ca9b9807b0970766e32aac
+PODFILE CHECKSUM: 9d13ebe518391b31542eca4ec6e0ac97e22e685d
 
 COCOAPODS: 1.5.3
