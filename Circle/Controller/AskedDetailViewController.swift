@@ -107,6 +107,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             let answerLon = Double(answerArray[indexPath.row - 1].lon)
             getDistance(latitude: answerLat!, longitude: answerLon!)
             
+            if Int(answerArray[indexPath.row - 1].reports) ?? 0 < 5 {
             
             cell.userName.text = String(answerArray[indexPath.row - 1].sender.dropLast(10))
             cell.userName.textColor = hexStringToUIColor(hex: answerArray[indexPath.row - 1].senderColor)
@@ -129,7 +130,9 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
             
+            }
             return cell
+            
             
         }
     }
