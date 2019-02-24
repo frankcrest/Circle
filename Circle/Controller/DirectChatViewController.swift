@@ -205,7 +205,7 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         let friendRef = Database.database().reference().child("Friends").child(userID!).child(willBlockUserID!)
         let reverseFriendRef = Database.database().reference().child("Friends").child(willBlockUserID!).child(userID!)
        
-        let alert = UIAlertController(title: "Block \(navTitle)?", message: "They won't be able to find your questions or answers on Circl. Circl won't let them know you blocked them.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Block \(navTitle)?", message: "They won't be able to find your questions or answers on Circle. Circle won't let them know you blocked them.", preferredStyle: .alert)
         let blockAction = UIAlertAction(title: "Block", style: .default) { (action) in
             dbRef.updateChildValues(dictionary)
             blockUserRef.updateChildValues(reverseDictionary)
@@ -290,7 +290,6 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
                 self.bottomviewHC.constant = self.keyboardHeight!
             }
             self.view.layoutIfNeeded()
-            print(self.keyboardHeight!)
         }
         scrollToBottom()
     }
@@ -300,7 +299,6 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
             self.userInputHC.constant = self.bottomViewHCInitial!
             self.bottomviewHC.constant = 0
             self.view.layoutIfNeeded()
-            //print(self.keyboardHeight!)
         }
     }
     
@@ -311,7 +309,6 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
         
         if estimatedSize.height > userInputHC.constant {
             userInputHC.constant = estimatedSize.height
-            print(estimatedSize.height)
         } else if estimatedSize.height < userInputHC.constant && estimatedSize.height > bottomViewHCInitial! {
             userInputHC.constant = estimatedSize.height
         } else if estimatedSize.height < userInputHC.constant && estimatedSize.height < bottomViewHCInitial! {

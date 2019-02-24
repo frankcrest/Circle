@@ -123,7 +123,6 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             
             for person in answerArray[indexPath.row - 1].peopleWhoLike {
                 if person == Auth.auth().currentUser!.uid{
-                    //print(person)
                     cell.answerCheckMark.isHidden = true
                     cell.answerCheckMark.isHidden = false
                     break
@@ -190,11 +189,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         let questionLat = Double(selectedQuestion?.lat ?? "") ?? 0.0
         let questionLon = Double(selectedQuestion?.lon ?? "") ?? 0.0
         let questionText = selectedQuestion?.questionText
-        print(questionLat)
-        print(questionText!)
-        print(questionLon)
-        
-        
+
         let coordinate0 = CLLocation(latitude: questionLat, longitude: questionLon)
         let coordinate1 = CLLocation(latitude: latitude, longitude: longitude)
         let distanceInMeters = coordinate0.distance(from: coordinate1)

@@ -464,7 +464,7 @@ Anyone within 12km radius can see your question and respond!</string>
         <!--Messages-->
         <scene sceneID="57F-Co-zYL">
             <objects>
-                <viewController id="2M0-Cl-nwU" customClass="ChatViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatViewController" id="2M0-Cl-nwU" customClass="ChatViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nOb-Ev-6g6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -709,7 +709,7 @@ Anyone within 12km radius can see your question and respond!</string>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z8R-FW-Unb">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Thank you for installing our App and helping others answer their questions.  We woud love your feedback, please contact us at for any concerns or questions.</string>
+                                <string key="text">Thank you for installing Circle and helping others answer their questions.  We woud love your feedback, please contact us at for any concerns or questions.</string>
                                 <color key="textColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -772,9 +772,11 @@ Anyone within 12km radius can see your question and respond!</string>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="idc-Qv-hyk">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Circl has a reputation system that shows your contribution to other users.
- The system is based on the following factors: 
-Number of views from your questions. Number of likes from your answers. Number of answers accepted by the original person asking.</string>
+                                <mutableString key="text">Circle has a reputation system that shows your contribution to other users.
+
+Your reputation is on the top right corner in settings.
+ Reputation is based on the following factors: 
+Number of views from your questions. Number of likes from your answers. Number of answers accepted by the original person asking.</mutableString>
                                 <color key="textColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1234,8 +1236,8 @@ Number of views from your questions. Number of likes from your answers. Numb
         <image name="user" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="e6c-7c-cKv"/>
-        <segue reference="c2O-4V-Vpf"/>
+        <segue reference="vi5-x1-pCe"/>
+        <segue reference="ent-XN-JxE"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

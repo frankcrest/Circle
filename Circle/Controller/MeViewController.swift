@@ -35,32 +35,26 @@ class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        DispatchQueue.global(qos: .userInitiated).async {
-          self.fetchUser()
-          self.getLocation()
-            // Bounce back to the main thread to update the UI
-            DispatchQueue.main.async {
-                guard let last = self.lastLocation?.coordinate else { return}
-                let viewRegion = MKCoordinateRegion(center: (last), latitudinalMeters: 24000, longitudinalMeters: 24000)
-                self.myMapview.setRegion(viewRegion, animated: false)
-                self.myMapview.addOverlay(MKCircle(center: last, radius: 8000))
-                let myAnnotation = MKPointAnnotation()
-                myAnnotation.coordinate = (self.lastLocation?.coordinate)!
-                myAnnotation.title = self.user?.username
-                self.myMapview.addAnnotation(myAnnotation)
-            }
-        }
+        
         myMapview.delegate = self
         CustomLocationManager.shared.delegateLoc = self
-        
     }
 
     
     
     override func viewWillAppear(_ animated: Bool) {
+    
         DispatchQueue.main.async {
+            self.getLocation()
             self.fetchUser()
+            guard let last = self.lastLocation?.coordinate else { return}
+            let viewRegion = MKCoordinateRegion(center: (last), latitudinalMeters: 24000, longitudinalMeters: 24000)
+            self.myMapview.setRegion(viewRegion, animated: false)
+            self.myMapview.addOverlay(MKCircle(center: last, radius: 8000))
+            let myAnnotation = MKPointAnnotation()
+            myAnnotation.coordinate = (self.lastLocation?.coordinate)!
+            myAnnotation.title = self.user?.username
+            self.myMapview.addAnnotation(myAnnotation)
         }
         self.viewsText.text = "question\nviews"
         self.answerText.text = "answer\nlikes"
@@ -91,8 +85,6 @@ class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
     }
     
     func locationFound(_ loc: CLLocation) {
-        //let viewRegion = MKCoordinateRegion(center: (loc.coordinate), latitudinalMeters: 9000, longitudinalMeters: 9000)
-        //self.myMapview.setRegion(viewRegion, animated: false)
         let overlays = myMapview.overlays
         self.myMapview.removeOverlays(overlays)
         self.myMapview.addOverlay(MKCircle(center: loc.coordinate, radius: 8000))

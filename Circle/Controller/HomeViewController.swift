@@ -32,8 +32,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.fetchUser()
-            self.getLocation()
-            self.getCityName()
             // Bounce back to the main thread to update the UI
             DispatchQueue.main.async {
                 self.configureTableView()
@@ -53,10 +51,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
         override func viewWillAppear(_ animated: Bool) {
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    
             DispatchQueue.main.async {
                 self.retreiveQuestions()
             }
-            
             self.view.layoutIfNeeded()
         }
     
@@ -226,8 +224,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let question = Question(sender: sender as! String, senderColor: sendercolor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String, reports: reportCount as! String)
                     self.questionArray.insert(question, at:0)
                 }
-                    self.configureTableView()
                     self.getLocation()
+                    self.getCityName()
+                    self.configureTableView()
+                
                 }
             }
         }
