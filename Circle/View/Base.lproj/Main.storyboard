@@ -418,11 +418,11 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder">
-                                        <string key="value">Want to find out something from people around you?
+                                        <string key="value">Have a question to ask people around you?
 
-Type it now to get an answer. 
+Type it now to get a response. 
  
-Anyone within your proximate radius can see your question and respond!</string>
+Anyone within 12km radius can see your question and respond!</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>

@@ -90,7 +90,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let questionLon = Double(questionArray[indexPath.row].lon)
         getDistance(latitude: questionLat!, longitude: questionLon!)
         
-        if Int(questionArray[indexPath.row].reports)! < 10 {
+        if Int(questionArray[indexPath.row].reports)! < 10 && Int(distance ?? 0) < 12000 {
         
         cell.usernameLabel.text = String(questionArray[indexPath.row].sender.dropLast(10))
         cell.usernameLabel.textColor = hexStringToUIColor(hex: questionArray[indexPath.row].senderColor)
@@ -207,7 +207,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         questionDB.queryOrdered(byChild: uid!).queryEqual(toValue: nil).observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 self.questionArray.removeAll()
-                print("CALLED")
                 
                 for question in snapshot.children.allObjects as! [DataSnapshot]{
                     let questionObject = question.value as? [String:AnyObject]
@@ -227,7 +226,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let question = Question(sender: sender as! String, senderColor: sendercolor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String, reports: reportCount as! String)
                     self.questionArray.insert(question, at:0)
                 }
-                    print("called")
                     self.configureTableView()
                     self.getLocation()
                 }

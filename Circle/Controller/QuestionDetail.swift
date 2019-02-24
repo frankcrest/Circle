@@ -403,6 +403,13 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Chat Error", message: "Only users who ask questions can initiate direct chat at the moment", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated:true, completion: nil)
+    }
+    
     //Editing Style
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.row == 0 {
