@@ -401,6 +401,8 @@ class DirectChatViewController: UIViewController, UITableViewDataSource, UITable
                                         (errpr, reference) in
                                         if error != nil {print(error!)} else{
                                             print("Sucess")
+                                           let notificationsRef = Database.database().reference().child("Notifications").child("Messages")
+                                           notificationsRef.childByAutoId().setValue(messageDictionary)
                                         }
                                         
                                     }

@@ -46,6 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
     
+    func messaging(_ messaging:Messaging, didReceiveRegistrationToken fromToken:String){
+        let VC: LoginViewController = LoginViewController()
+        let VC2: RegisterViewController = RegisterViewController()
+        let token:[String:AnyObject] = [Messaging.messaging().fcmToken! : Messaging.messaging().fcmToken as AnyObject]
+        VC.postToken(Token: token)
+        VC2.postToken(Token: token)
+    }
+    
+    func resetBadge(){
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
     
     func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage){
         print(remoteMessage.appData)
@@ -69,6 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        resetBadge()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -77,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        resetBadge()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

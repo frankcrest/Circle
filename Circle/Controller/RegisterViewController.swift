@@ -11,6 +11,7 @@ import Firebase
 import SVProgressHUD
 import ChameleonFramework
 import FirebaseDatabase
+import FirebaseMessaging
 
 class RegisterViewController: UIViewController {
     
@@ -69,9 +70,11 @@ class RegisterViewController: UIViewController {
                 }
             }
             else{
+                let token: [String:AnyObject] = [Messaging.messaging().fcmToken!: Messaging.messaging().fcmToken as AnyObject]
+                self.postToken(Token: token)
                 print("Registration Succesful")
                 SVProgressHUD.dismiss()
-               self.storeUser(for: username, with: password)
+                self.storeUser(for: username, with: password)
                 
                 self.performSegue(withIdentifier: "signupSegue", sender: nil
                 )
@@ -98,8 +101,15 @@ class RegisterViewController: UIViewController {
                 print("User info saved succesfully")
             }
         }
-
-}
+    }
+    
+    func postToken(Token:[String:AnyObject]){
+        print("FCM Token: \(Token)")
+        let dbRef = Database.database().reference()
+        let userID = Auth.auth().currentUser?.uid
+        dbRef.child("fcmToken").child(userID!).setValue(Token)
+        
+    }
 
     func AuthAlert(title:String, message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

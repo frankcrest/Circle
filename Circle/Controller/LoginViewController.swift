@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FirebaseMessaging
+import FirebaseDatabase
 import SVProgressHUD
 import ChameleonFramework
 
@@ -24,6 +26,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextfield: UITextField!
     
     @IBAction func loginButton(_ sender: UIButton) {
+        let token: [String:AnyObject] = [Messaging.messaging().fcmToken!: Messaging.messaging().fcmToken as AnyObject]
         
         let username = usernameTextfield.text! + "@circl.com"
         
@@ -52,6 +55,7 @@ class LoginViewController: UIViewController {
                 }
             }
             else {
+                self.postToken(Token: token)
                 self.usernameTextfield.text = ""
                 print("Login Sucessful")
                 SVProgressHUD.dismiss()
@@ -60,6 +64,14 @@ class LoginViewController: UIViewController {
                 
             }
         }
+        
+    }
+    
+    func postToken(Token:[String:AnyObject]){
+        print("FCM Token: \(Token)")
+        let dbRef = Database.database().reference()
+        let userID = Auth.auth().currentUser?.uid
+        dbRef.child("fcmToken").child(userID!).setValue(Token)
         
     }
     
