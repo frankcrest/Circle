@@ -6,7 +6,11 @@
 //  Copyright © 2018 Frank Chen. All rights reserved.
 //
 
-class Answer {
+class Answer :Equatable {
+    static func == (lhs: Answer, rhs: Answer) -> Bool {
+        return lhs.reports == rhs.reports
+    }
+    
     var sender : String
     var senderColor : String
     var answerText : String

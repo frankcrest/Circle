@@ -6,7 +6,13 @@
 //  Copyright © 2018 Frank Chen. All rights reserved.
 //
 
-class Question {
+class Question : Equatable {
+    static func == (lhs: Question, rhs: Question) -> Bool {
+       return lhs.reports == rhs.reports &&
+        lhs.lat == rhs.lat &&
+        lhs.lon == rhs.lon
+    }
+    
     var sender : String
     var senderColor : String
     var questionText : String

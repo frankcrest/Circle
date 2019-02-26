@@ -64,10 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //Print full message
         print(userInfo)
         
+        openViewController()
         //User tapped on notification
         switch response.actionIdentifier{
         case UNNotificationDefaultActionIdentifier:
-            openViewController()
             completionHandler()
             
         default: break;

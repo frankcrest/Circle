@@ -84,11 +84,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "customQuestionCell", for: indexPath) as! CustomQuestoinCell
         
+        if questionArray.count > 0{
+            
         let questionLat = Double(questionArray[indexPath.row].lat)
         let questionLon = Double(questionArray[indexPath.row].lon)
         getDistance(latitude: questionLat!, longitude: questionLon!)
-        
-        if Int(questionArray[indexPath.row].reports)! < 10 && Int(distance ?? 0) < 12000 {
+            
         
         cell.usernameLabel.text = String(questionArray[indexPath.row].sender.dropLast(10))
         cell.usernameLabel.textColor = hexStringToUIColor(hex: questionArray[indexPath.row].senderColor)
@@ -122,12 +123,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         return cell
+        
     }
     
     //MARK numOfRowsInSection
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if questionArray.count == 0{
+            return 0
+        }else{
         return questionArray.count
+        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -154,9 +160,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 questionDB.setValue(String(viewerIntValue!))
                 myQuestionDB.setValue(String(viewerIntValue!))
-                
+            
                 question.viewcount = String(viewerIntValue!)
-                print(question.viewcount)
             }
             self.questionTableView.reloadData()
     }
@@ -185,7 +190,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if let indexPath = questionTableView.indexPathForSelectedRow {
             destinationVC.selectedQuestion = questionArray[indexPath.row]
-            print("prepare\(questionArray[indexPath.row].viewcount)")
             destinationVC.newDistance = distance ?? 0.0
             destinationVC.uniqueID = id
         }
@@ -197,6 +201,35 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         questionTableView.estimatedRowHeight = 90.0
         questionTableView.reloadData()
     }
+    
+    func filterByLocation(){
+        let meters :CLLocationDistance = 12000
+        for question in questionArray{
+            var distanceInMeters: CLLocationDistance = 0
+            let postLocation = CLLocation(latitude: Double(question.lat)!, longitude: Double(question.lon)!)
+            
+            if let currentLocation = self.lastLocation{
+                distanceInMeters = currentLocation.distance(from: postLocation)
+                
+                if distanceInMeters > meters{
+                    self.questionArray = self.questionArray.filter{$0 != question}
+                    print("questions count after location filter \(questionArray.count)")
+                }
+            }
+        }
+    }
+    
+    func filterByReport(){
+        let reports = 10
+        for question in questionArray{
+            if let postReports = Int(question.reports){
+                if postReports > reports{
+                    self.questionArray = self.questionArray.filter{$0 != question}
+                    print("question count after report filter \(questionArray.count)")
+                }
+                }
+            }
+        }
     
     //MARK Retreive question method
     func retreiveQuestions() {
@@ -223,11 +256,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     
                     let question = Question(sender: sender as! String, senderColor: sendercolor as! String, questionText: text as! String, lat: latitude as! String, lon: longitude as! String, city: city as! String, id: key, uid: uid as! String, viewcount : viewCount as! String, answercount: answerCount as! String, reports: reportCount as! String)
                     self.questionArray.insert(question, at:0)
+                    self.filterByLocation()
+                    self.filterByReport()
                 }
                     self.getLocation()
                     self.getCityName()
                     self.configureTableView()
-                
                 }
             }
         }

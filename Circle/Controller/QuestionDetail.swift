@@ -230,7 +230,6 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.selectionStyle = .none
             cell.cellDelegate = self
             
-            if Int(answerArray[indexPath.row - 1].reports)! < 5 {
             cell.questionID = uniqueID
             cell.answerID = answerArray[indexPath.row - 1].id
             cell.answerIndex = indexPath.row
@@ -247,10 +246,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                     break
             }
             }
-            }
-
             return cell
-
         }
     }
     
@@ -482,6 +478,7 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                     }
                      self.answerArray.insert(answer, at:0)
+                     self.filterByReport()
                 }
                 self.configureTableView()
                 self.answerTableView.reloadData()
@@ -583,9 +580,20 @@ class QuestionDetail: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.selectedQuestion?.answercount = replyCountIntBackToString
         }
             self.answerTableView.reloadData()
-        
+        }
     }
-}
+    
+    func filterByReport(){
+        let reports = 5
+        for answer in answerArray{
+            if let answerReports = Int(answer.reports){
+                if answerReports > reports{
+                    self.answerArray = self.answerArray.filter{$0 != answer}
+                    print("answer count after report filter \(answerArray.count)")
+                }
+            }
+        }
+    }
 }
 
 extension QuestionDetail : UpdateLikeButtonDelegate {

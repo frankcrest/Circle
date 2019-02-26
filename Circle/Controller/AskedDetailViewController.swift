@@ -107,8 +107,6 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             let answerLon = Double(answerArray[indexPath.row - 1].lon)
             getDistance(latitude: answerLat!, longitude: answerLon!)
             
-            if Int(answerArray[indexPath.row - 1].reports) ?? 0 < 5 {
-            
             cell.userName.text = String(answerArray[indexPath.row - 1].sender.dropLast(10))
             cell.userName.textColor = hexStringToUIColor(hex: answerArray[indexPath.row - 1].senderColor)
             cell.answerText.text = answerArray[indexPath.row - 1].answerText
@@ -128,11 +126,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
                     break
                 }
             }
-            
-            }
             return cell
-            
-            
         }
     }
     
@@ -174,9 +168,8 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
                             answer.peopleWhoLike.append(person as! String)
                         }
                     }
-                    
                     self.answerArray.insert(answer, at:0)
-                    
+                    self.filterByReport()
                 }
                 self.configureTableView()
                 self.askDetailTableView.reloadData()
@@ -188,7 +181,7 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
     func getDistance(latitude: Double, longitude: Double){
         let questionLat = Double(selectedQuestion?.lat ?? "") ?? 0.0
         let questionLon = Double(selectedQuestion?.lon ?? "") ?? 0.0
-        let questionText = selectedQuestion?.questionText
+        //let questionText = selectedQuestion?.questionText
 
         let coordinate0 = CLLocation(latitude: questionLat, longitude: questionLon)
         let coordinate1 = CLLocation(latitude: latitude, longitude: longitude)
@@ -275,6 +268,19 @@ class AskedDetailViewController: UIViewController, UITableViewDelegate, UITableV
             print("Failed to fetch user::", err)
         }
     }
+    
+    func filterByReport(){
+        let reports = 5
+        for answer in answerArray{
+            if let answerReports = Int(answer.reports){
+                if answerReports > reports{
+                    self.answerArray = self.answerArray.filter{$0 != answer}
+                    print("answer count after report filter \(answerArray.count)")
+                }
+            }
+        }
+    }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
