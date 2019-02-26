@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     let user = Auth.auth().currentUser
     var friendArray : [Message] = [Message]()
@@ -113,7 +113,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func retreiveMessages(){
 
-        messageDB.queryOrdered(byChild: (user?.uid)!).queryEqual(toValue: nil).observe(DataEventType.value) { (snapshot) in
+        messageDB.observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 self.friendArray.removeAll()
                 
@@ -161,9 +161,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         chatTableview.estimatedRowHeight = 90.0
         chatTableview.reloadData()
     }
-    
-    
-
 }
         
     

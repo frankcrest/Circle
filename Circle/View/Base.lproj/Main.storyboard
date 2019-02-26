@@ -772,11 +772,11 @@ Anyone within 12km radius can see your question and respond!</string>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="idc-Qv-hyk">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">Circle has a reputation system that shows your contribution to other users.
+                                <string key="text">Circle has a reputation system that shows your contribution to other users.
 
 Your reputation is on the top right corner in settings.
  Reputation is based on the following factors: 
-Number of views from your questions. Number of likes from your answers. Number of answers accepted by the original person asking.</mutableString>
+Number of views from your questions. Number of likes from your answers. Number of answers accepted by the original person asking.</string>
                                 <color key="textColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1111,7 +1111,7 @@ Number of views from your questions. Number of likes from your answers. Numb
         <!--Chat-->
         <scene sceneID="zLX-64-SSv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v98-CZ-NbY" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="chatNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="v98-CZ-NbY" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Chat" image="chat" selectedImage="chat" id="iYx-Yb-RGA">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
@@ -1137,7 +1137,7 @@ Number of views from your questions. Number of likes from your answers. Numb
         <!--Me-->
         <scene sceneID="2t1-pb-1Vv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o4H-h7-gc5" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="meNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="o4H-h7-gc5" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Me" image="user" selectedImage="user" id="UUa-bj-Otz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UAX-6m-rj8">
@@ -1158,7 +1158,7 @@ Number of views from your questions. Number of likes from your answers. Numb
         <!--Home-->
         <scene sceneID="E9d-tF-NGD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ScN-fB-Ger" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="homeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="ScN-fB-Ger" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="home" id="Hkg-mS-X0Q"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="R6X-bq-3QA">
@@ -1182,7 +1182,7 @@ Number of views from your questions. Number of likes from your answers. Numb
         <!--Asked-->
         <scene sceneID="gos-jC-ZQ8">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I0q-Ax-khl" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="askedNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="I0q-Ax-khl" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Asked" image="question-mark-button" selectedImage="question-mark-button" id="2Th-6G-XMW"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HxO-yp-XAP">
@@ -1206,7 +1206,7 @@ Number of views from your questions. Number of likes from your answers. Numb
         <!--New-->
         <scene sceneID="VZe-RQ-05G">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Sfu-RP-MvX" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="newNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Sfu-RP-MvX" customClass="CustomNavForTabs" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="New" image="add" selectedImage="add" id="4Ma-Gn-h0T"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="siP-AX-m8Q">

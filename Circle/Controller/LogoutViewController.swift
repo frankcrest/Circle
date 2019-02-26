@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseMessaging
 
 class LogoutViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
     
@@ -18,8 +19,10 @@ class LogoutViewController: UIViewController, UITableViewDataSource,UITableViewD
         ["Reputation","Privacy Policy", "Terms of Service", "Contact Us"],
         ["Log Out"]
     ]
+    let token: [String:AnyObject] = [Messaging.messaging().fcmToken!: Messaging.messaging().fcmToken as AnyObject]
     
     var user : User?
+    let uid = Auth.auth().currentUser?.uid
     @IBOutlet weak var settingsTable: UITableView!
     @IBOutlet weak var reputationLabel: UIBarButtonItem!
     override func viewDidLoad() {
@@ -33,6 +36,11 @@ class LogoutViewController: UIViewController, UITableViewDataSource,UITableViewD
         settingsTable.register(UINib(nibName: "customSettingsCell", bundle: nil), forCellReuseIdentifier: "customSettingsCell")
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeToken(Token: token)
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sections[section]
     }
@@ -108,7 +116,6 @@ class LogoutViewController: UIViewController, UITableViewDataSource,UITableViewD
     }
     
     func fetchUser(){
-        
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let ref = Database.database().reference().child("Users").child(uid)
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -142,6 +149,13 @@ class LogoutViewController: UIViewController, UITableViewDataSource,UITableViewD
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
+    }
+    
+    func removeToken(Token:[String:AnyObject]){
+        print("FCM Token: \(Token)")
+        let dbRef = Database.database().reference()
+        dbRef.child("fcmToken").child(uid!).removeValue()
+        
     }
     
 }

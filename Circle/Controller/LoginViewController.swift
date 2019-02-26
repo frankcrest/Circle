@@ -72,7 +72,6 @@ class LoginViewController: UIViewController {
         let dbRef = Database.database().reference()
         let userID = Auth.auth().currentUser?.uid
         dbRef.child("fcmToken").child(userID!).setValue(Token)
-        
     }
     
     func AuthAlert(title:String, message:String){
