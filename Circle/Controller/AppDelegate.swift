@@ -83,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
+        resetBadgeValue()
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -97,6 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
         case .background:
             print("background")
+            setBadgeValue()
             application.applicationIconBadgeNumber = application.applicationIconBadgeNumber + 1
             
         case .active:
@@ -130,14 +132,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
-    func resetBadgeValue(){
+    func setBadgeValue(){
+        print("setting Badge value for tab")
         let rootViewController = self.window?.rootViewController
-        if let tabBarController = rootViewController?.tabBarController{
+        if let tabBarController = rootViewController as? UITabBarController{
             print("tab")
             let tabBarItem = tabBarController.tabBar.items![3]
             tabBarItem.badgeValue = ""
         }
     }
+    
+    func resetBadgeValue(){
+        print("setting Badge value for tab")
+        let rootViewController = self.window?.rootViewController
+        if let tabBarController = rootViewController as? UITabBarController{
+            print("tab")
+            let tabBarItem = tabBarController.tabBar.items![3]
+            tabBarItem.badgeValue = nil
+        }
+
+    }
+
 
 }
 

@@ -48,9 +48,9 @@ class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
             self.getLocation()
             self.fetchUser()
             guard let last = self.lastLocation?.coordinate else { return}
-            let viewRegion = MKCoordinateRegion(center: (last), latitudinalMeters: 24000, longitudinalMeters: 24000)
+            let viewRegion = MKCoordinateRegion(center: (last), latitudinalMeters: 30000, longitudinalMeters: 30000)
             self.myMapview.setRegion(viewRegion, animated: false)
-            self.myMapview.addOverlay(MKCircle(center: last, radius: 8000))
+            self.myMapview.addOverlay(MKCircle(center: last, radius: 15000))
             let myAnnotation = MKPointAnnotation()
             myAnnotation.coordinate = (self.lastLocation?.coordinate)!
             myAnnotation.title = self.user?.username
@@ -87,7 +87,7 @@ class MeViewController: UIViewController, MKMapViewDelegate, locationDelegate{
     func locationFound(_ loc: CLLocation) {
         let overlays = myMapview.overlays
         self.myMapview.removeOverlays(overlays)
-        self.myMapview.addOverlay(MKCircle(center: loc.coordinate, radius: 8000))
+        self.myMapview.addOverlay(MKCircle(center: loc.coordinate, radius: 15000))
         let myAnnotation = MKPointAnnotation()
         myAnnotation.coordinate = loc.coordinate
         let username = userdefaults.string(forKey: "Username")
