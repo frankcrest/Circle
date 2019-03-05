@@ -27,65 +27,69 @@
                                             <constraint firstAttribute="height" constant="200" id="vOc-cZ-MhE"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LRu-Pf-AcN">
-                                        <rect key="frame" x="61" y="449" width="129" height="33"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Terms of Service">
-                                                    <attributes>
-                                                        <color key="NSColor" red="1" green="0.88053385419999997" blue="0.98945663549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" metaFont="system" size="17"/>
-                                                        <integer key="NSUnderline" value="1"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <connections>
-                                            <segue destination="GDx-ee-f9g" kind="show" id="BpX-6n-sbL"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XoU-IS-55D">
-                                        <rect key="frame" x="229" y="449" width="106" height="33"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Privacy Policy">
-                                                    <attributes>
-                                                        <color key="NSColor" red="1" green="0.88053385419999997" blue="0.98945663549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" metaFont="system" size="17"/>
-                                                        <integer key="NSUnderline" value="1"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <connections>
-                                            <segue destination="0yO-39-GdC" kind="show" id="rMl-L1-atp"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT4-0D-NNe">
-                                        <rect key="frame" x="195" y="455" width="29" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="0.88053385419999997" blue="0.98945663549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap &quot;Login&quot; or &quot;Sign Up&quot; to accept the Circle" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6T-CD-yrm">
-                                        <rect key="frame" x="0.0" y="431.5" width="375" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="431" width="375" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.88053385416666663" blue="0.98945663549722218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="mdP-jb-AKl">
+                                        <rect key="frame" x="50.5" y="454.5" width="274" height="32.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LRu-Pf-AcN">
+                                                <rect key="frame" x="0.0" y="0.0" width="129" height="32.5"/>
+                                                <state key="normal">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Terms of Service">
+                                                            <attributes>
+                                                                <color key="NSColor" red="1" green="0.88053385419999997" blue="0.98945663549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" metaFont="system" size="17"/>
+                                                                <integer key="NSUnderline" value="1"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="GDx-ee-f9g" kind="show" id="BpX-6n-sbL"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT4-0D-NNe">
+                                                <rect key="frame" x="134" y="0.0" width="29" height="32.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.88053385419999997" blue="0.98945663549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XoU-IS-55D">
+                                                <rect key="frame" x="168" y="0.0" width="106" height="32.5"/>
+                                                <state key="normal">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Privacy Policy">
+                                                            <attributes>
+                                                                <color key="NSColor" red="1" green="0.88053385419999997" blue="0.98945663549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" metaFont="system" size="17"/>
+                                                                <integer key="NSUnderline" value="1"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="0yO-39-GdC" kind="show" id="rMl-L1-atp"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="XoU-IS-55D" secondAttribute="trailing" constant="40" id="6Gu-7w-grY"/>
-                                    <constraint firstItem="LRu-Pf-AcN" firstAttribute="centerY" secondItem="dT4-0D-NNe" secondAttribute="centerY" id="7oM-nG-2lU"/>
-                                    <constraint firstItem="dT4-0D-NNe" firstAttribute="top" secondItem="o6T-CD-yrm" secondAttribute="bottom" constant="3" id="FxZ-xs-1cK"/>
+                                    <constraint firstAttribute="trailing" secondItem="mdP-jb-AKl" secondAttribute="trailing" constant="50.5" id="428-3t-4hm"/>
+                                    <constraint firstAttribute="bottom" secondItem="mdP-jb-AKl" secondAttribute="bottom" id="E0Y-2F-J7h"/>
                                     <constraint firstItem="o6T-CD-yrm" firstAttribute="leading" secondItem="4kl-te-p6n" secondAttribute="leading" id="Jtk-Hi-22r"/>
-                                    <constraint firstItem="XoU-IS-55D" firstAttribute="leading" secondItem="dT4-0D-NNe" secondAttribute="trailing" constant="5" id="N6I-BZ-JYG"/>
-                                    <constraint firstItem="dT4-0D-NNe" firstAttribute="leading" secondItem="LRu-Pf-AcN" secondAttribute="trailing" constant="5" id="aOs-Sl-z86"/>
+                                    <constraint firstItem="mdP-jb-AKl" firstAttribute="leading" secondItem="4kl-te-p6n" secondAttribute="leading" constant="50.5" id="QYN-oy-aft"/>
+                                    <constraint firstItem="o6T-CD-yrm" firstAttribute="centerX" secondItem="DbV-99-BCI" secondAttribute="centerX" id="WXX-Oq-By6"/>
                                     <constraint firstAttribute="trailing" secondItem="o6T-CD-yrm" secondAttribute="trailing" id="hxy-Ta-L46"/>
+                                    <constraint firstItem="mdP-jb-AKl" firstAttribute="centerX" secondItem="DbV-99-BCI" secondAttribute="centerX" id="iYX-Pg-CcL"/>
                                     <constraint firstItem="DbV-99-BCI" firstAttribute="centerX" secondItem="4kl-te-p6n" secondAttribute="centerX" id="j0k-nv-hRN"/>
                                     <constraint firstItem="DbV-99-BCI" firstAttribute="centerY" secondItem="4kl-te-p6n" secondAttribute="centerY" id="j5i-c7-Lvk"/>
-                                    <constraint firstAttribute="bottom" secondItem="XoU-IS-55D" secondAttribute="bottom" constant="5" id="lDk-iq-Tmo"/>
-                                    <constraint firstItem="dT4-0D-NNe" firstAttribute="centerY" secondItem="XoU-IS-55D" secondAttribute="centerY" id="y4i-Ff-MWj"/>
+                                    <constraint firstItem="mdP-jb-AKl" firstAttribute="top" secondItem="o6T-CD-yrm" secondAttribute="bottom" constant="3" id="mFW-tf-Q3N"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ops-Jc-MVO">
