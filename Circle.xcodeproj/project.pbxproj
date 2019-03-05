@@ -28,6 +28,8 @@
 		E9671684221A135B007E43D2 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9671683221A135B007E43D2 /* PrivacyViewController.swift */; };
 		E9671686221A1630007E43D2 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9671685221A1630007E43D2 /* TermsViewController.swift */; };
 		E9725BF021C338EE004F4CCF /* ReputationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */; };
+		E9833843222A2D3E00954970 /* LoginTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9833842222A2D3E00954970 /* LoginTermsViewController.swift */; };
+		E9833845222A2D5400954970 /* LoginPrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9833844222A2D5400954970 /* LoginPrivacyViewController.swift */; };
 		E989A6D7217CB49A00D964E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989A6D6217CB49A00D964E6 /* AppDelegate.swift */; };
 		E989A6D9217CB49A00D964E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989A6D8217CB49A00D964E6 /* ViewController.swift */; };
 		E989A6DC217CB49A00D964E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E989A6DA217CB49A00D964E6 /* Main.storyboard */; };
@@ -82,6 +84,8 @@
 		E9671683221A135B007E43D2 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		E9671685221A1630007E43D2 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReputationViewController.swift; sourceTree = "<group>"; };
+		E9833842222A2D3E00954970 /* LoginTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTermsViewController.swift; sourceTree = "<group>"; };
+		E9833844222A2D5400954970 /* LoginPrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPrivacyViewController.swift; sourceTree = "<group>"; };
 		E989A6D3217CB49A00D964E6 /* Circle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Circle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E989A6D6217CB49A00D964E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E989A6D8217CB49A00D964E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 				E9725BEF21C338EE004F4CCF /* ReputationViewController.swift */,
 				E9671685221A1630007E43D2 /* TermsViewController.swift */,
 				E9671683221A135B007E43D2 /* PrivacyViewController.swift */,
+				E9833842222A2D3E00954970 /* LoginTermsViewController.swift */,
+				E9833844222A2D5400954970 /* LoginPrivacyViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -425,6 +431,8 @@
 				E98A6024221FB2FD00725251 /* NetworkManager.swift in Sources */,
 				E942ABC52182B2A30011DFD5 /* RegisterViewController.swift in Sources */,
 				E9725BF021C338EE004F4CCF /* ReputationViewController.swift in Sources */,
+				E9833845222A2D5400954970 /* LoginPrivacyViewController.swift in Sources */,
+				E9833843222A2D3E00954970 /* LoginTermsViewController.swift in Sources */,
 				E98D547A2182C159008C20D5 /* MeViewController.swift in Sources */,
 				E9671686221A1630007E43D2 /* TermsViewController.swift in Sources */,
 				E98D54722182C11D008C20D5 /* HomeViewController.swift in Sources */,

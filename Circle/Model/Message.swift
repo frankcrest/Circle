@@ -13,7 +13,7 @@ class Message {
     var sendTo: String
     var sendToName: String
     var id: String
-
+    var readStatus: String?
     
     init(sender:String, message:String, senderName:String, sendTo:String, sendToName:String, id:String) {
         self.sender = sender
