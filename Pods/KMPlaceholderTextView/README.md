@@ -40,7 +40,9 @@ Simply add the following line to your Podfile:
 platform :ios, '8.0' 
 use_frameworks!
 
-pod 'KMPlaceholderTextView', '~> 1.3.0' 
+target '<Your Target Name>' do
+  pod 'KMPlaceholderTextView', '~> 1.3.0'
+end
 ```
 
 Then, run the following command:
@@ -48,6 +50,11 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+
+If you are encountering the following warning when using Xcode 8, please make sure to set the Module in the identity inspector of your `KMPlaceholderTextView` in the interface builder to `KMPlaceholderTextView` as well:
+
+
+> warning: IB Designables: Using class UITextView for object with custom class because the class KMPlaceholderTextView does not exist
 
 ### Carthage
 
@@ -63,13 +70,13 @@ $ brew install carthage
 To integrate KMPlaceholderTextView into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "MoZhouqi/KMPlaceholderTextView" >= 1.3
+github "MoZhouqi/KMPlaceholderTextView" >= 1.4
 ```
 
 ## Requirements
 
 - iOS 7.0+
-- Xcode 8.0+
+- Xcode 10
 
 ## License
 
